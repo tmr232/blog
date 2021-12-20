@@ -13,7 +13,7 @@ Graph memory-usage over time, correlate with logs, profit.
 
 ## Overconfidence
 
-Recently, I had to reduce the memory consumption of a Python process that became entirely unreasonable. Now, a while back I wrote about [finding memory leaks in Python](https://dev.to/tmr232/finding-a-memory-leak-in-my-python-code-j73). I was pleased with myself and sure that with the knowledge I gained then, I can surely get this done!
+Recently, I had to reduce the memory consumption of a Python process that became entirely unreasonable. Now, a while back I wrote about [finding memory leaks in Python](/posts/finding-a-memory-leak-in-my-python-code). I was pleased with myself and sure that with the knowledge I gained then, I can surely get this done!
 
 And oh, was I wrong...
 

@@ -15,7 +15,7 @@ So now, months later, I present this humble offering to the Gods of C++ and temp
 
 ## Generalizing
 
-In [Part 1](https://dev.to/tmr232/a-functional-style-state-machine-in-c) we created our `State` or `SelfReturning` class (provided below for reference). It works, but as you can see - required modifications whenever we change the function arguments or return types.
+In [Part 1](a-functional-style-state-machine-in-cpp) we created our `State` or `SelfReturning` class (provided below for reference). It works, but as you can see - required modifications whenever we change the function arguments or return types.
 
 [Compilation](https://godbolt.org/g/1XqEhY)
 ```c++
@@ -133,7 +133,7 @@ using InPairWithArgs2 = SelfReturning<PairWithCtx, const Context&, Event>;
 ```
 
 
-In [Part 1](https://dev.to/tmr232/a-functional-style-state-machine-in-c) I promised generalizing the `SelfReturning` class and getting some compile time guarantees. We've accomplished our generalization goal, so it's time to get some safety in place.
+In [Part 1](/posts/a-functional-style-state-machine-in-cpp) I promised generalizing the `SelfReturning` class and getting some compile time guarantees. We've accomplished our generalization goal, so it's time to get some safety in place.
 
 ## Increasing Safety
 
@@ -228,7 +228,8 @@ int main() {
 }
 ```
 
-If you're not familiar with C++17, there may be a lot to take in here. In (1) we define a class that takes multiple lambdas and overloads them. In (2) we instantiate that class to inline our event handling functions. The full explanation to this code is a bit long, so I wrote [another post](https://dev.to/tmr232/that-overloaded-trick-overloading-lambdas-in-c17) to explain it.
+If you're not familiar with C++17, there may be a lot to take in here. In (1) we define a class that takes multiple lambdas and overloads them. In (2) we instantiate that class to inline our event handling functions.
+The full explanation to this code is a bit long, so I wrote [another post](/posts/that-overloaded-trick-overloading-lambdas-in-cpp17) to explain it.
 
 Applied to the state-machine, it will look like this:
 [Compilation](https://godbolt.org/g/4VNxEM), [Execution](http://coliru.stacked-crooked.com/a/3bfd9a9220c60cb4)

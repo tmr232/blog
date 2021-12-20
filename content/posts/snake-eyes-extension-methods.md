@@ -267,6 +267,6 @@ I hope you enjoyed this article. Regardless of that, I hope you never use it in 
 [`__getattr__`]: https://docs.python.org/3/reference/datamodel.html#object.__getattr__
 [`inspect`]: https://docs.python.org/3/library/inspect.html
 [Fundemental Theorem of Software Engineering (FTSE)]: https://en.wikipedia.org/wiki/Fundamental_theorem_of_software_engineering
-[previous post]: https://dev.to/tmr232/snake-eyes-scopes-and-iife-50h2
+[previous post]: /posts/snake-eyes-scopes-and-iife
 [repl]: https://repl.it/@TamirBahar/python-extension-methods
 [github]: https://github.com/tmr232/python-extension-methods

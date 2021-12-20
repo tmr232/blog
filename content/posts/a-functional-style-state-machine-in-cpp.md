@@ -258,4 +258,4 @@ int main() {
 ```
 
 And that's it. We have a state machine based on pure-, bare-functions, in C++. It has a nice, simple look to it and as we've seen, compiles into far simpler code than the alternatives. On the way, we've also learned a bit about C++'s type system and how to use objects to overcome its limitations.
-In the [next post](https://dev.to/tmr232/a-functional-style-state-machine-in-c-part-2) (~~_soon to be populated_~~ _now online!_) I will show some exciting (read: never use in production) dark template magic to both generalize the `State` object and to get some compile-time guarantees. Stay tuned!
+In the [next post](/posts/a-functional-style-state-machine-in-cpp-part-2) (~~_soon to be populated_~~ _now online!_) I will show some exciting (read: never use in production) dark template magic to both generalize the `State` object and to get some compile-time guarantees. Stay tuned!
