@@ -60,7 +60,7 @@ if __name__ == '__main__':
 
 You'll get a surprising result:
 
-```
+```text
 Thing
 Thing
 ```
@@ -144,7 +144,7 @@ class ThingWrapper:
 
 If you run this version, you'll get the following exception:
 
-```
+```python
 AttributeError: 'NameProvider' object has no attribute 'nam'
 ```
 

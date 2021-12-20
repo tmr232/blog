@@ -17,14 +17,14 @@ Be sensible. Use Python. Use C.
 The rest of the post is me ranting, letting off some steam. Have fun, and don't take it too seriously.
 
 
-## ðŸš A Story of Shells ðŸš
+## :turtle: A Story of Shells :turtle:
 
 ```bash
 my_var=$(application arg0 arg1)
 
 for /f %%i in ('application arg0 arg1') do set my_var=%%i
 ```
-### ðŸ­ Windows ðŸ­
+### :window: Windows :window:
 
 I've been a Windows user for a very long time. In fact, it has always been my main OS. And I absolutely love it. That is not to say, though, that there aren't issues with that. One such thing is the CLI.
 
@@ -34,7 +34,7 @@ It will take you a bit longer to write the tool you needed, but in the process i
 In recent years there has been some serious improvements - PowerShell came along, [cmder](http://cmder.net/) made the shell look a bit better, and I have some Linux tools (grep, awk, xargs...) running in my Windows shell. And yet, people tend to use more general purpose languages on Windows.
 
 
-### ðŸ§ Penguins ðŸ§
+### :penguin: Penguins :penguin:
 
 On Linux, however, things have always been good with the shell. It has awesome terminals, and a huge amount of utilities that can be chained (piped) to unleash powers beyond imagination. And unlike Windows, where you need to use funny-looking APIs to get information, Linux just gives you everything in handy text files.
 
@@ -48,7 +48,7 @@ While each of the shell utilities does one thing and does it well, bash, and esp
 
 But, again, bash is fantastic for quick hacks. And works fairly well in general when you're not taking input parameters, and when it's small enough. I don't like it, but it works.
 
-## ðŸ”¥ Make Your Own Hell ðŸ”¥
+## :fire: Make Your Own Hell :fire:
 
 The real issue is `make`.
 
@@ -63,7 +63,7 @@ That is true, and it is quite annoying with small projects (where I usually end 
 And now, after I lost most of my Linux-oriented readers, I can get to the point. Linux has a super-powerful shell, so people use it to make a super-powerful mess. Windows has a super-useless shell, so people don't use it. Instead - they build tools! User-friendly(-ish) tools with GUI. And they use general purpose programming languages. And that's good.
 
 
-## ðŸ“‘ Takeaway ðŸ“‘
+## :pizza: Takeaway :pizza:
 Should you stop using bash? Or cripple it? Or keep Windows' shell down? Hell no!
 
 Use whatever tools you deem fit. But use them wisely. Keep shell-scripting to small automation tasks, and try to use more maintainable programming languages when you write something larger or more complex. And do write new tools. Tools are fun.

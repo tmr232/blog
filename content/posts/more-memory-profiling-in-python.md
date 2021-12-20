@@ -30,7 +30,7 @@ Enter [memlog.py](https://gist.github.com/tmr232/4a10e17ddf4aefcc0c94a15bdddc58f
 `memlog` is a simple, naive tool. It tracks the overall memory usage on a machine, and logs it (with a timestamp) to a CSV. That's it. While the recorded data may include significant noise, running your code (& `memlog`) inside a container can reduce it significantly. Also, background memory noise tends to be insignificant when your process hogging all of your memory...
 
 So, I ran my process (with logs), ran `memlog`, and plotted a memory-over-time graph:
-![The image shows a graph of memory-usage over time. The graph shows a near-instant 4.5-unit rise at the start, then a slow 2-unit rise over a long time, then a near-instant decline back to 0 at the end.](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/g7m4m6kyo0qmbr36x6jv.png)
+![The image shows a graph of memory-usage over time. The graph shows a near-instant 4.5-unit rise at the start, then a slow 2-unit rise over a long time, then a near-instant decline back to 0 at the end.](/images/more-memory-profiling.png)
 
 And oh, oh no.
 

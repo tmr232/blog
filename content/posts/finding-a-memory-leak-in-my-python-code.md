@@ -86,7 +86,7 @@ def main():
 
 Once we run this, we get a nice table showing us a summary of objects created and destroyed:
 
-```
+```text
                   types |   # objects |   total size
 ======================= | =========== | ============
                    list |        4892 |    500.59 KB
@@ -116,7 +116,7 @@ cb.print_tree()
 
 This'll print the following:
 
-```
+```text
 <class '__main__.Value'>-+-<class 'list'>
                          +-<class 'functools._lru_cache_wrapper'>-+-<class 'list'>
                                                                   +-<class 'dict'>

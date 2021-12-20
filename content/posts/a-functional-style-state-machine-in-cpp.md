@@ -78,7 +78,7 @@ Well, during the last few months, I've routinely consumed one programming-relate
 
 Last week, while working on some minor state-machine, I came across [Declarative Thinking, Declarative Practice](https://youtu.be/nrVIlhtoE3Y) by [Kevlin Henney](https://twitter.com/KevlinHenney). Upon seeing [this slide](https://youtu.be/nrVIlhtoE3Y?t=1h17m3s):
 
-![](https://thepracticaldev.s3.amazonaws.com/i/6103sjmjyeq7bpp7aiz8.png)
+![](/images/state-machine-kevlin-henney.png)
 
 I thought - bare functions instead of the State design pattern? I have to try that! So I went ahead and wrote my code, iterating through the steps described above. 
 At a quick glance, the functor solution may seem satisfying. But in effect functors, unlike functions, have different types and cannot be assigned to the same variable. To bridge the gap, we use an abstract base-class and polymorphism. Once we do that, we are forced to use pointers to hold the states. I use `std::unique_ptr` as I don't want to manage the memory myself.

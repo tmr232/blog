@@ -27,9 +27,16 @@ Some months after that, I finally found myself in need of a new CLI tool. I was 
 
 A short while later I wanted to group some log entries by a regex. I looked around and could not find a simple way to do it. So, once again, I turned to Rust. Some borrow-checker-wrestling later and the first version of [`groupby`][6] was complete. Yay!
 
-A short time later I had one of the best open-source experiences I've ever had. Someone started using `groupby`, looked at my terrible code, and posted this issue:
+A short time later I had one of the best open-source experiences I've ever had. Someone started using `groupby`, looked at my terrible code, and posted [this issue](https://github.com/lostutils/groupby/issues/1):
 
-{% github https://github.com/lostutils/groupby/issues/1 %}
+> Hello
+> 
+> I find this little program will be useful for many things I do (I usually do something like that with combination of sed, sort, …). I also looked into the code. Do I guess right that you're still learning Rust? Could I provide few little tips?
+> 
+> I glimpsed at least one unwrap that can be triggered by the user input (giving a too large group ID), which will result in ugly error message instead of nice useful one.
+> Do you choose BTreeMap/BTreeSet for some specific reason? Is it the order of elements? If not, HashMap and HashSet are likely to be faster.
+> Both variants (unique vs all) look very similar and differ only in the inner data type and the method used to push/insert. I think this could be done with just one piece of code that is generic over the type, and adding your own trait that implements the adding for either. Would you like me to show you such code?
+
 
 Having someone more experienced in Rust come in and help me improve my very naïve code was great. And it was my first time getting a "this is great, may I help you?" comment and not a "this is great, I want this as well" one.
 

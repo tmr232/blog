@@ -91,7 +91,7 @@ required-commit:
 
 And a custom variable defined in the CI settings (see [Create a custom variable in the UI](https://docs.gitlab.com/ee/ci/variables/#create-a-custom-variable-in-the-ui)):
 
-![alt text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/yndzgg9l11khc1oiokjz.png)
+![alt text](/images/gitlab-ci-tricks.png)
  
 
 ## Conditionally Building Job Docker Images

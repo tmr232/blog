@@ -13,7 +13,7 @@ So now, months later, I present this humble offering to the Gods of C++ and temp
 
 ----
 
-## Generalizing ðŸŒˆ
+## Generalizing
 
 In [Part 1](https://dev.to/tmr232/a-functional-style-state-machine-in-c) we created our `State` or `SelfReturning` class (provided below for reference). It works, but as you can see - required modifications whenever we change the function arguments or return types.
 
@@ -135,7 +135,7 @@ using InPairWithArgs2 = SelfReturning<PairWithCtx, const Context&, Event>;
 
 In [Part 1](https://dev.to/tmr232/a-functional-style-state-machine-in-c) I promised generalizing the `SelfReturning` class and getting some compile time guarantees. We've accomplished our generalization goal, so it's time to get some safety in place.
 
-## Increasing Safety ðŸš“
+## Increasing Safety
 
 While our use of the `switch` statement to discern different events is nice and concise, it is also somewhat error prone. It is easy to miss a case (though that can be prevented using compiler errors) or accidentally mistake one event for another. The latter is especially true if we want to pass information along with our event notification.
 One easy way to avoid those mistakes is to resolve the choice using function overloading instead of switch statements. Consider the following
@@ -166,7 +166,7 @@ void Overload(EventB) { puts("B"); }
 In (1) we use a `switch` to discern the event type. It is easy to forget a `return` or a `break`. If we passed more data along, the signature for `Switch` would likely change to `void Switch(EventType evt, void* data)`. That's definitely bad.
 In (2), we cannot mistake  the types, and data can easily be passed inside the event structs. Sadly, the events are not different types, and C++ does not allow for heterogeneous containers. Or does it?
 
-Enter C++17's âœ¨`std::variant`âœ¨. 
+Enter C++17's :sparkles:`std::variant`:sparkles:. 
 
 What is `std::variant`, you ask? Well, it is a `union`. A *safe* `union`! Safe meaning that you can only get a value from it if it really is there. No more type confusion; no more casting `void` pointers. But how do we get the values out of `std::variant`? Using `std::visit`, of course!
 [Compilation](https://godbolt.org/g/EfBahi), [Execution](http://coliru.stacked-crooked.com/a/95c37042037573ca)
@@ -315,7 +315,7 @@ int main() {
 ```
 As you can see, the change is minimal.
 
-## Passing In Data ðŸšš
+## Passing In Data
 
 With that, it is time to address an issue I completely neglected in Part 1.
 Passing in data.
@@ -357,7 +357,7 @@ State::RetType B(const Context& ctx, Event evt) {
     }, evt);
 }
 ```
-Et voilÃ .
+Et voilà.
 
 Putting everything together now, we get the following code:
 
@@ -458,7 +458,7 @@ int main() {
 }
 ```
 
-## Summary ðŸŽ“
+## Summary
 
 As promised, we have used some dark template magic to achieve:
 1. A nice generalization of `SelfReturning`, allowing customization of both return types and argument types;

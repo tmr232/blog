@@ -41,21 +41,21 @@ git commit -m "Added FirstModule.c, forgotten eariler."
 
 And then rebase - `git rebase -i HEAD~3`
 
-```
+```text
 pick 1db8687 Added FirstModule
 pick 336941b Added SecondModule
 pick 7884909 Added FirstModule.c, forgotten eariler.
 ```
 Change to
 
-```
+```text
 pick 1db8687 Added FirstModule
 fixup 7884909 Added FirstModule.c, forgotten eariler.
 pick 336941b Added SecondModule
 ```
 Save & Quit, and we're done.
 
-```
+```text
 * 1946e37d105ffebcbd91bb958f8a2fce6160c761 (HEAD -> master) Added SecondModule
 |  create mode 100644 SecondModule.c
 |  create mode 100644 SecondModule.h
@@ -90,7 +90,7 @@ git ri HEAD~3
 
 We'd get the following rebase automatically
 
-```
+```text
 pick 1db8687 Added FirstModule
 fixup 50a3650 fixup! Added FirstModule
 pick 336941b Added SecondModule
@@ -99,7 +99,7 @@ Exit the editor, and be done with it.
 
 We can use `fix` as many times as we want (just go ahead and `git fix HEAD -a`) before the rebase. Our log may look funny
 
-```
+```text
 * fe0c2a0 (HEAD -> master) fixup! fixup! fixup! fixup! Added SecondModule
 * a53cd32 fixup! fixup! fixup! Added SecondModule
 * 9c19f2d fixup! fixup! Added SecondModule
@@ -111,7 +111,7 @@ We can use `fix` as many times as we want (just go ahead and `git fix HEAD -a`) 
 
 But the rebase doesn't care
 
-```
+```text
 pick 902d65e Added SecondModule
 fixup b758a53 fixup! Added SecondModule
 fixup 9c19f2d fixup! fixup! Added SecondModule
