@@ -7,7 +7,7 @@
 <meta name=author content="Tamir Bahar"><meta property="og:title" content="More Memory Profiling (in Python)">
 <meta property="og:description" content="More lessons learned memory-optimizing Python code.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://tmr232.github.io/blog/posts/more-memory-profiling-in-python/"><meta property="article:section" content="posts">
+<meta property="og:url" content="https://www.tamir.dev/posts/more-memory-profiling-in-python/"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2021-07-02T00:00:00+00:00">
 <meta property="article:modified_time" content="2021-07-02T00:00:00+00:00">
 <meta name=twitter:card content="summary">
@@ -15,14 +15,14 @@
 <meta name=twitter:description content="More lessons learned memory-optimizing Python code.">
 <meta name=generator content="Hugo 0.89.0">
 <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin=anonymous>
-<link rel=stylesheet href=https://tmr232.github.io/blog/fontawesome/css/all.min.css>
+<link rel=stylesheet href=https://www.tamir.dev/fontawesome/css/all.min.css>
 <link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda">
-<link rel=stylesheet type=text/css href=https://tmr232.github.io/blog/css/styles.css></head>
+<link rel=stylesheet type=text/css href=https://www.tamir.dev/css/styles.css></head>
 <body>
 <div id=container>
 <header>
 <h1>
-<a href=https://tmr232.github.io/blog/>tamir.dev</a>
+<a href=https://www.tamir.dev/>tamir.dev</a>
 </h1>
 <ul id=social-media>
 <li>
@@ -36,7 +36,7 @@
 </a>
 </li>
 <li>
-<a href=https://stackoverflow.com/tmr232 title=StackOverflow>
+<a href=https://stackoverflow.com/users/3337893/tmr232 title=StackOverflow>
 <i class="fab fa-stack-overflow fa-lg"></i>
 </a>
 </li>
@@ -65,7 +65,7 @@
 <h2 id=tldr>TL;DR</h2>
 <p>Graph memory-usage over time, correlate with logs, profit.</p>
 <h2 id=overconfidence>Overconfidence</h2>
-<p>Recently, I had to reduce the memory consumption of a Python process that became entirely unreasonable. Now, a while back I wrote about <a href=https://tmr232.github.io/blog/posts/finding-a-memory-leak-in-my-python-code>finding memory leaks in Python</a>. I was pleased with myself and sure that with the knowledge I gained then, I can surely get this done!</p>
+<p>Recently, I had to reduce the memory consumption of a Python process that became entirely unreasonable. Now, a while back I wrote about <a href=https://www.tamir.dev/posts/finding-a-memory-leak-in-my-python-code>finding memory leaks in Python</a>. I was pleased with myself and sure that with the knowledge I gained then, I can surely get this done!</p>
 <p>And oh, was I wrong&mldr;</p>
 <h2 id=harsh-reality>Harsh Reality</h2>
 <p>You see, both <a href=https://pympler.readthedocs.io/en/latest/>pympler</a> and <a href=https://docs.python.org/3/library/tracemalloc.html>tracemalloc</a> are wonderful tools. But like all tools, they have limitations. When you have a long-running (days) process with many (hundreds of millions) objects, the memory and performance costs of your tools add up quite significantly. Waiting for <code>pympler</code> to query <em>all objects</em> takes forever, and following references is completely impractical; viewing <code>tracemalloc</code> statistics is nice, but doesn&rsquo;t help you narrow things down enough.</p>
@@ -74,7 +74,7 @@
 <p>Enter <a href=https://gist.github.com/tmr232/4a10e17ddf4aefcc0c94a15bdddc58f4>memlog.py</a>.</p>
 <p><code>memlog</code> is a simple, naive tool. It tracks the overall memory usage on a machine, and logs it (with a timestamp) to a CSV. That&rsquo;s it. While the recorded data may include significant noise, running your code (& <code>memlog</code>) inside a container can reduce it significantly. Also, background memory noise tends to be insignificant when your process hogging all of your memory&mldr;</p>
 <p>So, I ran my process (with logs), ran <code>memlog</code>, and plotted a memory-over-time graph:
-<img src=https://tmr232.github.io/blog/images/more-memory-profiling.png alt="The image shows a graph of memory-usage over time. The graph shows a near-instant 4.5-unit rise at the start, then a slow 2-unit rise over a long time, then a near-instant decline back to 0 at the end."></p>
+<img src=https://www.tamir.dev/images/more-memory-profiling.png alt="The image shows a graph of memory-usage over time. The graph shows a near-instant 4.5-unit rise at the start, then a slow 2-unit rise over a long time, then a near-instant decline back to 0 at the end."></p>
 <p>And oh, oh no.</p>
 <h2 id=insight>Insight</h2>
 <p>Looking at the graph, we can divide it into 3 parts:</p>
@@ -107,7 +107,7 @@
 <section class=post-nav>
 <ul>
 <li>
-<a href=https://tmr232.github.io/blog/posts/gitlab-ci-tricks/><i class="fa fa-chevron-circle-left"></i> GitLab CI Tricks</a>
+<a href=https://www.tamir.dev/posts/gitlab-ci-tricks/><i class="fa fa-chevron-circle-left"></i> GitLab CI Tricks</a>
 </li>
 <li>
 </li>
@@ -119,11 +119,11 @@
 <li>
 <h6>Copyright © 2021 - Tamir Bahar |
 Rendered by <a href=https://gohugo.io title=Hugo>Hugo</a> |
-<a href=https://tmr232.github.io/blog/index.xml>Subscribe </a></h6>
+<a href=https://www.tamir.dev/index.xml>Subscribe </a></h6>
 </li>
 </ul>
 </footer>
 </div>
-<script src=https://tmr232.github.io/blog/js/scripts.js></script>
+<script src=https://www.tamir.dev/js/scripts.js></script>
 </body>
 </html>

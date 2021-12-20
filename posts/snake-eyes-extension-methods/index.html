@@ -7,7 +7,7 @@
 <meta name=author content="Tamir Bahar"><meta property="og:title" content="Snake Eyes: Extension Methods">
 <meta property="og:description" content="Implementing Extension-Methods in Python">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://tmr232.github.io/blog/posts/snake-eyes-extension-methods/"><meta property="article:section" content="posts">
+<meta property="og:url" content="https://www.tamir.dev/posts/snake-eyes-extension-methods/"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2020-03-06T00:00:00+00:00">
 <meta property="article:modified_time" content="2020-03-06T00:00:00+00:00">
 <meta name=twitter:card content="summary">
@@ -15,14 +15,14 @@
 <meta name=twitter:description content="Implementing Extension-Methods in Python">
 <meta name=generator content="Hugo 0.89.0">
 <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin=anonymous>
-<link rel=stylesheet href=https://tmr232.github.io/blog/fontawesome/css/all.min.css>
+<link rel=stylesheet href=https://www.tamir.dev/fontawesome/css/all.min.css>
 <link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda">
-<link rel=stylesheet type=text/css href=https://tmr232.github.io/blog/css/styles.css></head>
+<link rel=stylesheet type=text/css href=https://www.tamir.dev/css/styles.css></head>
 <body>
 <div id=container>
 <header>
 <h1>
-<a href=https://tmr232.github.io/blog/>tamir.dev</a>
+<a href=https://www.tamir.dev/>tamir.dev</a>
 </h1>
 <ul id=social-media>
 <li>
@@ -36,7 +36,7 @@
 </a>
 </li>
 <li>
-<a href=https://stackoverflow.com/tmr232 title=StackOverflow>
+<a href=https://stackoverflow.com/users/3337893/tmr232 title=StackOverflow>
 <i class="fab fa-stack-overflow fa-lg"></i>
 </a>
 </li>
@@ -61,11 +61,11 @@
 </li>
 <li>
 <em>
-<a href=https://tmr232.github.io/blog/tags/python>#python</a>
+<a href=https://www.tamir.dev/tags/python>#python</a>
 ,
-<a href=https://tmr232.github.io/blog/tags/kotlin>#kotlin</a>
+<a href=https://www.tamir.dev/tags/kotlin>#kotlin</a>
 ,
-<a href=https://tmr232.github.io/blog/tags/misguided>#misguided</a>
+<a href=https://www.tamir.dev/tags/misguided>#misguided</a>
 </em>
 </li>
 <li>8 minute read</li>
@@ -209,7 +209,7 @@ square.draw()
 square<span style=color:#f92672>.</span>draw()  <span style=color:#75715e># This will fail, as `draw` has been replaced in this scope.</span>
 </code></pre></div><h2 id=indirection->Indirection 🔀</h2>
 <p>The <a href=https://en.wikipedia.org/wiki/Fundamental_theorem_of_software_engineering>Fundemental Theorem of Software Engineering (FTSE)</a> says that any problem can be solved by adding another level of indirection. Let&rsquo;s see how this applies to our problem.</p>
-<p>As mentioned in the interlude, our main issue is that of naming. Our extension method is bound to a name, and that name can be overriden in the scope that defines it. If that happens, we lose our extension method. To solve that, we&rsquo;ll add another level of indirection - a scope that can safely hold our extension methods and protect them from being overriden. If you read our <a href=https://tmr232.github.io/blog/posts/snake-eyes-scopes-and-iife>previous post</a> you might recall that classes are wonderful for scopes. So we&rsquo;ll use a class.</p>
+<p>As mentioned in the interlude, our main issue is that of naming. Our extension method is bound to a name, and that name can be overriden in the scope that defines it. If that happens, we lose our extension method. To solve that, we&rsquo;ll add another level of indirection - a scope that can safely hold our extension methods and protect them from being overriden. If you read our <a href=https://www.tamir.dev/posts/snake-eyes-scopes-and-iife>previous post</a> you might recall that classes are wonderful for scopes. So we&rsquo;ll use a class.</p>
 <p>Our new syntax will look like this:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#a6e22e>@extension</span>
 <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ExtensionMethods</span>(Square):
@@ -253,10 +253,10 @@ square<span style=color:#f92672>.</span>draw()  <span style=color:#75715e># This
 <section class=post-nav>
 <ul>
 <li>
-<a href=https://tmr232.github.io/blog/posts/snake-eyes-scopes-and-iife/><i class="fa fa-chevron-circle-left"></i> Snake Eyes: Scopes and IIFE</a>
+<a href=https://www.tamir.dev/posts/snake-eyes-scopes-and-iife/><i class="fa fa-chevron-circle-left"></i> Snake Eyes: Scopes and IIFE</a>
 </li>
 <li>
-<a href=https://tmr232.github.io/blog/posts/til-python-attribute-lookup-order-is-tricky/>TIL Python attribute lookup order is tricky <i class="fa fa-chevron-circle-right"></i> </a>
+<a href=https://www.tamir.dev/posts/til-python-attribute-lookup-order-is-tricky/>TIL Python attribute lookup order is tricky <i class="fa fa-chevron-circle-right"></i> </a>
 </li>
 </ul>
 </section>
@@ -266,11 +266,11 @@ square<span style=color:#f92672>.</span>draw()  <span style=color:#75715e># This
 <li>
 <h6>Copyright © 2021 - Tamir Bahar |
 Rendered by <a href=https://gohugo.io title=Hugo>Hugo</a> |
-<a href=https://tmr232.github.io/blog/index.xml>Subscribe </a></h6>
+<a href=https://www.tamir.dev/index.xml>Subscribe </a></h6>
 </li>
 </ul>
 </footer>
 </div>
-<script src=https://tmr232.github.io/blog/js/scripts.js></script>
+<script src=https://www.tamir.dev/js/scripts.js></script>
 </body>
 </html>
