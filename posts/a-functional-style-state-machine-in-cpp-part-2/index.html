@@ -3,11 +3,11 @@
 <title>A Functional-Style State Machine in C++, Part 2 - tamir.dev</title>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content="Kiera: A Hugo theme for creative and technical writing.">
+<meta name=description content="The HTML5 Herald">
 <meta name=author content="Tamir Bahar"><meta property="og:title" content="A Functional-Style State Machine in C++, Part 2">
 <meta property="og:description" content="First, an apology. The first part of this post was published on May 26. It is now September. I had most of the code for this part done by then. But finalizing the code took some more effort.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://www.example.org/posts/a-functional-style-state-machine-in-cpp-part-2/"><meta property="article:section" content="posts">
+<meta property="og:url" content="https://tmr232.github.io/blog/posts/a-functional-style-state-machine-in-cpp-part-2/"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2017-09-04T00:00:00+00:00">
 <meta property="article:modified_time" content="2017-09-04T00:00:00+00:00">
 <meta name=twitter:card content="summary">
@@ -15,14 +15,14 @@
 <meta name=twitter:description content="First, an apology. The first part of this post was published on May 26. It is now September. I had most of the code for this part done by then. But finalizing the code took some more effort.">
 <meta name=generator content="Hugo 0.89.0">
 <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin=anonymous>
-<link rel=stylesheet href=https://www.example.org/fontawesome/css/all.min.css>
+<link rel=stylesheet href=https://tmr232.github.io/blog/fontawesome/css/all.min.css>
 <link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda">
-<link rel=stylesheet type=text/css href=https://www.example.org/css/styles.css></head>
+<link rel=stylesheet type=text/css href=https://tmr232.github.io/blog/css/styles.css></head>
 <body>
 <div id=container>
 <header>
 <h1>
-<a href=https://www.example.org/>tamir.dev</a>
+<a href=https://tmr232.github.io/blog/>tamir.dev</a>
 </h1>
 <ul id=social-media>
 <li>
@@ -46,7 +46,6 @@
 </a>
 </li>
 </ul>
-<p><em>A Hugo theme for creative and technical writing</em></p>
 </header>
 <nav>
 <ul>
@@ -156,7 +155,7 @@ However, if we put anything into this set of template arguments, it will overrid
 <span style=color:#66d9ef>using</span> InPairWithArgs <span style=color:#f92672>=</span> SelfReturning<span style=color:#f92672>&lt;</span>PairWithCtx<span style=color:#f92672>&gt;::</span>WithArgs<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>const</span> Context<span style=color:#f92672>&amp;</span>, Event<span style=color:#f92672>&gt;</span>;
 <span style=color:#75715e>// Or alternatively
 </span><span style=color:#75715e></span><span style=color:#66d9ef>using</span> InPairWithArgs2 <span style=color:#f92672>=</span> SelfReturning<span style=color:#f92672>&lt;</span>PairWithCtx, <span style=color:#66d9ef>const</span> Context<span style=color:#f92672>&amp;</span>, Event<span style=color:#f92672>&gt;</span>;
-</code></pre></div><p>In <a href=https://www.example.org/posts/a-functional-style-state-machine-in-cpp>Part 1</a> I promised generalizing the <code>SelfReturning</code> class and getting some compile time guarantees. We&rsquo;ve accomplished our generalization goal, so it&rsquo;s time to get some safety in place.</p>
+</code></pre></div><p>In <a href=https://tmr232.github.io/blog/posts/a-functional-style-state-machine-in-cpp>Part 1</a> I promised generalizing the <code>SelfReturning</code> class and getting some compile time guarantees. We&rsquo;ve accomplished our generalization goal, so it&rsquo;s time to get some safety in place.</p>
 <h2 id=increasing-safety>Increasing Safety</h2>
 <p>While our use of the <code>switch</code> statement to discern different events is nice and concise, it is also somewhat error prone. It is easy to miss a case (though that can be prevented using compiler errors) or accidentally mistake one event for another. The latter is especially true if we want to pass information along with our event notification.
 One easy way to avoid those mistakes is to resolve the choice using function overloading instead of switch statements. Consider the following</p>
@@ -238,7 +237,7 @@ In (2), we cannot mistake the types, and data can easily be passed inside the ev
     <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
 }
 </code></pre></div><p>If you&rsquo;re not familiar with C++17, there may be a lot to take in here. In (1) we define a class that takes multiple lambdas and overloads them. In (2) we instantiate that class to inline our event handling functions.
-The full explanation to this code is a bit long, so I wrote <a href=https://www.example.org/posts/that-overloaded-trick-overloading-lambdas-in-cpp17>another post</a> to explain it.</p>
+The full explanation to this code is a bit long, so I wrote <a href=https://tmr232.github.io/blog/posts/that-overloaded-trick-overloading-lambdas-in-cpp17>another post</a> to explain it.</p>
 <p>Applied to the state-machine, it will look like this:
 <a href=https://godbolt.org/g/4VNxEM>Compilation</a>, <a href=http://coliru.stacked-crooked.com/a/3bfd9a9220c60cb4>Execution</a></p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;tuple&gt;</span><span style=color:#75715e>
@@ -465,10 +464,10 @@ State<span style=color:#f92672>::</span>RetType B(<span style=color:#66d9ef>cons
 <section class=post-nav>
 <ul>
 <li>
-<a href=https://www.example.org/posts/that-overloaded-trick-overloading-lambdas-in-cpp17/><i class="fa fa-chevron-circle-left"></i> That `overloaded` Trick: Overloading Lambdas in C++17</a>
+<a href=https://tmr232.github.io/blog/posts/that-overloaded-trick-overloading-lambdas-in-cpp17/><i class="fa fa-chevron-circle-left"></i> That `overloaded` Trick: Overloading Lambdas in C++17</a>
 </li>
 <li>
-<a href=https://www.example.org/posts/types-of-loops/>Types of Loops <i class="fa fa-chevron-circle-right"></i> </a>
+<a href=https://tmr232.github.io/blog/posts/types-of-loops/>Types of Loops <i class="fa fa-chevron-circle-right"></i> </a>
 </li>
 </ul>
 </section>
@@ -478,11 +477,11 @@ State<span style=color:#f92672>::</span>RetType B(<span style=color:#66d9ef>cons
 <li>
 <h6>Copyright © 2021 - Tamir Bahar |
 Rendered by <a href=https://gohugo.io title=Hugo>Hugo</a> |
-<a href=https://www.example.org/index.xml>Subscribe </a></h6>
+<a href=https://tmr232.github.io/blog/index.xml>Subscribe </a></h6>
 </li>
 </ul>
 </footer>
 </div>
-<script src=https://www.example.org/js/scripts.js></script>
+<script src=https://tmr232.github.io/blog/js/scripts.js></script>
 </body>
 </html>
