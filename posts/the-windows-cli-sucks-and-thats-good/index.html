@@ -1,0 +1,127 @@
+<!doctype html><html lang=en>
+<head>
+<title>The Windows CLI sucks, and that's good. - tamir.dev</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Kiera: A Hugo theme for creative and technical writing.">
+<meta name=author content="Tamir Bahar"><meta property="og:title" content="The Windows CLI sucks, and that's good.">
+<meta property="og:description" content="TL;DR Windows' shell sucks so people write tools. Tools are fun to use.
+Linux&rsquo;s shell is amazing so people write terrible bash scripts and makefiles.
+Be sensible. Use Python. Use C.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.example.org/posts/the-windows-cli-sucks-and-thats-good/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2017-05-01T00:00:00+00:00">
+<meta property="article:modified_time" content="2017-05-01T00:00:00+00:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="The Windows CLI sucks, and that's good.">
+<meta name=twitter:description content="TL;DR Windows' shell sucks so people write tools. Tools are fun to use.
+Linux&rsquo;s shell is amazing so people write terrible bash scripts and makefiles.
+Be sensible. Use Python. Use C.">
+<meta name=generator content="Hugo 0.89.0">
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin=anonymous>
+<link rel=stylesheet href=https://www.example.org/fontawesome/css/all.min.css>
+<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda">
+<link rel=stylesheet type=text/css href=https://www.example.org/css/styles.css></head>
+<body>
+<div id=container>
+<header>
+<h1>
+<a href=https://www.example.org/>tamir.dev</a>
+</h1>
+<ul id=social-media>
+<li>
+<a href=https://github.com/tmr232 title=GitHub>
+<i class="fab fa-github fa-lg"></i>
+</a>
+</li>
+<li>
+<a href=https://twitter.com/tmr232 title=Twitter>
+<i class="fab fa-twitter fa-lg"></i>
+</a>
+</li>
+<li>
+<a href=https://stackoverflow.com/tmr232 title=StackOverflow>
+<i class="fab fa-stack-overflow fa-lg"></i>
+</a>
+</li>
+<li>
+<a href=https://dev.to/tmr232 title=devto>
+<i class="fab fa-dev fa-lg"></i>
+</a>
+</li>
+</ul>
+<p><em>A Hugo theme for creative and technical writing</em></p>
+</header>
+<nav>
+<ul>
+</ul>
+</nav>
+<main>
+<article>
+<h1>The Windows CLI sucks, and that's good.</h1>
+<aside>
+<ul>
+<li>
+<time class=post-date datetime=2017-05-01T00:00:00Z>May 1, 2017</time>
+</li>
+<li>5 minute read</li>
+</ul>
+</aside>
+<h2 id=tldr>TL;DR</h2>
+<p>Windows' shell sucks so people write tools. Tools are fun to use.</p>
+<p>Linux&rsquo;s shell is amazing so people write terrible bash scripts and makefiles.</p>
+<p>Be sensible. Use Python. Use C.</p>
+<p>The rest of the post is me ranting, letting off some steam. Have fun, and don&rsquo;t take it too seriously.</p>
+<h2 id=-a-story-of-shells->🐢 A Story of Shells 🐢</h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>my_var<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>application arg0 arg1<span style=color:#66d9ef>)</span>
+
+<span style=color:#66d9ef>for</span> /f %%i in <span style=color:#f92672>(</span><span style=color:#e6db74>&#39;application arg0 arg1&#39;</span><span style=color:#f92672>)</span> <span style=color:#66d9ef>do</span> set my_var<span style=color:#f92672>=</span>%%i
+</code></pre></div><h3 id=-windows->🪟 Windows 🪟</h3>
+<p>I&rsquo;ve been a Windows user for a very long time. In fact, it has always been my main OS. And I absolutely love it. That is not to say, though, that there aren&rsquo;t issues with that. One such thing is the CLI.</p>
+<p>For years, the only thing we had on Windows was <code>cmd.exe</code> and <code>.bat</code> files. And they are ghastly. They are pretty straight-forward for very simple things, but try using them for anything more advanced (like <a href=http://stackoverflow.com/questions/2323292/windows-batch-assign-output-of-a-program-to-a-variable>setting a variable to the output of a command</a>) and you&rsquo;ll quickly realize that this is not the tool for you. You need a <em>real</em> programming language. So you&rsquo;ll use Python, or C, or something.
+It will take you a bit longer to write the tool you needed, but in the process it will become an actual tool and not an annoying script.</p>
+<p>In recent years there has been some serious improvements - PowerShell came along, <a href=http://cmder.net/>cmder</a> made the shell look a bit better, and I have some Linux tools (grep, awk, xargs&mldr;) running in my Windows shell. And yet, people tend to use more general purpose languages on Windows.</p>
+<h3 id=-penguins->🐧 Penguins 🐧</h3>
+<p>On Linux, however, things have always been good with the shell. It has awesome terminals, and a huge amount of utilities that can be chained (piped) to unleash powers beyond imagination. And unlike Windows, where you need to use funny-looking APIs to get information, Linux just gives you everything in handy text files.</p>
+<p>In fact, Linux is optimized for the shell in ways that make me wince. It is actually easier to parse system information (like, say, a process list) in the shell than in C code. Because instead of proper APIs, we have text files. <em>Text</em> files. The kernel takes binary data, formats it into strings, and the user-mode code can then <code>scanf</code> the code back into binary data. Amazing!</p>
+<p>But enough of that.</p>
+<p>The Linux shell is truly remarkable. You can do pretty much anything in a bash script. And people do.
+Now, there&rsquo;s a bit of Linux philosophy that I really like. &ldquo;Do one thing and do it well.&rdquo; <code>find</code> finds things, <code>grep</code> greps, <code>xargs</code> xargs, and <code>awk</code> awks. So far - so good. But what about bash itself?
+While each of the shell utilities does one thing and does it well, bash, and especially bash scripts, do not. They allow you to quickly implement advanced behaviours by hacking together multiple commands. You write more and more and more, and everything just works. And then, it doesn&rsquo;t. And you need to fix it. If you&rsquo;re lucky, and the code is well documented you might get away with that. But more often than not, it won&rsquo;t be. And the wonderful &ldquo;let&rsquo;s take strings and pass them around&rdquo; programming style might come back to bite you.</p>
+<p>But, again, bash is fantastic for quick hacks. And works fairly well in general when you&rsquo;re not taking input parameters, and when it&rsquo;s small enough. I don&rsquo;t like it, but it works.</p>
+<h2 id=-make-your-own-hell->🔥 Make Your Own Hell 🔥</h2>
+<p>The real issue is <code>make</code>.</p>
+<p><code>make</code> is a beast spawned in the deepest dungeons of hell (and I am awfully sorry if I offended any such beast by the comparison.)
+Makefiles give you the benefits of never leaving your shell / code-editor while you work. You just create a makefile, define your targets, and you&rsquo;re good to go. In truth - that is fantastic. You can even include bash scripts in your makefiles to do custom steps. Or generate makefiles. Or use <code>automake</code>. Or anything else that might make the task of writing makefiles easier to do and harder to maintain. But you write, and you specify, and it just works! Most of the time.</p>
+<p>** <strong>Dramatic Pause</strong> **</p>
+<p>You might have noticed I don&rsquo;t like <code>make</code>. That&rsquo;s true. This post is mainly me complaining about <code>make</code> and blowing off some steam. Now, I appreciate <code>make</code>. I&rsquo;ve used it to build things that I never would&rsquo;ve managed on Windows. It&rsquo;s an extremely powerful tool. But, you see, as a Windows user, I naturally enjoy IDEs. One such wonderful creation is Visual Studio. As far as C/C++ development tools go it is unparalleled. &ldquo;But wait!&rdquo; say my Linux friends, &ldquo;VS forces you to create foul &lsquo;projects&rsquo; using their fiendish &lsquo;GUI&rsquo;! In Linux, we just write makefiles!&rdquo;
+That is true, and it is quite annoying with small projects (where I usually end up having a <code>.bat</code> file to trigger the build with all the relevant flags,) but it is godsend for anything more complex. You have GUI, and Projects, and Solutions and whatnot. It&rsquo;s great. A bit slow to define, but oh so easy to use!</p>
+<p>And now, after I lost most of my Linux-oriented readers, I can get to the point. Linux has a super-powerful shell, so people use it to make a super-powerful mess. Windows has a super-useless shell, so people don&rsquo;t use it. Instead - they build tools! User-friendly(-ish) tools with GUI. And they use general purpose programming languages. And that&rsquo;s good.</p>
+<h2 id=-takeaway->🍕 Takeaway 🍕</h2>
+<p>Should you stop using bash? Or cripple it? Or keep Windows' shell down? Hell no!</p>
+<p>Use whatever tools you deem fit. But use them wisely. Keep shell-scripting to small automation tasks, and try to use more maintainable programming languages when you write something larger or more complex. And do write new tools. Tools are fun.</p>
+</article>
+<section class=post-nav>
+<ul>
+<li>
+<a href=https://www.example.org/posts/dont-amend-fix/><i class="fa fa-chevron-circle-left"></i> Don't Amend, Fix</a>
+</li>
+<li>
+<a href=https://www.example.org/posts/a-functional-style-state-machine-in-cpp/>A Functional-Style State Machine in C++ <i class="fa fa-chevron-circle-right"></i> </a>
+</li>
+</ul>
+</section>
+</main>
+<footer>
+<ul>
+<li>
+<h6>Copyright © 2021 - Tamir Bahar |
+Rendered by <a href=https://gohugo.io title=Hugo>Hugo</a> |
+<a href=https://www.example.org/index.xml>Subscribe </a></h6>
+</li>
+</ul>
+</footer>
+</div>
+<script src=https://www.example.org/js/scripts.js></script>
+</body>
+</html>

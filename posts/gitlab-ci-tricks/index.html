@@ -1,0 +1,326 @@
+<!doctype html><html lang=en>
+<head>
+<title>GitLab CI Tricks - tamir.dev</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Kiera: A Hugo theme for creative and technical writing.">
+<meta name=author content="Tamir Bahar"><meta property="og:title" content="GitLab CI Tricks">
+<meta property="og:description" content="A collection of useful hacks for the GitLab CI">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.example.org/posts/gitlab-ci-tricks/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-03-10T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-03-10T00:00:00+00:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="GitLab CI Tricks">
+<meta name=twitter:description content="A collection of useful hacks for the GitLab CI">
+<meta name=generator content="Hugo 0.89.0">
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin=anonymous>
+<link rel=stylesheet href=https://www.example.org/fontawesome/css/all.min.css>
+<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda">
+<link rel=stylesheet type=text/css href=https://www.example.org/css/styles.css></head>
+<body>
+<div id=container>
+<header>
+<h1>
+<a href=https://www.example.org/>tamir.dev</a>
+</h1>
+<ul id=social-media>
+<li>
+<a href=https://github.com/tmr232 title=GitHub>
+<i class="fab fa-github fa-lg"></i>
+</a>
+</li>
+<li>
+<a href=https://twitter.com/tmr232 title=Twitter>
+<i class="fab fa-twitter fa-lg"></i>
+</a>
+</li>
+<li>
+<a href=https://stackoverflow.com/tmr232 title=StackOverflow>
+<i class="fab fa-stack-overflow fa-lg"></i>
+</a>
+</li>
+<li>
+<a href=https://dev.to/tmr232 title=devto>
+<i class="fab fa-dev fa-lg"></i>
+</a>
+</li>
+</ul>
+<p><em>A Hugo theme for creative and technical writing</em></p>
+</header>
+<nav>
+<ul>
+</ul>
+</nav>
+<main>
+<article>
+<h1>GitLab CI Tricks</h1>
+<aside>
+<ul>
+<li>
+<time class=post-date datetime=2021-03-10T00:00:00Z>Mar 10, 2021</time>
+</li>
+<li>8 minute read</li>
+</ul>
+</aside>
+<p>In writing our CI setup at Vdoo, we came across some interesting challenges. Having solved them and used the solutions for quite a while, we decided it is best to share, and hopefully save others some time and effort solving similar problems.</p>
+<p>Of course, there are alternative solutions to the challenges we have dealt with, and some solutions are probably superior to ours. We are happy to hear about such solutions and to improve our own.</p>
+<p>As for the code presented in this post - it was extracted from our CI and cleaned up a bit. As such, it is missing some necessary boilerplate. It will not work as-is, and some work will be required to adapt it to your CI. That said, it should clearly lay out the solutions. (You can think of it as slide-ware.)</p>
+<h2 id=lfs-check>LFS-Check</h2>
+<p>All transitions can be bumpy. For us, the transition from storing binary files as regular git blobs to storing them using LFS was one such bumpy transition.</p>
+<p>We made sure to include all the LFS-relevant files & patterns in a .gitattributes file, but ensuring everyone (including people who only occasionally work on the relevant repo) properly setup their environments for LFS took some time. In the mean-time, we kept getting files that should be in LFS committed and pushed as regular files in Merge-Requests.</p>
+<p>To circumvent that, we set up a simple check at the start of our CI process to ensure all relevant files are indeed stored in LFS.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>lfs-check</span>:
+  <span style=color:#f92672>only</span>:
+    <span style=color:#f92672>refs</span>:
+      - <span style=color:#ae81ff>merge_requests</span>
+  <span style=color:#f92672>script</span>:
+    - <span style=color:#ae81ff>git lfs install</span>
+    - <span style=color:#ae81ff>git add --renormalize -u</span>
+    - |<span style=color:#e6db74>
+</span><span style=color:#e6db74>      if ! git diff --cached --name-only --exit-code ; then
+</span><span style=color:#e6db74>        echo
+</span><span style=color:#e6db74>        echo
+</span><span style=color:#e6db74>        echo &#34;==============================&#34;
+</span><span style=color:#e6db74>        echo &#34;#  Please renormalize files  #&#34;
+</span><span style=color:#e6db74>        echo &#34;==============================&#34;
+</span><span style=color:#e6db74>        echo
+</span><span style=color:#e6db74>        echo &#34;git add -u --renormalize&#34;
+</span><span style=color:#e6db74>        echo &#34;git commit --amend&#34;
+</span><span style=color:#e6db74>        exit 1
+</span><span style=color:#e6db74>      fi</span>      
+
+</code></pre></div><p>When people pushed the files the wrong way - the CI would fail with an informative error and instructions.</p>
+<h2 id=required-commit>Required Commit</h2>
+<p>Every so often a change is made to the code, rendering the code before the change unworkable or irrelevant. This can happen for many reasons. Here are some examples:</p>
+<ol>
+<li>A bug was fixed in the CI. This is all too common when forgetting to properly lock your dependencies (including recursive ones!)</li>
+<li>A very time-consuming update was made (re-training an ML model, anyone?)</li>
+<li>The change is significant and will make rebasing a pain</li>
+<li>A significant bug was fixed, making tests on the previous versions mostly irrelevant</li>
+</ol>
+<p>Once you introduce such a change to your code, you want people to know about it, and you want to stop wasting cycles on it.</p>
+<p>To achieve this goal, we created a required-commit mechanism in our CI. For the CI to work, the required-commit must be an ancestor of the current commit. If it isn&rsquo;t - the CI fails with a descriptive error & instructions for fixing the issue.</p>
+<p>Once we have a new required-commit, we inform all developers in a dedicated Slack channel and update the CI to match. This ensures that even if a developer misses the notification on Slack, the CI will let them know what needs to be done.</p>
+<p>The solution consists of a simple CI job:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>required-commit</span>:
+  <span style=color:#f92672>only</span>:
+    <span style=color:#f92672>refs</span>:
+      - <span style=color:#ae81ff>merge_requests</span>
+  <span style=color:#f92672>script</span>:
+    - <span style=color:#ae81ff>apt-get update</span>
+    - |<span style=color:#e6db74>
+</span><span style=color:#e6db74>      if ! git merge-base --is-ancestor ${REQUIRED_COMMIT:-HEAD} HEAD ; then
+</span><span style=color:#e6db74>        echo
+</span><span style=color:#e6db74>        echo
+</span><span style=color:#e6db74>        echo &#34;=============================&#34;
+</span><span style=color:#e6db74>        echo &#34;#      Rebase Required      #&#34;
+</span><span style=color:#e6db74>        echo &#34;=============================&#34;
+</span><span style=color:#e6db74>        echo
+</span><span style=color:#e6db74>        echo &#34;Your base commit is out of date.&#34;
+</span><span style=color:#e6db74>        echo &#34;Please update to ${REQUIRED_COMMIT} or later.&#34;
+</span><span style=color:#e6db74>        echo &#34;The easiest fix is to rebase-onto or merge-from origin/main.&#34;
+</span><span style=color:#e6db74>        echo
+</span><span style=color:#e6db74>        echo
+</span><span style=color:#e6db74>        exit 1
+</span><span style=color:#e6db74>      fi</span>      
+
+</code></pre></div><p>And a custom variable defined in the CI settings (see <a href=https://docs.gitlab.com/ee/ci/variables/#create-a-custom-variable-in-the-ui>Create a custom variable in the UI</a>):</p>
+<p><img src=https://www.example.org/images/gitlab-ci-tricks.png alt="alt text"></p>
+<h2 id=conditionally-building-job-docker-images>Conditionally Building Job Docker Images</h2>
+<p>Some of our code is deployed via Docker images. As such - we want our CI to build and test those images. Some tests require running a Docker container and communicating with it, but some tests (especially unit- and integration-tests) are easier to run inside the said containers. To accommodate the latter, we use our Docker images as the base images for the CI test jobs.</p>
+<p>This is easy enough to do in the CI. In our case, however, building the Docker images takes a very long time. In trying to reduce this time, we split our build into two parts. The first - a long compilation phase, building some rarely-changing code; the second - installation of our fast-changing Python code & all relevant dependencies.</p>
+<p>Noticing the split between the fast-changing and rarely-changing parts of our build, we decided to split it in half, only building the first part when there&rsquo;s an actual change to it.</p>
+<p>To do that, however, we have to conditionally build the Docker image for the first half, and in the second half use either the preexisting first half or the newly built one.</p>
+<h3 id=the-solution---build-proxy-promote>The Solution - Build, Proxy, Promote</h3>
+<p>Our solution uses a model consisting of multiple CI jobs handling different parts.</p>
+<ol>
+<li><strong>Build</strong> jobs - responsible for building docker images. Either conditionally (for the first part) or consistently (for the second part).</li>
+<li><strong>Proxy</strong> jobs - responsible for handling the conditional nature of the build jobs, providing the next job with the relevant tag for the Docker images - either <code>:latest</code> or the current commit.</li>
+<li><strong>Promote</strong> jobs - responsible for tagging the newly built images with <code>:latest</code> and pushing them. They run last.</li>
+</ol>
+<p>For our use-case, we used the following setup:</p>
+<ol>
+<li>Conditional <strong>Build</strong> job to build the rarely-changing code</li>
+<li><strong>Proxy</strong> job to yield the relevant tags</li>
+<li><strong>Build</strong> job to build & install the fast-changing code</li>
+<li><strong>Test</strong> job, to test the newly build code</li>
+<li><strong>Promote</strong> job, pushing the newly build images as <code>:latest</code> if the tests passed</li>
+</ol>
+<p>To implement it, we created the following <code>.yml</code> configuration, representing the build-proxy-promote model, and used <a href=https://docs.gitlab.com/ee/ci/yaml/#includefile><code>include:file</code></a> to bring it into our <code>.gitlab-ci.yml</code>.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e># This file allows creating a prebuild-proxy-(build)-promote workflow with ease.  </span>
+<span style=color:#75715e>#  </span>
+<span style=color:#75715e># The idea is that that in the prebuild step we build less-frequently-changed  </span>
+<span style=color:#75715e># docker images than in the build step. This allows us to significantly speed  </span>
+<span style=color:#75715e># up CI times.  </span>
+<span style=color:#75715e>#  </span>
+<span style=color:#75715e># Setting Up  </span>
+<span style=color:#75715e># ==========  </span>
+<span style=color:#75715e>#  </span>
+<span style=color:#75715e># A basic setup consists of the following:  </span>
+<span style=color:#75715e>#  </span>
+<span style=color:#75715e># 1\. Prebuild (extends .bpp:build)  - build docker images if relevant files changed  </span>
+<span style=color:#75715e># 2\. Proxy (extends .bpp:proxy) - allows the rest of the CI to know whether Prebuild created new images or not  </span>
+<span style=color:#75715e># 3\. Build [Optional] (extends .bpp:build) - builds extra, more-frequently-changing images.  </span>
+<span style=color:#75715e>#                                             This is not a conditional step!  </span>
+<span style=color:#75715e># 4\. Use (custom step) - here we actually use the images we created!  </span>
+<span style=color:#75715e># 5\. Promote (extends .bpp:promote) - if required, pushes the newly built images to the project&#39;s repository.  </span>
+<span style=color:#75715e>#  </span>
+<span style=color:#75715e># These 5 steps should be in 5 different, consecutive stages for things to work.  </span>
+<span style=color:#75715e># The prebuild step, being conditional, should not have any other step requiring it.  </span>
+<span style=color:#75715e># All other steps (that need the prebuilt images) should require the proxy step instead,  </span>
+<span style=color:#75715e># and use the ${PROXY_TAG} to as a label to the relevant docker images.</span>
+
+
+<span style=color:#f92672>.bpp:build</span>:
+  <span style=color:#f92672>variables</span>:
+    <span style=color:#75715e># The names of all the docker images we want to pull from our registry</span>
+    <span style=color:#f92672>TO_PULL</span>: <span style=color:#e6db74>&#34;&#34;</span>
+    <span style=color:#75715e># The tag to use for pulling the images. This will usually be ${PROXY_TAG}</span>
+    <span style=color:#f92672>PULL_TAG</span>: <span style=color:#e6db74>&#34;&#34;</span>
+    <span style=color:#75715e># The name of the image and path of the dockerfile for building docker images.</span>
+    <span style=color:#75715e># The root path for the dockers will be the root of the project</span>
+    <span style=color:#75715e># Format the variable as follows:</span>
+    <span style=color:#75715e>#</span>
+    <span style=color:#75715e>#     &gt;-</span>
+    <span style=color:#75715e>#       &#34;some_name the/relevant/path/Dockerfile&#34;</span>
+    <span style=color:#75715e>#       &#34;some_other_name another/relevant/path/Dockerfile&#34;</span>
+    <span style=color:#75715e>#</span>
+    <span style=color:#75715e># Note that the quotes are significant!</span>
+    <span style=color:#f92672>TO_BUILD</span>: <span style=color:#e6db74>&#34;&#34;</span>
+    <span style=color:#75715e># The names of the images we want to push.</span>
+    <span style=color:#75715e># They will all be pushed with the ${CI_COMMIT_SHA} tag.</span>
+    <span style=color:#f92672>TO_PUSH</span>: <span style=color:#e6db74>&#34;&#34;</span>
+  <span style=color:#f92672>script</span>:
+    - <span style=color:#ae81ff>docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY_IMAGE}</span>
+    - <span style=color:#ae81ff>export DOCKER_BUILDKIT=1</span> <span style=color:#75715e># This cannot be in the `variables` field since users overwrite it.</span>
+    - |<span style=color:#e6db74>
+</span><span style=color:#e6db74>      for IMAGE_NAME in ${TO_PULL}
+</span><span style=color:#e6db74>      do
+</span><span style=color:#e6db74>          echo &#34;***********************************&#34;
+</span><span style=color:#e6db74>          echo &#34;Pulling ${IMAGE_NAME}&#34;
+</span><span style=color:#e6db74>          echo &#34;-----------------------------------&#34;
+</span><span style=color:#e6db74>          echo &#34;docker pull ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${PULL_TAG}&#34;
+</span><span style=color:#e6db74>          echo &#34;DOCKER_BUILDKIT=1 docker tag \
+</span><span style=color:#e6db74>                ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${PULL_TAG} \
+</span><span style=color:#e6db74>                ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:latest&#34;
+</span><span style=color:#e6db74>          echo &#34;***********************************&#34;
+</span><span style=color:#e6db74>          docker pull ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${PULL_TAG}
+</span><span style=color:#e6db74>          docker tag \
+</span><span style=color:#e6db74>              ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${PULL_TAG} \
+</span><span style=color:#e6db74>              ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:latest
+</span><span style=color:#e6db74>      done</span>      
+    - |<span style=color:#e6db74>
+</span><span style=color:#e6db74>      eval &#34;ARRAY=($TO_BUILD)&#34;
+</span><span style=color:#e6db74>      for ITEM in &#34;${ARRAY[@]}&#34;
+</span><span style=color:#e6db74>      do
+</span><span style=color:#e6db74>          MY_NAME=${ITEM% *}
+</span><span style=color:#e6db74>          MY_PATH=${ITEM#* }
+</span><span style=color:#e6db74>          echo &#34;***********************************&#34;
+</span><span style=color:#e6db74>          echo &#34;Building ${MY_NAME} from ${MY_PATH}&#34;
+</span><span style=color:#e6db74>          echo &#34;-----------------------------------&#34;
+</span><span style=color:#e6db74>          echo &#34;DOCKER_BUILDKIT=1 docker build \
+</span><span style=color:#e6db74>              --build-arg BUILDKIT_INLINE_CACHE=1 \
+</span><span style=color:#e6db74>              -t ${CI_REGISTRY_IMAGE}/${MY_NAME} \
+</span><span style=color:#e6db74>              -t ${CI_REGISTRY_IMAGE}/${MY_NAME}:${CI_COMMIT_SHA} \
+</span><span style=color:#e6db74>              -f ${MY_PATH} \
+</span><span style=color:#e6db74>              --label &#34;commit_sha=${CI_COMMIT_SHA}&#34; \
+</span><span style=color:#e6db74>              .&#34;
+</span><span style=color:#e6db74>          echo &#34;***********************************&#34;
+</span><span style=color:#e6db74>          docker build \
+</span><span style=color:#e6db74>              --build-arg BUILDKIT_INLINE_CACHE=1 \
+</span><span style=color:#e6db74>              -t ${CI_REGISTRY_IMAGE}/${MY_NAME} \
+</span><span style=color:#e6db74>              -t ${CI_REGISTRY_IMAGE}/${MY_NAME}:${CI_COMMIT_SHA} \
+</span><span style=color:#e6db74>              -f ${MY_PATH} \
+</span><span style=color:#e6db74>      		  --label &#34;commit_sha=${CI_COMMIT_SHA}&#34; \
+</span><span style=color:#e6db74>              .
+</span><span style=color:#e6db74>      done</span>      
+    - |<span style=color:#e6db74>
+</span><span style=color:#e6db74>      for IMAGE_NAME in $TO_PUSH
+</span><span style=color:#e6db74>      do
+</span><span style=color:#e6db74>          echo &#34;***********************************&#34;
+</span><span style=color:#e6db74>          echo &#34;Pushing ${IMAGE_NAME}&#34;
+</span><span style=color:#e6db74>          echo &#34;-----------------------------------&#34;
+</span><span style=color:#e6db74>          echo &#34;DOCKER_BUILDKIT=1 docker push ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${CI_COMMIT_SHA}&#34;
+</span><span style=color:#e6db74>          echo &#34;***********************************&#34;
+</span><span style=color:#e6db74>          docker push ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${CI_COMMIT_SHA}
+</span><span style=color:#e6db74>      done</span>      
+
+
+<span style=color:#f92672>.bpp:proxy</span>:
+  <span style=color:#f92672>variables</span>:
+    <span style=color:#75715e># The names of jobs we want to proxy - if any of them succeeded, we proxy.</span>
+    <span style=color:#f92672>BUILD_JOBS</span>: <span style=color:#e6db74>&#34;&#34;</span>
+  <span style=color:#f92672>script</span>:
+    - <span style=color:#ae81ff>PROXY_TAG=latest</span>
+    - <span style=color:#ae81ff>apt-get -qq update</span>
+    - <span style=color:#ae81ff>apt-get -qq install jq</span>
+    <span style=color:#75715e># Get the successful jobs for the current pipeline</span>
+    - &gt;-<span style=color:#e6db74>
+</span><span style=color:#e6db74>      curl
+</span><span style=color:#e6db74>      --header &#34;PRIVATE-TOKEN:${GITLAB_TOKEN}&#34;
+</span><span style=color:#e6db74>      &#34;${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs?scope[]=success&#34;
+</span><span style=color:#e6db74>      &gt; jobs.json</span>      
+    <span style=color:#75715e># Compare the job names from the pipeline with the provided job names</span>
+    - <span style=color:#ae81ff>EXECUTED=$(comm -12 &lt;(jq -r &#39;.[].name&#39; jobs.json | sort) &lt;(echo ${BUILD_JOBS} | tr &#39; &#39; &#39;\n&#39; | sort))</span>
+    <span style=color:#75715e># If a build job was executed, we need to set the proxy tag to the current commit sha.</span>
+    - |<span style=color:#e6db74>
+</span><span style=color:#e6db74>      if [ ! -z &#34;$EXECUTED&#34; ]
+</span><span style=color:#e6db74>      then
+</span><span style=color:#e6db74>          PROXY_TAG=${CI_COMMIT_SHA}
+</span><span style=color:#e6db74>      fi</span>      
+    - <span style=color:#ae81ff>echo &#34;PROXY_TAG=${PROXY_TAG}&#34; &gt;&gt; deploy.env</span>
+    <span style=color:#75715e># Print out the proxy tag - for debug purposes</span>
+    - <span style=color:#ae81ff>echo &#34;PROXY_TAG=${PROXY_TAG}&#34;</span>
+  <span style=color:#f92672>artifacts</span>:
+    <span style=color:#75715e># To get the proxy tag, you need to get the artifacts from this job.</span>
+    <span style=color:#75715e># The proxy tag will be ${PROXY_TAG}</span>
+    <span style=color:#f92672>reports</span>:
+      <span style=color:#f92672>dotenv</span>: <span style=color:#ae81ff>deploy.env</span>
+
+
+<span style=color:#f92672>.bpp:promote</span>:
+  <span style=color:#f92672>variables</span>:
+    <span style=color:#75715e># The names of the images you wish to promote.</span>
+    <span style=color:#75715e># They need to have been built &amp; pushed by a previous build step.</span>
+    <span style=color:#f92672>TO_PROMOTE</span>: <span style=color:#e6db74>&#34;&#34;</span>
+  <span style=color:#f92672>script</span>:
+    - |<span style=color:#e6db74>
+</span><span style=color:#e6db74>      if [ &#34;${PROXY_TAG}&#34; = &#34;latest&#34; ]; then
+</span><span style=color:#e6db74>          echo &#34;Nothing to promote.&#34;
+</span><span style=color:#e6db74>      else
+</span><span style=color:#e6db74>          echo &#34;Promoting docker image.&#34;
+</span><span style=color:#e6db74>          docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY_IMAGE}
+</span><span style=color:#e6db74>
+</span><span style=color:#e6db74>          for IMAGE in ${TO_PROMOTE} ; do
+</span><span style=color:#e6db74>              docker pull ${CI_REGISTRY_IMAGE}/${IMAGE}:${CI_COMMIT_SHA}
+</span><span style=color:#e6db74>              docker tag ${CI_REGISTRY_IMAGE}/${IMAGE}:${CI_COMMIT_SHA} ${CI_REGISTRY_IMAGE}/${IMAGE}:latest
+</span><span style=color:#e6db74>              docker push ${CI_REGISTRY_IMAGE}/${IMAGE}:latest
+</span><span style=color:#e6db74>          done
+</span><span style=color:#e6db74>      fi</span>      
+</code></pre></div>
+</article>
+<section class=post-nav>
+<ul>
+<li>
+<a href=https://www.example.org/posts/finding-a-memory-leak-in-my-python-code/><i class="fa fa-chevron-circle-left"></i> Finding a memory-leak in my Python code</a>
+</li>
+<li>
+<a href=https://www.example.org/posts/more-memory-profiling-in-python/>More Memory Profiling (in Python) <i class="fa fa-chevron-circle-right"></i> </a>
+</li>
+</ul>
+</section>
+</main>
+<footer>
+<ul>
+<li>
+<h6>Copyright © 2021 - Tamir Bahar |
+Rendered by <a href=https://gohugo.io title=Hugo>Hugo</a> |
+<a href=https://www.example.org/index.xml>Subscribe </a></h6>
+</li>
+</ul>
+</footer>
+</div>
+<script src=https://www.example.org/js/scripts.js></script>
+</body>
+</html>

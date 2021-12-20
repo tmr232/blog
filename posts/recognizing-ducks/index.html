@@ -1,0 +1,264 @@
+<!doctype html><html lang=en>
+<head>
+<title>Recognizing Ducks - tamir.dev</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Kiera: A Hugo theme for creative and technical writing.">
+<meta name=author content="Tamir Bahar"><meta property="og:title" content="Recognizing Ducks">
+<meta property="og:description" content="An overview of type-checking techniques in Pytohn">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.example.org/posts/recognizing-ducks/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2018-10-13T00:00:00+00:00">
+<meta property="article:modified_time" content="2018-10-13T00:00:00+00:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Recognizing Ducks">
+<meta name=twitter:description content="An overview of type-checking techniques in Pytohn">
+<meta name=generator content="Hugo 0.89.0">
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin=anonymous>
+<link rel=stylesheet href=https://www.example.org/fontawesome/css/all.min.css>
+<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda">
+<link rel=stylesheet type=text/css href=https://www.example.org/css/styles.css></head>
+<body>
+<div id=container>
+<header>
+<h1>
+<a href=https://www.example.org/>tamir.dev</a>
+</h1>
+<ul id=social-media>
+<li>
+<a href=https://github.com/tmr232 title=GitHub>
+<i class="fab fa-github fa-lg"></i>
+</a>
+</li>
+<li>
+<a href=https://twitter.com/tmr232 title=Twitter>
+<i class="fab fa-twitter fa-lg"></i>
+</a>
+</li>
+<li>
+<a href=https://stackoverflow.com/tmr232 title=StackOverflow>
+<i class="fab fa-stack-overflow fa-lg"></i>
+</a>
+</li>
+<li>
+<a href=https://dev.to/tmr232 title=devto>
+<i class="fab fa-dev fa-lg"></i>
+</a>
+</li>
+</ul>
+<p><em>A Hugo theme for creative and technical writing</em></p>
+</header>
+<nav>
+<ul>
+</ul>
+</nav>
+<main>
+<article>
+<h1>Recognizing Ducks</h1>
+<aside>
+<ul>
+<li>
+<time class=post-date datetime=2018-10-13T00:00:00Z>Oct 13, 2018</time>
+</li>
+<li>
+<em>
+<a href=https://www.example.org/tags/python>#python</a>
+,
+<a href=https://www.example.org/tags/duck-typing>#duck-typing</a>
+,
+<a href=https://www.example.org/tags/metaclasses>#metaclasses</a>
+</em>
+</li>
+<li>5 minute read</li>
+</ul>
+</aside>
+<p>After multiple attempts at finding a funny narrative that holds for the entire article and failing miserably, I decided to go with the technical parts alone. Enough of my colleagues found it interesting, so I guess it will hold up without the jokes.</p>
+<p>Python gives us multiple ways to check that the objects we pass to functions are of the types we expect. Each method has its advantages and disadvantages.</p>
+<h2 id=just-not-caring>Just not caring</h2>
+<p>The first option is naturally to not care about types - just write your code, and hope for the best.
+This is a viable method, and is often employed. It is especially fitting in short snippets or scripts you don&rsquo;t expect to maintain much. It just works with no overhead whatsoever.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>poke</span>(duck):
+    duck<span style=color:#f92672>.</span>quack()
+    duck<span style=color:#f92672>.</span>walk()
+</code></pre></div><h2 id=inheritance>Inheritance</h2>
+<p>Another option, as common in OOP languages, is to use inheritance. We can define an <code>Anas</code> class, and expect all of its derivatives to be sufficiently duck-like.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Anas</span>:
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>quack</span>(self): <span style=color:#66d9ef>pass</span>
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>walk</span>(self): <span style=color:#66d9ef>pass</span>
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Duck</span>(Anas):
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>quack</span>(self): print(<span style=color:#e6db74>&#39;Quack!&#39;</span>)
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>walk</span>(self): print(<span style=color:#e6db74>&#39;Walks like duck.&#39;</span>)
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Mallard</span>(Anas):
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>quack</span>(self): print(<span style=color:#e6db74>&#39;Quack!&#39;</span>)
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>walk</span>(self): print(<span style=color:#e6db74>&#39;Walks like duck.&#39;</span>)
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>poke</span>(duck):
+    <span style=color:#66d9ef>assert</span> isinstance(duck, Anas)
+</code></pre></div><h2 id=interfaces>Interfaces</h2>
+<p>While inheritance kinda gets the job done, a robotic duck is definitely not of the genus <a href=https://en.wikipedia.org/wiki/Anas>Anas</a>, while it does implement all the characteristics we care about. So instead of hierarchical inheritance, we can use interfaces.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> abc <span style=color:#f92672>import</span> ABC, abstractmethod
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>IDuck</span>(ABC):
+    <span style=color:#a6e22e>@abstractmethod</span>
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>quack</span>(self): <span style=color:#66d9ef>pass</span>
+    
+    <span style=color:#a6e22e>@abstractmethod</span>
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>walk</span>(self): <span style=color:#66d9ef>pass</span>
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Duck</span>(IDuck):
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>quack</span>(self): print(<span style=color:#e6db74>&#39;Quack!&#39;</span>)
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>walk</span>(self): print(<span style=color:#e6db74>&#39;Walks like duck.&#39;</span>)
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RoboticDuck</span>(IDuck):
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>quack</span>(self): print(<span style=color:#e6db74>&#39;Quack!&#39;</span>)
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>walk</span>(self): print(<span style=color:#e6db74>&#39;Walks like duck.&#39;</span>)
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>poke</span>(duck):
+    <span style=color:#66d9ef>assert</span> isinstance(duck, IDuck)
+</code></pre></div><p>Great. And if we don&rsquo;t control the types, we can always write adapters.</p>
+<h2 id=the-duck-test>The Duck Test</h2>
+<p>But this is Python. We can do better.</p>
+<p>As we know, Python uses duck-typing. So we should be able to use the <a href=https://en.wikipedia.org/wiki/Duck_test>Duck Test</a> for types. In our example, every object implementing <code>quack()</code> and <code>walk()</code> is a duck. That&rsquo;s easy enough to check.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>is_a_duck</span>(duck):
+    <span style=color:#66d9ef>for</span> attr <span style=color:#f92672>in</span> (<span style=color:#e6db74>&#39;quack&#39;</span>, <span style=color:#e6db74>&#39;walk&#39;</span>):
+        <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> hasattr(duck, attr):
+            <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>False</span>
+    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>True</span>
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>poke</span>(duck):
+    <span style=color:#66d9ef>assert</span> is_a_duck(duck)
+    duck<span style=color:#f92672>.</span>quack()
+    duck<span style=color:#f92672>.</span>walk()
+</code></pre></div><p>This works. But we list the <code>isinstance(...)</code> call. We can surely do better.</p>
+<h2 id=metaclasses--subclass-hooks>Metaclasses & Subclass Hooks</h2>
+<p>Metaclasses are wonderful constructs. As their name may suggest, they take part in the construction of classes. They even allow us to set hooks into basic Python mechanisms, like <code>isinstance(...)</code>, using <a href=https://docs.python.org/3/library/abc.html#abc.ABCMeta.__subclasshook__><code>__subclasshook__</code></a>.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> abc <span style=color:#f92672>import</span> ABC
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>is_a_duck</span>(duck):
+    <span style=color:#66d9ef>for</span> attr <span style=color:#f92672>in</span> (<span style=color:#e6db74>&#39;quack&#39;</span>, <span style=color:#e6db74>&#39;walk&#39;</span>):
+        <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> hasattr(duck, attr):
+            <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>False</span>
+    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>True</span>
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>DuckChecker</span>(ABC):
+    <span style=color:#a6e22e>@classmethod</span>
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>__subclasshook__</span>(cls, C):
+        <span style=color:#66d9ef>if</span> cls <span style=color:#f92672>is</span> <span style=color:#f92672>not</span> DuckChecker:
+            <span style=color:#66d9ef>return</span> NotImplemented
+        <span style=color:#66d9ef>return</span> is_a_duck(C)
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>poke</span>(duck):
+    <span style=color:#66d9ef>assert</span> isinstance(duck, DuckChecker)
+    duck<span style=color:#f92672>.</span>quack()
+    duck<span style=color:#f92672>.</span>walk()
+</code></pre></div><p>And we&rsquo;re back in business. That said, <code>is_a_duck</code> is still a stringly-typed mess, and gonna be very painful to maintain.</p>
+<p>Wouldn&rsquo;t it be nice if we could just use our <code>IDuck</code> interface to check for duck-ness?</p>
+<h2 id=abstract-methods-again>Abstract Methods, Again!</h2>
+<p>Lucky for us - we can!</p>
+<p>Among other things, the <code>ABC</code> parent class enumerates all <code>@abstractmethod</code>s and stores them in the <code>__abstractmethods__</code> member variable. This means that we can easily enumerate them in our subclass hook and check for them.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> abc <span style=color:#f92672>import</span> ABC, abstractmethod
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>IDuck</span>(ABC):
+    <span style=color:#a6e22e>@abstractmethod</span>
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>quack</span>(self): <span style=color:#66d9ef>pass</span>
+    
+    <span style=color:#a6e22e>@abstractmethod</span>
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>walk</span>(self): <span style=color:#66d9ef>pass</span>
+
+    <span style=color:#a6e22e>@classmethod</span>
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>__subclasshook__</span>(cls, C):
+        <span style=color:#66d9ef>if</span> cls <span style=color:#f92672>is</span> <span style=color:#f92672>not</span> IDuck:
+            <span style=color:#66d9ef>return</span> NotImplemented
+        <span style=color:#66d9ef>for</span> attr <span style=color:#f92672>in</span> cls<span style=color:#f92672>.</span>__abstractmethods__:
+            <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> hasattr(C, attr):
+                <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>False</span>
+        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>True</span>
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Duck</span>:
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>quack</span>(self): print(<span style=color:#e6db74>&#39;Quack!&#39;</span>)
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>walk</span>(self): print(<span style=color:#e6db74>&#39;Walks like a duck.&#39;</span>)
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>poke</span>(duck):
+    <span style=color:#66d9ef>assert</span> isinstance(duck, IDuck)
+    duck<span style=color:#f92672>.</span>quack()
+    duck<span style=color:#f92672>.</span>walk()
+
+poke(Duck())  <span style=color:#75715e># Quack!</span>
+              <span style=color:#75715e># Walks like a duck.</span>
+</code></pre></div><p>Awesome. Next step - separating the interface from the checking logic.</p>
+<h2 id=protocols>Protocols</h2>
+<p>Reading through Python documentation and nomenclature, you might have seen the term &ldquo;protocol&rdquo; here and there. It is Python&rsquo;s way to call duck-typed interfaces. So you could say we just created a &ldquo;protocol checker&rdquo;. Now, we can separate it into a base-class.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> abc <span style=color:#f92672>import</span> ABC, abstractmethod
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Protocol</span>(ABC):
+    _is_protocol <span style=color:#f92672>=</span> <span style=color:#66d9ef>True</span>
+    <span style=color:#a6e22e>@classmethod</span>
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>__subclasshook__</span>(cls, C):
+        <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> cls<span style=color:#f92672>.</span>_is_protocol:
+            <span style=color:#66d9ef>return</span> NotImplemented
+        <span style=color:#66d9ef>for</span> attr <span style=color:#f92672>in</span> cls<span style=color:#f92672>.</span>__abstractmethods__:
+            <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> hasattr(C, attr):
+                <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>False</span>
+        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>True</span>
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>IDuck</span>(Protocol):
+    <span style=color:#a6e22e>@abstractmethod</span>
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>quack</span>(self): <span style=color:#66d9ef>pass</span>
+    
+    <span style=color:#a6e22e>@abstractmethod</span>
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>walk</span>(self): <span style=color:#66d9ef>pass</span>
+</code></pre></div><p>And that&rsquo;s it. That little <code>_is_protocol</code> flag is there for good reason. Usually, we&rsquo;d check protocol-ness using <code>isinstance(...)</code>. In this case, however, we&rsquo;re hooking into that mechanism and that would lead to infinite recursion.</p>
+<p>We can now use our <code>Protocol</code> base-class freely to create new protocols as we need them, with friendly interface-like syntax. We&rsquo;re almost done.</p>
+<h2 id=this-dog-is-a-duck>This Dog is a Duck</h2>
+<p>In some cases, the protocol checks may not be what we want. The obvious reasons coming to mind are:</p>
+<ol>
+<li>We can&rsquo;t really check the desired semantics using the protocol trick.</li>
+<li>We want to wreck havoc.</li>
+</ol>
+<p>For those cases (well, mostly for the first one) the <code>ABC</code> base class provides another trick. Instead of defining <code>__subclasshook__</code> to check the interface, we can simple register classes as valid, &ldquo;virtual subclasses&rdquo;.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> abc <span style=color:#f92672>import</span> ABC
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>IDuck</span>(ABC): <span style=color:#66d9ef>pass</span>
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Duck</span>:
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>quack</span>(self): print(<span style=color:#e6db74>&#39;Quack!&#39;</span>)
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>walk</span>(self): print(<span style=color:#e6db74>&#39;Walk like a duck.&#39;</span>)
+
+IDuck<span style=color:#f92672>.</span>register(Duck)
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>poke</span>(duck):
+    <span style=color:#66d9ef>assert</span> isinstance(duck, IDuck)
+    duck<span style=color:#f92672>.</span>quack()
+    duck<span style=color:#f92672>.</span>walk()
+</code></pre></div><p>Remember that this method puts all the pressure on the programmer. Writing <code>IDuck.register(Dog)</code> is the equivalent of saying &ldquo;I vouch for this dog to be a duck&rdquo;. It might pass inspection, but won&rsquo;t necessarily yield the desired results.</p>
+<h2 id=summary>Summary</h2>
+<p>In this article we covered multiple ways of checking the &ldquo;duck-ness&rdquo; of objects. From belonging to the Anas genus, to just placing a sticker on their head saying &ldquo;Duck!&rdquo;. Some of those methods are more useful or applicable than others, but I still think it worthwhile to be familiar with all of them. Additionally, there are many topics not covered here, like static type checking.</p>
+<h3 id=further-reading>Further Reading</h3>
+<p>The metaclass techniques demonstrated here are simplified versions of code from the <a href=https://docs.python.org/3/library/abc.html><code>abc</code></a> and <a href=https://docs.python.org/3/library/typing.html><code>typing</code></a> modules. I highly recommend going through those modules and their respective docs, at least at a glance, to extend your knowledge and cover up any holes left by my hand-wavy explanation.</p>
+</article>
+<section class=post-nav>
+<ul>
+<li>
+<a href=https://www.example.org/posts/working-across-timezones/><i class="fa fa-chevron-circle-left"></i> Working Across Time-Zones</a>
+</li>
+<li>
+<a href=https://www.example.org/posts/snake-eyes-scopes-and-iife/>Snake Eyes: Scopes and IIFE <i class="fa fa-chevron-circle-right"></i> </a>
+</li>
+</ul>
+</section>
+</main>
+<footer>
+<ul>
+<li>
+<h6>Copyright © 2021 - Tamir Bahar |
+Rendered by <a href=https://gohugo.io title=Hugo>Hugo</a> |
+<a href=https://www.example.org/index.xml>Subscribe </a></h6>
+</li>
+</ul>
+</footer>
+</div>
+<script src=https://www.example.org/js/scripts.js></script>
+</body>
+</html>

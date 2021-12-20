@@ -1,0 +1,277 @@
+<!doctype html><html lang=en>
+<head>
+<title>Snake Eyes: Extension Methods - tamir.dev</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Kiera: A Hugo theme for creative and technical writing.">
+<meta name=author content="Tamir Bahar"><meta property="og:title" content="Snake Eyes: Extension Methods">
+<meta property="og:description" content="Implementing Extension-Methods in Python">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.example.org/posts/snake-eyes-extension-methods/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2020-03-06T00:00:00+00:00">
+<meta property="article:modified_time" content="2020-03-06T00:00:00+00:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Snake Eyes: Extension Methods">
+<meta name=twitter:description content="Implementing Extension-Methods in Python">
+<meta name=generator content="Hugo 0.89.0">
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin=anonymous>
+<link rel=stylesheet href=https://www.example.org/fontawesome/css/all.min.css>
+<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda">
+<link rel=stylesheet type=text/css href=https://www.example.org/css/styles.css></head>
+<body>
+<div id=container>
+<header>
+<h1>
+<a href=https://www.example.org/>tamir.dev</a>
+</h1>
+<ul id=social-media>
+<li>
+<a href=https://github.com/tmr232 title=GitHub>
+<i class="fab fa-github fa-lg"></i>
+</a>
+</li>
+<li>
+<a href=https://twitter.com/tmr232 title=Twitter>
+<i class="fab fa-twitter fa-lg"></i>
+</a>
+</li>
+<li>
+<a href=https://stackoverflow.com/tmr232 title=StackOverflow>
+<i class="fab fa-stack-overflow fa-lg"></i>
+</a>
+</li>
+<li>
+<a href=https://dev.to/tmr232 title=devto>
+<i class="fab fa-dev fa-lg"></i>
+</a>
+</li>
+</ul>
+<p><em>A Hugo theme for creative and technical writing</em></p>
+</header>
+<nav>
+<ul>
+</ul>
+</nav>
+<main>
+<article>
+<h1>Snake Eyes: Extension Methods</h1>
+<aside>
+<ul>
+<li>
+<time class=post-date datetime=2020-03-06T00:00:00Z>Mar 6, 2020</time>
+</li>
+<li>
+<em>
+<a href=https://www.example.org/tags/python>#python</a>
+,
+<a href=https://www.example.org/tags/kotlin>#kotlin</a>
+,
+<a href=https://www.example.org/tags/misguided>#misguided</a>
+</em>
+</li>
+<li>8 minute read</li>
+</ul>
+</aside>
+<p>Today we set out to implement a feature I saw and liked in Kotlin - <a href=https://kotlinlang.org/docs/reference/extensions.html>Extension Methods</a>.</p>
+<p>You can follow along with working code samples <a href=https://repl.it/@TamirBahar/python-extension-methods>here</a>, or get the code <a href=https://github.com/tmr232/python-extension-methods>here</a></p>
+<p>Extension methods are a nice piece of syntactic-sugar that allow you to define free-functions and call them like instance methods. In Kotlin, it looks something like this:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-kotlin data-lang=kotlin><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>Square</span>.draw() {
+    drawSquare(<span style=color:#66d9ef>this</span>)
+}
+
+<span style=color:#75715e>// ...
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>val</span> square = getSquare()
+square.draw()
+</code></pre></div><p>Now, since they are free, static functions, they follow the same rules. They are not part of the class, nor have access to private members. And they can only be called in a scope where they are visible. Adding them in your code does not affect other code. Additionally, true member functions, if they exist, take precedence over extension methods (this is especially important with generic extension methods).</p>
+<p>In our code today, we&rsquo;ll try to mimic the features of extension methods as closely as possible. We&rsquo;ll use the following syntax:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#a6e22e>@extend</span>(Square)
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>draw</span>(square):
+    draw_square(square)
+</code></pre></div><p>For extension methods, and the following implementation of <code>Square</code> in our code throughout:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> dataclasses <span style=color:#f92672>import</span> dataclass
+
+<span style=color:#a6e22e>@dataclass</span>
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Square</span>:
+    length: int
+</code></pre></div><h2 id=monkey-patching->Monkey Patching 🙈</h2>
+<p>Python is a very dynamic language. Among other things, it allows us to change the attributes of (non-builtin) types at run-time. This means that we can extend our <code>Square</code> class by adding a <code>draw</code> method to it at run-time.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>Square<span style=color:#f92672>.</span>draw <span style=color:#f92672>=</span> draw_square
+</code></pre></div><p>We&rsquo;re now free to call <code>square.draw()</code>. Before we discuss the draw-backs, let&rsquo;s implement it with the syntax we defined:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>monkey_extend</span>(cls):
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_decorator</span>(f):
+        setattr(cls, f<span style=color:#f92672>.</span>__name__, f)
+    <span style=color:#66d9ef>return</span> _decorator
+
+<span style=color:#a6e22e>@monkey_extend</span>(Square)
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>draw</span>(square):
+    draw_square(square)
+</code></pre></div><p>Let&rsquo;s go over this. <code>monkey_extend</code> is a decorator with arguments. This is a common pattern where we use a decorator factory (<code>monkey_extend</code>) to create a new decorator (<code>_decorator</code>) as a closure, giving it access to the parameters passed to the factory (<code>cls</code>). Then, in the core of the decorator, we use <code>setattr</code> to do our monkey-patching.</p>
+<p>While this works, it has several issues:</p>
+<ol>
+<li>Scope - once set, it can be used with any <code>Square</code> in any scope</li>
+<li>Precedence - it will override any existing <code>Square.draw</code></li>
+</ol>
+<p>Dealing with precedence is easy (using <code>hasattr</code> to check for existing <code>.draw</code>) so we&rsquo;ll focus on the scoping first.</p>
+<h2 id=dynamic-attribute-lookup->Dynamic Attribute Lookup ✨</h2>
+<p>The first thing we know is that we need our new attribute to be there in some cases, and be gone in others - we need dynamic resolution. To do that, we&rsquo;ll use <a href=https://docs.python.org/3/reference/datamodel.html#object.__getattr__><code>__getattr__</code></a>. In Python classes, <code>__getattr__</code> is used in attribute lookup as a last resort, called when the other ways of looking up attributes came up empty. We&rsquo;ll write our <code>__getattr__</code> along the following lines:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>my_getattr</span>(obj, name):
+    <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> has_extension(obj, name):
+        <span style=color:#66d9ef>raise</span> <span style=color:#a6e22e>AttributeError</span>()
+    <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> is_in_scope(name):
+        <span style=color:#66d9ef>raise</span> <span style=color:#a6e22e>AttributeError</span>()
+    <span style=color:#66d9ef>return</span> our_extension
+</code></pre></div><p>The first check, <code>has_extension</code>, is basically checking whether the name we got matches the name of our extension method. Nothing to elaborate yet. Scoping, once again, remains the trickier part.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> functools
+<span style=color:#f92672>import</span> inspect
+<span style=color:#f92672>from</span> collections <span style=color:#f92672>import</span> ChainMap
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>scoped_extend</span>(cls):
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_decorator</span>(f):
+        <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_getattr</span>(obj, name):
+            <span style=color:#75715e># (2)</span>
+            <span style=color:#66d9ef>if</span> name <span style=color:#f92672>!=</span> f<span style=color:#f92672>.</span>__name__:
+                <span style=color:#66d9ef>raise</span> <span style=color:#a6e22e>AttributeError</span>()
+
+            <span style=color:#75715e># (3)</span>
+            frame <span style=color:#f92672>=</span> inspect<span style=color:#f92672>.</span>stack()[<span style=color:#ae81ff>1</span>]<span style=color:#f92672>.</span>frame
+            scope <span style=color:#f92672>=</span> ChainMap(frame<span style=color:#f92672>.</span>f_locals, frame<span style=color:#f92672>.</span>f_globals)
+            <span style=color:#66d9ef>if</span> scope<span style=color:#f92672>.</span>get(f<span style=color:#f92672>.</span>__name__) <span style=color:#f92672>==</span> f:
+                <span style=color:#66d9ef>raise</span> <span style=color:#a6e22e>AttributeError</span>()
+            
+            <span style=color:#75715e># (4)</span>
+            <span style=color:#66d9ef>return</span> functools<span style=color:#f92672>.</span>partial(f, obj)
+    
+        <span style=color:#75715e># (1)</span>
+        cls<span style=color:#f92672>.</span>__getattr__ <span style=color:#f92672>=</span> _getattr
+        <span style=color:#66d9ef>return</span> f
+
+    <span style=color:#66d9ef>return</span> _decorator
+</code></pre></div><p>This is a bit much, so we&rsquo;ll go over it in detail.</p>
+<p>As a basis, we used the same decorator-with-parameters pattern here. We have <code>scoped_extend</code> take the class we want to extend, then return <code>_decorator</code> to get the job done. But instead of setting the attribute we want to extend, we monkey-patch <code>cls</code>&rsquo;s <code>__getattr__</code> to our implementation (See <strong>(1)</strong>). This will override any existing implementation of <code>__getattr__</code>, but we&rsquo;ll get to that later. For now, we&rsquo;ll focus on our implementation of <code>__getattr__</code>.</p>
+<p>In <strong>(2)</strong> we implemented <code>has_extnesion</code> - we simply compare the name we got to the name of our extension method. Then, in <strong>(3)</strong>, comes some Python magic. Python allows us to inspect the running program, to see where we were called from and what variables were in scope in that code. To do that, we use the <a href=https://docs.python.org/3/library/inspect.html><code>inspect</code></a> module. We use <code>inspect.stack()</code> to get the call-stack for the current execution, then access the second frame (<code>[1]</code>) to get our caller. This will be where <code>getattr(obj, name)</code> is invoked or <code>obj.name</code> is used. We use <code>.frame</code> to get the execution frame, and <code>.f_locals</code> and <code>f_globals</code> to get the local and global variables available in that scope. They are equivalent to calling <code>globals()</code> or <code>locals()</code> in the relevant frame.</p>
+<p>With the scope at hand, we perform a lookup to see whether the extension method we defined is in that scope. To make sure we have our extension method, we get it by name, then ensure that it is truly our method.</p>
+<p>Finally, in <strong>(4)</strong>, when we know our method should be active, we bind it to the instance of the extended class and return it.</p>
+<h3 id=better-scoping>Better Scoping</h3>
+<p>While our scope retrieval code works, it&rsquo;s better to put it in a function rather than use it inline:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_is_in_scope</span>(name, value):
+    frame <span style=color:#f92672>=</span> inspect<span style=color:#f92672>.</span>stack()[<span style=color:#ae81ff>2</span>]<span style=color:#f92672>.</span>frame
+    <span style=color:#66d9ef>return</span> ChainMap(frame<span style=color:#f92672>.</span>f_locals, frame<span style=color:#f92672>.</span>f_globals)<span style=color:#f92672>.</span>get(name) <span style=color:#f92672>==</span> value
+</code></pre></div><p>But, oh, we have to increment the stack index to <code>2</code> since we&rsquo;re deeper in the callstack. This is risky. Instead, we&rsquo;ll use the following trick to get the frame:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_get_first_external_stack_frame</span>():
+    <span style=color:#66d9ef>for</span> frameinfo <span style=color:#f92672>in</span> inspect<span style=color:#f92672>.</span>stack():
+        <span style=color:#66d9ef>if</span> frameinfo<span style=color:#f92672>.</span>filename <span style=color:#f92672>==</span> __file__:
+            <span style=color:#66d9ef>continue</span>
+        <span style=color:#66d9ef>return</span> frameinfo<span style=color:#f92672>.</span>frame
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_is_in_scope</span>(name, value):
+    frame <span style=color:#f92672>=</span> _get_first_external_stack_frame()
+    <span style=color:#66d9ef>return</span> ChainMap(frame<span style=color:#f92672>.</span>f_locals, frame<span style=color:#f92672>.</span>f_globals)<span style=color:#f92672>.</span>get(name) <span style=color:#f92672>==</span> value
+</code></pre></div><p>Instead of counting the frames in our code, changing them with every change - we&rsquo;ll use the module system. We know that all of our scaffolding is in the same module, but the usage is not. This allows us to easily traverse the stack until we find code that does not belong in our module. <em>That</em> is our calling code.</p>
+<p>Since you&rsquo;re probably wondering - yes. You need to change <code>_get_first_external_stack_frame()</code> if you want to put it in a different module. Implementing it is left as an exercise to the reader.</p>
+<h2 id=preserving-__getattr__>Preserving <code>__getattr__</code></h2>
+<p>As mentioned before, our current implementation overrides any existing <code>__getattr__</code> function for the class. Lucky for us, fixing it is easy:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>no_override_extend</span>(cls):
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_decorator</span>(f):
+        <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_default</span>(_obj, _name):
+            <span style=color:#66d9ef>raise</span> <span style=color:#a6e22e>AttributeError</span>()
+
+        original_getattr <span style=color:#f92672>=</span> getattr(cls, <span style=color:#e6db74>&#39;__getattr__&#39;</span>, _default)
+
+        <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_getattr</span>(obj, name):
+            <span style=color:#66d9ef>with</span> suppress(<span style=color:#a6e22e>AttributeError</span>):
+                <span style=color:#66d9ef>return</span> original_getattr(obj, name)
+
+            <span style=color:#66d9ef>if</span> name <span style=color:#f92672>!=</span> f<span style=color:#f92672>.</span>__name__:
+                <span style=color:#66d9ef>raise</span> <span style=color:#a6e22e>AttributeError</span>()
+
+            <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> _is_in_scope(f):
+                <span style=color:#66d9ef>raise</span> <span style=color:#a6e22e>AttributeError</span>()
+
+            <span style=color:#66d9ef>return</span> functools<span style=color:#f92672>.</span>partial(f, obj)
+
+        cls<span style=color:#f92672>.</span>__getattr__ <span style=color:#f92672>=</span> _getattr
+        <span style=color:#66d9ef>return</span> f
+
+    <span style=color:#66d9ef>return</span> _decorator
+</code></pre></div><p>In <strong>(1)</strong> we get the original <code>__getattr__</code> method, to be stored for later usage. We use the <code>_default</code> function to avoid an extra <code>if</code> later. In <strong>(2)</strong> we use the saved <code>__getattr__</code>, making sure that we only proceed to our code if it raised an <code>AttributeError</code> exception.</p>
+<h2 id=interlude->Interlude 🐍</h2>
+<p>With <code>no_override_extend</code> we have our first &ldquo;to-spec&rdquo; implementation of extension methods. We have both scoping and precedence down. It is time to celebrate and rest. But our quest is not done yet.</p>
+<p>While our code works well for a proof-of-concept, there are still significant usability issues with it. Since the extension methods we create have nice and clean names, it is likely that we&rsquo;ll want to use those names for other things. Unfortunately, once we do that, we&rsquo;ll override the existing extension methods and they will no longer work:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#a6e22e>@extend</span>(Square)
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>draw</span>(square):
+    draw_square(square)
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>draw</span>():
+    print(<span style=color:#e6db74>&#34;Drawing is awesome!&#34;</span>)
+
+<span style=color:#75715e># ...</span>
+
+square<span style=color:#f92672>.</span>draw()  <span style=color:#75715e># This will fail, as `draw` has been replaced in this scope.</span>
+</code></pre></div><h2 id=indirection->Indirection 🔀</h2>
+<p>The <a href=https://en.wikipedia.org/wiki/Fundamental_theorem_of_software_engineering>Fundemental Theorem of Software Engineering (FTSE)</a> says that any problem can be solved by adding another level of indirection. Let&rsquo;s see how this applies to our problem.</p>
+<p>As mentioned in the interlude, our main issue is that of naming. Our extension method is bound to a name, and that name can be overriden in the scope that defines it. If that happens, we lose our extension method. To solve that, we&rsquo;ll add another level of indirection - a scope that can safely hold our extension methods and protect them from being overriden. If you read our <a href=https://www.example.org/posts/snake-eyes-scopes-and-iife>previous post</a> you might recall that classes are wonderful for scopes. So we&rsquo;ll use a class.</p>
+<p>Our new syntax will look like this:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#a6e22e>@extension</span>
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ExtensionMethods</span>(Square):
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>draw</span>(self):
+        draw_square(self)
+</code></pre></div><p>While we&rsquo;re still using a decorator, you may notice that it takes no parameters. Instead, we use the extended type as the base type for our extension class. This allows us to write the extensions like any other subclass, with standard Python syntax, and then use the decorator to install the extensions in it.</p>
+<p>Since we&rsquo;ve already gone over the principles behind the construction of the decorator, let&rsquo;s jump straight to the code and focus on the differences from the previous version:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>extension</span>(scope_cls):
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_default</span>(_obj, _name):
+        <span style=color:#66d9ef>raise</span> <span style=color:#a6e22e>AttributeError</span>()
+    
+    <span style=color:#75715e># (1)</span>
+    cls <span style=color:#f92672>=</span> scope_cls<span style=color:#f92672>.</span>__base__
+    original_getattr <span style=color:#f92672>=</span> getattr(cls, <span style=color:#e6db74>&#39;__getattr__&#39;</span>, _default)
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_getattr</span>(obj, name):
+        <span style=color:#66d9ef>with</span> suppress(<span style=color:#a6e22e>AttributeError</span>):
+            <span style=color:#66d9ef>return</span> original_getattr(obj, name)
+
+        <span style=color:#75715e># (2)</span>
+        <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> hasattr(scope_cls, name):
+            <span style=color:#66d9ef>raise</span> <span style=color:#a6e22e>AttributeError</span>()
+
+        <span style=color:#75715e># (3)</span>
+        <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> _is_in_scope(scope_cls):
+            <span style=color:#66d9ef>raise</span> <span style=color:#a6e22e>AttributeError</span>()
+
+        <span style=color:#75715e># (4)</span>
+        f <span style=color:#f92672>=</span> getattr(scope_cls, name)
+
+        <span style=color:#66d9ef>return</span> functools<span style=color:#f92672>.</span>partial(f, obj)
+
+    cls<span style=color:#f92672>.</span>__getattr__ <span style=color:#f92672>=</span> _getattr
+
+    <span style=color:#66d9ef>return</span> scope_cls
+</code></pre></div><p>First, you can see that there is no nested decorator - only the main one. And, as we mentioned before, we use inheritance to indicate which type we&rsquo;re extending. So in <strong>(1)</strong> we access the base-class of our extension class to get the class we&rsquo;re extending. Then, in <strong>(2)</strong> we check whether the requested attribute exists in our extension class. As you can see, the changes are pretty simple and straight-forward. In <strong>(3)</strong> we make the most important change - we check for the extension class in the scope, not the extension methods. This is the core of this change! And lastly, in <strong>(4)</strong>, we get the required attribute from out extension class.</p>
+<p>And with that, we&rsquo;re done.</p>
+<h2 id=final-words>Final Words</h2>
+<p>I hope you enjoyed this article. Regardless of that, I hope you never use it in production code.</p>
+</article>
+<section class=post-nav>
+<ul>
+<li>
+<a href=https://www.example.org/posts/snake-eyes-scopes-and-iife/><i class="fa fa-chevron-circle-left"></i> Snake Eyes: Scopes and IIFE</a>
+</li>
+<li>
+<a href=https://www.example.org/posts/til-python-attribute-lookup-order-is-tricky/>TIL Python attribute lookup order is tricky <i class="fa fa-chevron-circle-right"></i> </a>
+</li>
+</ul>
+</section>
+</main>
+<footer>
+<ul>
+<li>
+<h6>Copyright © 2021 - Tamir Bahar |
+Rendered by <a href=https://gohugo.io title=Hugo>Hugo</a> |
+<a href=https://www.example.org/index.xml>Subscribe </a></h6>
+</li>
+</ul>
+</footer>
+</div>
+<script src=https://www.example.org/js/scripts.js></script>
+</body>
+</html>
