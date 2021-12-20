@@ -1,4 +1,4 @@
-baseurl = "https://tmr232.github.io/blog/"
+baseurl = "https://www.tamir.dev/"
 title = "tamir.dev"
 copyright = "Copyright &copy; 2021 - Tamir Bahar"
 canonifyurls = true
@@ -17,7 +17,7 @@ pygmentsCodeFences = true
     name = "Tamir Bahar"
     github = "tmr232"
     twitter = "tmr232"
-    stackoverflow = "tmr232"
+    stackoverflow = "users/3337893/tmr232"
     devto = "tmr232"
 
 [params]

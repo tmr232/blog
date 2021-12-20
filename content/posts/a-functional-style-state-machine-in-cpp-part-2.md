@@ -15,7 +15,7 @@ So now, months later, I present this humble offering to the Gods of C++ and temp
 
 ## Generalizing
 
-In [Part 1](a-functional-style-state-machine-in-cpp) we created our `State` or `SelfReturning` class (provided below for reference). It works, but as you can see - required modifications whenever we change the function arguments or return types.
+In [Part 1]({{< relref a-functional-style-state-machine-in-cpp >}}) we created our `State` or `SelfReturning` class (provided below for reference). It works, but as you can see - required modifications whenever we change the function arguments or return types.
 
 [Compilation](https://godbolt.org/g/1XqEhY)
 ```c++
