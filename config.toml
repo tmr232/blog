@@ -1,4 +1,4 @@
-baseurl = "https://www.tamir.dev/"
+baseurl = "https://blog.tamir.dev/"
 title = "tamir.dev"
 copyright = "Copyright &copy; 2021 - Tamir Bahar"
 canonifyurls = true
