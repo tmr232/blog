@@ -7,7 +7,7 @@
 <meta name=author content="Tamir Bahar"><meta property="og:title" content="A Functional-Style State Machine in C++">
 <meta property="og:description" content="It turns out that C++'s type-system does not allow for recursive types. This is annoying. There is no reason why a function should not be able to return itself.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://www.tamir.dev/posts/a-functional-style-state-machine-in-cpp/"><meta property="article:section" content="posts">
+<meta property="og:url" content="https://blog.tamir.dev/posts/a-functional-style-state-machine-in-cpp/"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2017-05-26T00:00:00+00:00">
 <meta property="article:modified_time" content="2017-05-26T00:00:00+00:00">
 <meta name=twitter:card content="summary">
@@ -15,14 +15,14 @@
 <meta name=twitter:description content="It turns out that C++'s type-system does not allow for recursive types. This is annoying. There is no reason why a function should not be able to return itself.">
 <meta name=generator content="Hugo 0.89.0">
 <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin=anonymous>
-<link rel=stylesheet href=https://www.tamir.dev/fontawesome/css/all.min.css>
+<link rel=stylesheet href=https://blog.tamir.dev/fontawesome/css/all.min.css>
 <link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda">
-<link rel=stylesheet type=text/css href=https://www.tamir.dev/css/styles.css></head>
+<link rel=stylesheet type=text/css href=https://blog.tamir.dev/css/styles.css></head>
 <body>
 <div id=container>
 <header>
 <h1>
-<a href=https://www.tamir.dev/>tamir.dev</a>
+<a href=https://blog.tamir.dev/>tamir.dev</a>
 </h1>
 <ul id=social-media>
 <li>
@@ -108,7 +108,7 @@ As a bonus, this compiles identical to the <code>reinterpret_cast&lt;void*></cod
 <p>But why is that interesting? What are the use-cases?</p>
 <p>Well, during the last few months, I&rsquo;ve routinely consumed one programming-related talk per day. I find it a great way to expand my knowledge, and far easier to do than reading an article every day.</p>
 <p>Last week, while working on some minor state-machine, I came across <a href=https://youtu.be/nrVIlhtoE3Y>Declarative Thinking, Declarative Practice</a> by <a href=https://twitter.com/KevlinHenney>Kevlin Henney</a>. Upon seeing <a href="https://youtu.be/nrVIlhtoE3Y?t=1h17m3s">this slide</a>:</p>
-<p><img src=https://www.tamir.dev/images/state-machine-kevlin-henney.png alt></p>
+<p><img src=https://blog.tamir.dev/images/state-machine-kevlin-henney.png alt></p>
 <p>I thought - bare functions instead of the State design pattern? I have to try that! So I went ahead and wrote my code, iterating through the steps described above.
 At a quick glance, the functor solution may seem satisfying. But in effect functors, unlike functions, have different types and cannot be assigned to the same variable. To bridge the gap, we use an abstract base-class and polymorphism. Once we do that, we are forced to use pointers to hold the states. I use <code>std::unique_ptr</code> as I don&rsquo;t want to manage the memory myself.</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C++ data-lang=C++><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;memory&gt;</span><span style=color:#75715e>
@@ -271,15 +271,15 @@ State<span style=color:#f92672>::</span>RetType B(<span style=color:#66d9ef>cons
 }
 
 </code></pre></div><p>And that&rsquo;s it. We have a state machine based on pure-, bare-functions, in C++. It has a nice, simple look to it and as we&rsquo;ve seen, compiles into far simpler code than the alternatives. On the way, we&rsquo;ve also learned a bit about C++&rsquo;s type system and how to use objects to overcome its limitations.
-In the <a href=https://www.tamir.dev/posts/a-functional-style-state-machine-in-cpp-part-2>next post</a> (<del><em>soon to be populated</em></del> <em>now online!</em>) I will show some exciting (read: never use in production) dark template magic to both generalize the <code>State</code> object and to get some compile-time guarantees. Stay tuned!</p>
+In the <a href=https://blog.tamir.dev/posts/a-functional-style-state-machine-in-cpp-part-2>next post</a> (<del><em>soon to be populated</em></del> <em>now online!</em>) I will show some exciting (read: never use in production) dark template magic to both generalize the <code>State</code> object and to get some compile-time guarantees. Stay tuned!</p>
 </article>
 <section class=post-nav>
 <ul>
 <li>
-<a href=https://www.tamir.dev/posts/the-windows-cli-sucks-and-thats-good/><i class="fa fa-chevron-circle-left"></i> The Windows CLI sucks, and that's good.</a>
+<a href=https://blog.tamir.dev/posts/the-windows-cli-sucks-and-thats-good/><i class="fa fa-chevron-circle-left"></i> The Windows CLI sucks, and that's good.</a>
 </li>
 <li>
-<a href=https://www.tamir.dev/posts/that-overloaded-trick-overloading-lambdas-in-cpp17/>That `overloaded` Trick: Overloading Lambdas in C++17 <i class="fa fa-chevron-circle-right"></i> </a>
+<a href=https://blog.tamir.dev/posts/that-overloaded-trick-overloading-lambdas-in-cpp17/>That `overloaded` Trick: Overloading Lambdas in C++17 <i class="fa fa-chevron-circle-right"></i> </a>
 </li>
 </ul>
 </section>
@@ -289,11 +289,11 @@ In the <a href=https://www.tamir.dev/posts/a-functional-style-state-machine-in-c
 <li>
 <h6>Copyright © 2021 - Tamir Bahar |
 Rendered by <a href=https://gohugo.io title=Hugo>Hugo</a> |
-<a href=https://www.tamir.dev/index.xml>Subscribe </a></h6>
+<a href=https://blog.tamir.dev/index.xml>Subscribe </a></h6>
 </li>
 </ul>
 </footer>
 </div>
-<script src=https://www.tamir.dev/js/scripts.js></script>
+<script src=https://blog.tamir.dev/js/scripts.js></script>
 </body>
 </html>
