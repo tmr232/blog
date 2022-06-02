@@ -1,0 +1,250 @@
+<!doctype html><html lang=en>
+<head>
+<title>Raising Goats - tamir.dev</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="The HTML5 Herald">
+<meta name=author content="Tamir Bahar"><meta property="og:title" content="Raising Goats">
+<meta property="og:description" content="Experimenting with CLI interfaces in Go">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.tamir.dev/posts/goat-codegen-initial/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-06-02T00:00:00+00:00">
+<meta property="article:modified_time" content="2022-06-02T00:00:00+00:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Raising Goats">
+<meta name=twitter:description content="Experimenting with CLI interfaces in Go">
+<meta name=generator content="Hugo 0.89.0">
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin=anonymous>
+<link rel=stylesheet href=https://blog.tamir.dev/fontawesome/css/all.min.css>
+<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda">
+<link rel=stylesheet type=text/css href=https://blog.tamir.dev/css/styles.css></head>
+<body>
+<div id=container>
+<header>
+<h1>
+<a href=https://blog.tamir.dev/>tamir.dev</a>
+</h1>
+<ul id=social-media>
+<li>
+<a href=https://github.com/tmr232 title=GitHub>
+<i class="fab fa-github fa-lg"></i>
+</a>
+</li>
+<li>
+<a href=https://twitter.com/tmr232 title=Twitter>
+<i class="fab fa-twitter fa-lg"></i>
+</a>
+</li>
+<li>
+<a href=https://stackoverflow.com/users/3337893/tmr232 title=StackOverflow>
+<i class="fab fa-stack-overflow fa-lg"></i>
+</a>
+</li>
+<li>
+<a href=https://dev.to/tmr232 title=devto>
+<i class="fab fa-dev fa-lg"></i>
+</a>
+</li>
+</ul>
+</header>
+<nav>
+<ul>
+</ul>
+</nav>
+<main>
+<article>
+<h1>Raising Goats</h1>
+<aside>
+<ul>
+<li>
+<time class=post-date datetime=2022-06-02T00:00:00Z>Jun 2, 2022</time>
+</li>
+<li>
+<em>
+<a href=https://blog.tamir.dev/tags/go>#go</a>
+,
+<a href=https://blog.tamir.dev/tags/cli>#cli</a>
+</em>
+</li>
+<li>5 minute read</li>
+</ul>
+</aside>
+<p>This is more of a sharing-my-thoughts or work-in-progress post than a technical tutorial, so be warned 😉</p>
+<h2 id=motivation>Motivation</h2>
+<p>As a Python programmer, I get to experience the joy of using <a href=https://typer.tiangolo.com/>Typer</a> when creating CLI tools.</p>
+<p>It allows for zero-boilerplate CLI apps using type annotations:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> typer
+
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>app</span>(name:str, goodbye:bool<span style=color:#f92672>=</span><span style=color:#66d9ef>False</span>):
+    <span style=color:#66d9ef>if</span> goodbye:
+        print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Goodbye, </span><span style=color:#e6db74>{</span>name<span style=color:#e6db74>}</span><span style=color:#e6db74>.&#34;</span>)
+    <span style=color:#66d9ef>else</span>:
+        print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Hello, </span><span style=color:#e6db74>{</span>name<span style=color:#e6db74>}</span><span style=color:#e6db74>!&#34;</span>)
+
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>main</span>():
+    typer<span style=color:#f92672>.</span>run(app)
+
+    
+<span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;__main__&#39;</span>:
+    main()
+</code></pre></div><p>Then, when I run it:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ python app.py --help
+Usage: app.py <span style=color:#f92672>[</span>OPTIONS<span style=color:#f92672>]</span> NAME
+
+Arguments:
+  NAME  <span style=color:#f92672>[</span>required<span style=color:#f92672>]</span>
+
+Options:
+  --goodbye / --no-goodbye        <span style=color:#f92672>[</span>default: no-goodbye<span style=color:#f92672>]</span>
+  --install-completion <span style=color:#f92672>[</span>bash|zsh|fish|powershell|pwsh<span style=color:#f92672>]</span>
+                                  Install completion <span style=color:#66d9ef>for</span> the specified shell.
+  --show-completion <span style=color:#f92672>[</span>bash|zsh|fish|powershell|pwsh<span style=color:#f92672>]</span>
+                                  Show completion <span style=color:#66d9ef>for</span> the specified shell, to
+                                  copy it or customize the installation.
+  --help                          Show this message and exit.
+
+</code></pre></div><p>As far as I&rsquo;m concerned, this is absolutely amazing.</p>
+<p>I already use type annotations quite often, so <a href=https://typer.tiangolo.com/>Typer</a> is literally zero boilerplate.</p>
+<p>In Go, however, the situation is more involved.</p>
+<p>There are multiple flag parsing libraries (<a href=https://pkg.go.dev/flag>flag</a>, <a href=https://cobra.dev/>Cobra</a>, <a href=https://cli.urfave.org/>urfave/cli</a>), but all of them require some extra code for things to work.</p>
+<p>You need to define your flags, at the very least.</p>
+<p>They are great libraries.</p>
+<p>But coming from Python - I want more. Or less, depending on how you look at it.</p>
+<p>I want the following to just work:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>app</span>(<span style=color:#a6e22e>name</span> <span style=color:#66d9ef>string</span>, <span style=color:#a6e22e>goodbye</span> <span style=color:#66d9ef>bool</span>) {
+	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>goodbye</span> {
+		<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Printf</span>(<span style=color:#e6db74>&#34;Goodbye, %s.\n&#34;</span>, <span style=color:#a6e22e>name</span>)
+	} <span style=color:#66d9ef>else</span> {
+		<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Printf</span>(<span style=color:#e6db74>&#34;Hello, %s!\n&#34;</span>, <span style=color:#a6e22e>name</span>)
+
+	}
+}
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+	<span style=color:#a6e22e>goat</span>.<span style=color:#a6e22e>Run</span>(<span style=color:#a6e22e>app</span>)
+}
+</code></pre></div><p>And&mldr; Now it does.</p>
+<h2 id=goat->Goat 🐐</h2>
+<p><a href=https://github.com/tmr232/goat>Goat</a>, or <strong>Go</strong> <strong>A</strong>pproximation of <strong>T</strong>yper, is my work-in-progress very-experimental solution to that!</p>
+<p>With goat, the code in the sample above <em>works</em>. Well, as long as you add a <code>//go:generate</code> line to it 😉</p>
+<p>You see, Go doesn&rsquo;t want you doing crazy things at compile time, or using runtime reflection,</p>
+<p>or at any place where it&rsquo;s hard for the user to look at the code and see what it actually does.</p>
+<p>That&rsquo;s great and all, but we <em>want</em> to create hacky don&rsquo;t-look-behind-the-curtain code.</p>
+<p>So, with Go being Go, we use code generation.</p>
+<h2 id=handwritten>Handwritten</h2>
+<p>Before we can generate code - we need to know what to generate.</p>
+<p>In our case (as I said - it&rsquo;s a work in progress, so we&rsquo;re being quite specific&mldr;) we need the following:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>app</span>(<span style=color:#a6e22e>name</span> <span style=color:#66d9ef>string</span>, <span style=color:#a6e22e>goodbye</span> <span style=color:#66d9ef>bool</span>) {
+	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>goodbye</span> {
+		<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Printf</span>(<span style=color:#e6db74>&#34;Goodbye, %s.\n&#34;</span>, <span style=color:#a6e22e>name</span>)
+	} <span style=color:#66d9ef>else</span> {
+		<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Printf</span>(<span style=color:#e6db74>&#34;Hello, %s!\n&#34;</span>, <span style=color:#a6e22e>name</span>)
+
+	}
+}
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>appWrapper</span>() {
+    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>name</span> <span style=color:#66d9ef>string</span>
+    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>goodbye</span> <span style=color:#66d9ef>bool</span>
+
+    <span style=color:#a6e22e>__goatApp</span> <span style=color:#f92672>:=</span> <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>cli</span>.<span style=color:#a6e22e>App</span>{
+        <span style=color:#a6e22e>Flags</span>: []<span style=color:#a6e22e>cli</span>.<span style=color:#a6e22e>Flag</span>{
+            <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>cli</span>.<span style=color:#a6e22e>StringFlag</span>{
+                <span style=color:#a6e22e>Name</span>:        <span style=color:#e6db74>&#34;name&#34;</span>,
+                <span style=color:#a6e22e>Destination</span>: <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>name</span>,
+                <span style=color:#a6e22e>Required</span>:    <span style=color:#66d9ef>true</span>,
+            },
+            <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>cli</span>.<span style=color:#a6e22e>BoolFlag</span>{
+                <span style=color:#a6e22e>Name</span>:        <span style=color:#e6db74>&#34;goodbye&#34;</span>,
+                <span style=color:#a6e22e>Destination</span>: <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>goodbye</span>,
+            },
+        },
+        <span style=color:#a6e22e>Action</span>: <span style=color:#66d9ef>func</span>(<span style=color:#a6e22e>c</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>cli</span>.<span style=color:#a6e22e>Context</span>) {
+            <span style=color:#a6e22e>app</span>(<span style=color:#a6e22e>name</span>, <span style=color:#a6e22e>goodbye</span>)
+        },
+    }
+
+    <span style=color:#a6e22e>__err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>__goatApp</span>.<span style=color:#a6e22e>Run</span>(<span style=color:#a6e22e>os</span>.<span style=color:#a6e22e>Args</span>)
+    <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>__err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+        <span style=color:#a6e22e>log</span>.<span style=color:#a6e22e>Fatal</span>(<span style=color:#a6e22e>__err</span>)
+    }
+}
+</code></pre></div><p>(here we&rsquo;re using <a href=https://cli.urfave.org/>urfave/cli</a> because it&rsquo;s the one I&rsquo;m most familiar with, and because it doesn&rsquo;t use globals.)</p>
+<h2 id=generation>Generation</h2>
+<p>To generate the code, we use the <a href=https://pkg.go.dev/golang.org/x/tools/go/packages>packages</a> package.</p>
+<p>It is the easiest interface I know to parsing complete packages and getting the relevant type information.</p>
+<p>That, in turn, allows us to get the argument information and generate the code.</p>
+<p><code>bool</code> parameters become Boolean flags, <code>string</code> parameters become string flags, and so on.</p>
+<p>To know which is the relevant &ldquo;app&rdquo;, we check the call to <code>goat.Run</code>.</p>
+<p>The code can be a bit tricky, but the logic is very straightforward.</p>
+<p>As for the physical location of the code - we create a new file in the same package (read: directory) and go handles the rest for us, as long as there are no naming conflicts.</p>
+<p>Only one issue remains - how to connect the <code>goat.Run</code> call to the <code>appWrapper</code> function.</p>
+<h2 id=plumbing>Plumbing</h2>
+<p>We currently have 3 building blocks:</p>
+<ol>
+<li><code>func app(string, bool)</code>, our application function</li>
+<li><code>func appWrapper()</code>, our generated wrapper function, using the flag parsing library</li>
+<li><code>func main()</code>, our program&rsquo;s entrypoint, calling <code>goat.Run(app)</code>.</li>
+</ol>
+<p>We need to make <code>goat.Run(app)</code> call <code>appWrapper</code> instead, somehow.</p>
+<p>The problem being - our <code>goat</code> package (where the <code>goat.Run</code> method is defined) does not know about <code>appWrapper</code>.</p>
+<p>To fix that, we&rsquo;ll introduce them.</p>
+<p>To do that, we&rsquo;ll have our app register <code>appWrapper</code> as the wrapper for <code>app</code> <em>before</em> running <code>func main()</code>.</p>
+<p>Luckily for us, Go allows for dynamic initialization using <code>func init()</code>.</p>
+<p><code>init()</code> is a special function. You can define as many as you want, and they run during initialization.</p>
+<p>That is, before <code>func main()</code>.</p>
+<p>Our generated <code>init</code> is as follows:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>init</span>() {
+    <span style=color:#a6e22e>goat</span>.<span style=color:#a6e22e>Register</span>(<span style=color:#a6e22e>app</span>, <span style=color:#a6e22e>appWrapper</span>)
+}
+</code></pre></div><p>And that&rsquo;s it.</p>
+<p>Our <code>goat</code> package is super simple as well:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#75715e>// This is our registry - mapping functions to their wrappers
+</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>registry</span> <span style=color:#66d9ef>map</span>[<span style=color:#a6e22e>reflect</span>.<span style=color:#a6e22e>Value</span>]<span style=color:#66d9ef>func</span>()
+
+<span style=color:#75715e>// We initialize it to an empty map, to prevent our code from crashing
+</span><span style=color:#75715e></span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>init</span>() {
+    <span style=color:#a6e22e>registry</span> = make(<span style=color:#66d9ef>map</span>[<span style=color:#a6e22e>reflect</span>.<span style=color:#a6e22e>Value</span>]<span style=color:#66d9ef>func</span>())
+}
+
+<span style=color:#75715e>// Register wrappers using the register function
+</span><span style=color:#75715e></span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>Register</span>(<span style=color:#a6e22e>app</span> <span style=color:#a6e22e>any</span>, <span style=color:#a6e22e>wrapper</span> <span style=color:#66d9ef>func</span>()) {
+    <span style=color:#a6e22e>registry</span>[<span style=color:#a6e22e>reflect</span>.<span style=color:#a6e22e>ValueOf</span>(<span style=color:#a6e22e>app</span>)] = <span style=color:#a6e22e>wrapper</span>
+}
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>Run</span>(<span style=color:#a6e22e>f</span> <span style=color:#a6e22e>any</span>) {
+    <span style=color:#75715e>// All that `goat.Run` has to do is lookup the wrapper and call it
+</span><span style=color:#75715e></span>    <span style=color:#a6e22e>registry</span>[<span style=color:#a6e22e>reflect</span>.<span style=color:#a6e22e>ValueOf</span>(<span style=color:#a6e22e>f</span>)]()
+}
+</code></pre></div><p>As for the <code>reflect.ValueOf</code> calls - functions in Go are not hashable, and cannot be used as map keys (that&rsquo;s a sensible choice).</p>
+<p>That said, we <em>need</em> to hash them. So as a workaround, we use reflection to query the value of the function.</p>
+<p><code>reflect.Value</code> objects <em>are</em> hashable, so it all works out in the end.</p>
+<h2 id=try-it-yourself>Try It Yourself</h2>
+<p>The code is online at [tmr232/goat][tmr232/goat].</p>
+<p>But, again, it is a work-in-progress and very experimental. It might break or change at any moment.</p>
+</article>
+<section class=post-nav>
+<ul>
+<li>
+<a href=https://blog.tamir.dev/posts/more-memory-profiling-in-python/><i class="fa fa-chevron-circle-left"></i> More Memory Profiling (in Python)</a>
+</li>
+<li>
+</li>
+</ul>
+</section>
+</main>
+<footer>
+<ul>
+<li>
+<h6>Copyright © 2021 - Tamir Bahar |
+Rendered by <a href=https://gohugo.io title=Hugo>Hugo</a> |
+<a href=https://blog.tamir.dev/index.xml>Subscribe </a></h6>
+</li>
+</ul>
+</footer>
+</div>
+<script src=https://blog.tamir.dev/js/scripts.js></script>
+</body>
+</html>
