@@ -1,5 +1,5 @@
 ---
-title: Raising Goats
+title: Goats in the command line
 published: true
 description: Experimenting with CLI interfaces in Go
 tags:
@@ -284,5 +284,4 @@ But, again, it is a work-in-progress and very experimental. It might break or ch
 [urfave/cli]: https://cli.urfave.org/
 [Goat]: https://github.com/tmr232/goat
 [packages]:https://pkg.go.dev/golang.org/x/tools/go/packages
-
 [tmr232/goat]:https://github.com/tmr232/goat
