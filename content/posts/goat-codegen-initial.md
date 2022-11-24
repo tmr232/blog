@@ -62,21 +62,15 @@ Options:
 ```
 
 As far as I'm concerned, this is absolutely amazing.
-
 I already use type annotations quite often, so [Typer][Typer] is literally zero boilerplate.
 
 
 
 In Go, however, the situation is more involved.
-
 There are multiple flag parsing libraries ([flag][go-flag], [Cobra][Cobra], [urfave/cli][urfave/cli]), but all of them require some extra code for things to work.
-
 You need to define your flags, at the very least.
-
 They are great libraries. 
-
 But coming from Python - I want more. Or less, depending on how you look at it.
-
 I want the following to just work:
 
 ```go
@@ -107,13 +101,9 @@ And... Now it does.
 With goat, the code in the sample above _works_. Well, as long as you add a `//go:generate` line to it :wink:
 
 
-
 You see, Go doesn't want you doing crazy things at compile time, or using runtime reflection,
-
 or at any place where it's hard for the user to look at the code and see what it actually does.
-
 That's great and all, but we _want_ to create hacky don't-look-behind-the-curtain code. 
-
 So, with Go being Go, we use code generation. 
 
 
@@ -121,7 +111,6 @@ So, with Go being Go, we use code generation.
 ## Handwritten
 
 Before we can generate code - we need to know what to generate. 
-
 In our case (as I said - it's a work in progress, so we're being quite specific...) we need the following:
 
 ```go
@@ -169,23 +158,18 @@ func appWrapper() {
 ## Generation
 
 To generate the code, we use the [packages][packages] package.
-
 It is the easiest interface I know to parsing complete packages and getting the relevant type information.
-
 That, in turn, allows us to get the argument information and generate the code.
 
 
 
 `bool` parameters become Boolean flags, `string` parameters become string flags, and so on. 
-
 To know which is the relevant "app", we check the call to `goat.Run`.
-
 The code can be a bit tricky, but the logic is very straightforward. 
 
 
 
 As for the physical location of the code - we create a new file in the same package (read: directory) and go handles the rest for us, as long as there are no naming conflicts. 
-
 
 
 Only one issue remains - how to connect the `goat.Run` call to the `appWrapper` function.
@@ -201,19 +185,14 @@ We currently have 3 building blocks:
 
 
 We need to make `goat.Run(app)` call `appWrapper` instead, somehow.
-
 The problem being - our `goat` package (where the `goat.Run` method is defined) does not know about `appWrapper`.
-
 To fix that, we'll introduce them.
 
 
 
 To do that, we'll have our app register `appWrapper` as the wrapper for `app` _before_ running `func main()`.
-
 Luckily for us, Go allows for dynamic initialization using `func init()`. 
-
 `init()` is a special function. You can define as many as you want, and they run during initialization.
-
 That is, before `func main()`. 
 
 
@@ -255,9 +234,7 @@ func Run(f any) {
 
 
 As for the `reflect.ValueOf` calls - functions in Go are not hashable, and cannot be used as map keys (that's a sensible choice).
-
 That said, we _need_ to hash them. So as a workaround, we use reflection to query the value of the function.
-
 `reflect.Value` objects _are_ hashable, so it all works out in the end.
 
 
