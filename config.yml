@@ -53,8 +53,8 @@ params:
 
   label:
     text: "Tamir Bahar"
-    icon: "images/pfp35px.png"
-    iconHeight: 35
+#     icon: "images/pfp35px.png"
+#     iconHeight: 35
 
 
   # home-info mode
