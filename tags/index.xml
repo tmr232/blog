@@ -2,83 +2,83 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on Tamir Bahar</title>
-    <link>https://blog.tamir.dev/tags/</link>
+    <link>https://tamir.dev/tags/</link>
     <description>Recent content in Tags on Tamir Bahar</description>
     <image>
-      <url>https://blog.tamir.dev/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>https://blog.tamir.dev/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://tamir.dev/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://tamir.dev/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 02 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.tamir.dev/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 02 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>cli</title>
-      <link>https://blog.tamir.dev/tags/cli/</link>
+      <link>https://tamir.dev/tags/cli/</link>
       <pubDate>Thu, 02 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/tags/cli/</guid>
+      <guid>https://tamir.dev/tags/cli/</guid>
       <description></description>
     </item>
     
     <item>
       <title>go</title>
-      <link>https://blog.tamir.dev/tags/go/</link>
+      <link>https://tamir.dev/tags/go/</link>
       <pubDate>Thu, 02 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/tags/go/</guid>
+      <guid>https://tamir.dev/tags/go/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kotlin</title>
-      <link>https://blog.tamir.dev/tags/kotlin/</link>
+      <link>https://tamir.dev/tags/kotlin/</link>
       <pubDate>Fri, 06 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/tags/kotlin/</guid>
+      <guid>https://tamir.dev/tags/kotlin/</guid>
       <description></description>
     </item>
     
     <item>
       <title>misguided</title>
-      <link>https://blog.tamir.dev/tags/misguided/</link>
+      <link>https://tamir.dev/tags/misguided/</link>
       <pubDate>Fri, 06 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/tags/misguided/</guid>
+      <guid>https://tamir.dev/tags/misguided/</guid>
       <description></description>
     </item>
     
     <item>
       <title>python</title>
-      <link>https://blog.tamir.dev/tags/python/</link>
+      <link>https://tamir.dev/tags/python/</link>
       <pubDate>Fri, 06 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/tags/python/</guid>
+      <guid>https://tamir.dev/tags/python/</guid>
       <description></description>
     </item>
     
     <item>
       <title>funny</title>
-      <link>https://blog.tamir.dev/tags/funny/</link>
+      <link>https://tamir.dev/tags/funny/</link>
       <pubDate>Fri, 27 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/tags/funny/</guid>
+      <guid>https://tamir.dev/tags/funny/</guid>
       <description></description>
     </item>
     
     <item>
       <title>duck-typing</title>
-      <link>https://blog.tamir.dev/tags/duck-typing/</link>
+      <link>https://tamir.dev/tags/duck-typing/</link>
       <pubDate>Sat, 13 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/tags/duck-typing/</guid>
+      <guid>https://tamir.dev/tags/duck-typing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>metaclasses</title>
-      <link>https://blog.tamir.dev/tags/metaclasses/</link>
+      <link>https://tamir.dev/tags/metaclasses/</link>
       <pubDate>Sat, 13 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/tags/metaclasses/</guid>
+      <guid>https://tamir.dev/tags/metaclasses/</guid>
       <description></description>
     </item>
     

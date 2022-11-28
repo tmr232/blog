@@ -2,57 +2,57 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tamir Bahar</title>
-    <link>https://blog.tamir.dev/</link>
+    <link>https://tamir.dev/</link>
     <description>Recent content on Tamir Bahar</description>
     <image>
-      <url>https://blog.tamir.dev/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>https://blog.tamir.dev/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://tamir.dev/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://tamir.dev/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 02 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 02 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Goats in the command line</title>
-      <link>https://blog.tamir.dev/posts/goat-codegen-initial/</link>
+      <link>https://tamir.dev/posts/goat-codegen-initial/</link>
       <pubDate>Thu, 02 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/posts/goat-codegen-initial/</guid>
+      <guid>https://tamir.dev/posts/goat-codegen-initial/</guid>
       <description>Experimenting with CLI interfaces in Go</description>
     </item>
     
     <item>
       <title>More Memory Profiling (in Python)</title>
-      <link>https://blog.tamir.dev/posts/more-memory-profiling-in-python/</link>
+      <link>https://tamir.dev/posts/more-memory-profiling-in-python/</link>
       <pubDate>Fri, 02 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/posts/more-memory-profiling-in-python/</guid>
+      <guid>https://tamir.dev/posts/more-memory-profiling-in-python/</guid>
       <description>More lessons learned memory-optimizing Python code.</description>
     </item>
     
     <item>
       <title>GitLab CI Tricks</title>
-      <link>https://blog.tamir.dev/posts/gitlab-ci-tricks/</link>
+      <link>https://tamir.dev/posts/gitlab-ci-tricks/</link>
       <pubDate>Wed, 10 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/posts/gitlab-ci-tricks/</guid>
+      <guid>https://tamir.dev/posts/gitlab-ci-tricks/</guid>
       <description>A collection of useful hacks for the GitLab CI</description>
     </item>
     
     <item>
       <title>Finding a memory-leak in my Python code</title>
-      <link>https://blog.tamir.dev/posts/finding-a-memory-leak-in-my-python-code/</link>
+      <link>https://tamir.dev/posts/finding-a-memory-leak-in-my-python-code/</link>
       <pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/posts/finding-a-memory-leak-in-my-python-code/</guid>
+      <guid>https://tamir.dev/posts/finding-a-memory-leak-in-my-python-code/</guid>
       <description>Last week I had to fix a memory leak in a Python program for the first time. A long running process started eating too much RAM (only ~20GB to much) and the friendly OOM Killer had to step in and terminate this. Since this kept happening, I had to go ahead and fix the issue.
 Step 1 - Reproduction As with every bug, before you can reliably fix it, you must reproduce it.</description>
     </item>
     
     <item>
       <title>TIL Python attribute lookup order is tricky</title>
-      <link>https://blog.tamir.dev/posts/til-python-attribute-lookup-order-is-tricky/</link>
+      <link>https://tamir.dev/posts/til-python-attribute-lookup-order-is-tricky/</link>
       <pubDate>Wed, 03 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/posts/til-python-attribute-lookup-order-is-tricky/</guid>
+      <guid>https://tamir.dev/posts/til-python-attribute-lookup-order-is-tricky/</guid>
       <description>This post is brought to you in the spirit of converting tweetstorms to blogposts. to the tweetstorm
 Surprise! 🎁 In Python, if property access raises AttributeError, and the class implemented getattr, it will get called with the property name. This results in some very cryptic errors.
 If you run the following code (repl):
@@ -61,74 +61,74 @@ If you run the following code (repl):
     
     <item>
       <title>Snake Eyes: Extension Methods</title>
-      <link>https://blog.tamir.dev/posts/snake-eyes-extension-methods/</link>
+      <link>https://tamir.dev/posts/snake-eyes-extension-methods/</link>
       <pubDate>Fri, 06 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/posts/snake-eyes-extension-methods/</guid>
+      <guid>https://tamir.dev/posts/snake-eyes-extension-methods/</guid>
       <description>Implementing Extension-Methods in Python</description>
     </item>
     
     <item>
       <title>Snake Eyes: Scopes and IIFE</title>
-      <link>https://blog.tamir.dev/posts/snake-eyes-scopes-and-iife/</link>
+      <link>https://tamir.dev/posts/snake-eyes-scopes-and-iife/</link>
       <pubDate>Fri, 27 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/posts/snake-eyes-scopes-and-iife/</guid>
+      <guid>https://tamir.dev/posts/snake-eyes-scopes-and-iife/</guid>
       <description>Where we steal good concepts from other languages to create questionable Python code</description>
     </item>
     
     <item>
       <title>Recognizing Ducks</title>
-      <link>https://blog.tamir.dev/posts/recognizing-ducks/</link>
+      <link>https://tamir.dev/posts/recognizing-ducks/</link>
       <pubDate>Sat, 13 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/posts/recognizing-ducks/</guid>
+      <guid>https://tamir.dev/posts/recognizing-ducks/</guid>
       <description>An overview of type-checking techniques in Pytohn</description>
     </item>
     
     <item>
       <title>Working Across Time-Zones</title>
-      <link>https://blog.tamir.dev/posts/working-across-timezones/</link>
+      <link>https://tamir.dev/posts/working-across-timezones/</link>
       <pubDate>Sat, 09 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/posts/working-across-timezones/</guid>
+      <guid>https://tamir.dev/posts/working-across-timezones/</guid>
       <description>Internationalization is a difficult problem is software-engineering. Usually that statement would refer to the technical aspects of providing a good user experience for your customers. Today, however, I am referring to the social aspects.
 Just as it has become common-place to have your users spread across the globe, so it has with developers. It is not uncommon to work with teams in another country, or even to have a specific team-member working from a remote location.</description>
     </item>
     
     <item>
       <title>Adventures in Rust</title>
-      <link>https://blog.tamir.dev/posts/adventures-in-rust/</link>
+      <link>https://tamir.dev/posts/adventures-in-rust/</link>
       <pubDate>Fri, 27 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/posts/adventures-in-rust/</guid>
+      <guid>https://tamir.dev/posts/adventures-in-rust/</guid>
       <description>A tale of my time in Rust-land</description>
     </item>
     
     <item>
       <title>Types of Loops</title>
-      <link>https://blog.tamir.dev/posts/types-of-loops/</link>
+      <link>https://tamir.dev/posts/types-of-loops/</link>
       <pubDate>Sat, 27 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/posts/types-of-loops/</guid>
+      <guid>https://tamir.dev/posts/types-of-loops/</guid>
       <description>Minor brain-dump of experiences from teaching programmers from complete scratch.</description>
     </item>
     
     <item>
       <title>A Functional-Style State Machine in C&#43;&#43;, Part 2</title>
-      <link>https://blog.tamir.dev/posts/a-functional-style-state-machine-in-cpp-part-2/</link>
+      <link>https://tamir.dev/posts/a-functional-style-state-machine-in-cpp-part-2/</link>
       <pubDate>Mon, 04 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/posts/a-functional-style-state-machine-in-cpp-part-2/</guid>
+      <guid>https://tamir.dev/posts/a-functional-style-state-machine-in-cpp-part-2/</guid>
       <description>First, an apology. The first part of this post was published on May 26. It is now September. I had most of the code for this part done by then. But finalizing the code took some more effort. Once that was done, explaining took a while. There were quite a few things I had to learn myself first. So now, months later, I present this humble offering to the Gods of C++ and template meta-programming.</description>
     </item>
     
     <item>
       <title>That `overloaded` Trick: Overloading Lambdas in C&#43;&#43;17</title>
-      <link>https://blog.tamir.dev/posts/that-overloaded-trick-overloading-lambdas-in-cpp17/</link>
+      <link>https://tamir.dev/posts/that-overloaded-trick-overloading-lambdas-in-cpp17/</link>
       <pubDate>Tue, 15 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/posts/that-overloaded-trick-overloading-lambdas-in-cpp17/</guid>
+      <guid>https://tamir.dev/posts/that-overloaded-trick-overloading-lambdas-in-cpp17/</guid>
       <description>C++17 has granted us with std::variant. Simply put, it is a type-safe union. To access the value it stores, you can either request a specific type (using std::get or something similar) or &amp;ldquo;visit&amp;rdquo; the variant, automatically handling only the data-type that is actually there. Visiting is done using std::visit, and is fairly straight forward.
 Compilation, Execution
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 #include &amp;lt;variant&amp;gt; #include &amp;lt;cstdio&amp;gt; #include &amp;lt;vector&amp;gt; using var_t = std::variant&amp;lt;int, const char*&amp;gt;; // (1) struct Print { // (2) void operator() (int i) { printf(&amp;#34;%d\n&amp;#34;, i); } void operator () (const char* str) { puts(str); } }; int main() { std::vector&amp;lt;var_t&amp;gt; vars = {1, 2, &amp;#34;Hello, World!</description>
@@ -136,19 +136,19 @@ Compilation, Execution
     
     <item>
       <title>A Functional-Style State Machine in C&#43;&#43;</title>
-      <link>https://blog.tamir.dev/posts/a-functional-style-state-machine-in-cpp/</link>
+      <link>https://tamir.dev/posts/a-functional-style-state-machine-in-cpp/</link>
       <pubDate>Fri, 26 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/posts/a-functional-style-state-machine-in-cpp/</guid>
+      <guid>https://tamir.dev/posts/a-functional-style-state-machine-in-cpp/</guid>
       <description>It turns out that C&#43;&#43;&amp;#39;s type-system does not allow for recursive types. This is annoying. There is no reason why a function should not be able to return itself.</description>
     </item>
     
     <item>
       <title>The Windows CLI sucks, and that&#39;s good.</title>
-      <link>https://blog.tamir.dev/posts/the-windows-cli-sucks-and-thats-good/</link>
+      <link>https://tamir.dev/posts/the-windows-cli-sucks-and-thats-good/</link>
       <pubDate>Mon, 01 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/posts/the-windows-cli-sucks-and-thats-good/</guid>
+      <guid>https://tamir.dev/posts/the-windows-cli-sucks-and-thats-good/</guid>
       <description>TL;DR Windows&amp;rsquo; shell sucks so people write tools. Tools are fun to use.
 Linux&amp;rsquo;s shell is amazing so people write terrible bash scripts and makefiles.
 Be sensible. Use Python. Use C.
@@ -158,20 +158,11 @@ The rest of the post is me ranting, letting off some steam. Have fun, and don&am
     
     <item>
       <title>Don&#39;t Amend, Fix</title>
-      <link>https://blog.tamir.dev/posts/dont-amend-fix/</link>
+      <link>https://tamir.dev/posts/dont-amend-fix/</link>
       <pubDate>Fri, 10 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.tamir.dev/posts/dont-amend-fix/</guid>
+      <guid>https://tamir.dev/posts/dont-amend-fix/</guid>
       <description>A fun alternative to `git commit --amend`</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://blog.tamir.dev/bla/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.tamir.dev/bla/</guid>
-      <description>this is another file! </description>
     </item>
     
     

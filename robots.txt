@@ -1,3 +1,3 @@
 User-agent: *
 Disallow:
-Sitemap: https://blog.tamir.dev/sitemap.xml
+Sitemap: https://tamir.dev/sitemap.xml

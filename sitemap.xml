@@ -2,96 +2,93 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.tamir.dev/tags/cli/</loc>
+    <loc>https://tamir.dev/tags/cli/</loc>
     <lastmod>2022-06-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/tags/go/</loc>
+    <loc>https://tamir.dev/tags/go/</loc>
     <lastmod>2022-06-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/goat-codegen-initial/</loc>
+    <loc>https://tamir.dev/posts/goat-codegen-initial/</loc>
     <lastmod>2022-06-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/</loc>
+    <loc>https://tamir.dev/posts/</loc>
     <lastmod>2022-06-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/tags/</loc>
+    <loc>https://tamir.dev/tags/</loc>
     <lastmod>2022-06-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/</loc>
+    <loc>https://tamir.dev/</loc>
     <lastmod>2022-06-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/more-memory-profiling-in-python/</loc>
+    <loc>https://tamir.dev/posts/more-memory-profiling-in-python/</loc>
     <lastmod>2021-07-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/gitlab-ci-tricks/</loc>
+    <loc>https://tamir.dev/posts/gitlab-ci-tricks/</loc>
     <lastmod>2021-03-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/finding-a-memory-leak-in-my-python-code/</loc>
+    <loc>https://tamir.dev/posts/finding-a-memory-leak-in-my-python-code/</loc>
     <lastmod>2021-01-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/til-python-attribute-lookup-order-is-tricky/</loc>
+    <loc>https://tamir.dev/posts/til-python-attribute-lookup-order-is-tricky/</loc>
     <lastmod>2020-06-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/tags/kotlin/</loc>
+    <loc>https://tamir.dev/tags/kotlin/</loc>
     <lastmod>2020-03-06T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/tags/misguided/</loc>
+    <loc>https://tamir.dev/tags/misguided/</loc>
     <lastmod>2020-03-06T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/tags/python/</loc>
+    <loc>https://tamir.dev/tags/python/</loc>
     <lastmod>2020-03-06T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/snake-eyes-extension-methods/</loc>
+    <loc>https://tamir.dev/posts/snake-eyes-extension-methods/</loc>
     <lastmod>2020-03-06T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/tags/funny/</loc>
+    <loc>https://tamir.dev/tags/funny/</loc>
     <lastmod>2019-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/snake-eyes-scopes-and-iife/</loc>
+    <loc>https://tamir.dev/posts/snake-eyes-scopes-and-iife/</loc>
     <lastmod>2019-12-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/tags/duck-typing/</loc>
+    <loc>https://tamir.dev/tags/duck-typing/</loc>
     <lastmod>2018-10-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/tags/metaclasses/</loc>
+    <loc>https://tamir.dev/tags/metaclasses/</loc>
     <lastmod>2018-10-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/recognizing-ducks/</loc>
+    <loc>https://tamir.dev/posts/recognizing-ducks/</loc>
     <lastmod>2018-10-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/working-across-timezones/</loc>
+    <loc>https://tamir.dev/posts/working-across-timezones/</loc>
     <lastmod>2018-06-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/adventures-in-rust/</loc>
+    <loc>https://tamir.dev/posts/adventures-in-rust/</loc>
     <lastmod>2018-04-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/types-of-loops/</loc>
+    <loc>https://tamir.dev/posts/types-of-loops/</loc>
     <lastmod>2018-01-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/a-functional-style-state-machine-in-cpp-part-2/</loc>
+    <loc>https://tamir.dev/posts/a-functional-style-state-machine-in-cpp-part-2/</loc>
     <lastmod>2017-09-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/that-overloaded-trick-overloading-lambdas-in-cpp17/</loc>
+    <loc>https://tamir.dev/posts/that-overloaded-trick-overloading-lambdas-in-cpp17/</loc>
     <lastmod>2017-08-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/a-functional-style-state-machine-in-cpp/</loc>
+    <loc>https://tamir.dev/posts/a-functional-style-state-machine-in-cpp/</loc>
     <lastmod>2017-05-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/the-windows-cli-sucks-and-thats-good/</loc>
+    <loc>https://tamir.dev/posts/the-windows-cli-sucks-and-thats-good/</loc>
     <lastmod>2017-05-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/categories/</loc>
+    <loc>https://tamir.dev/categories/</loc>
     <lastmod>2017-03-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/posts/dont-amend-fix/</loc>
+    <loc>https://tamir.dev/posts/dont-amend-fix/</loc>
     <lastmod>2017-03-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/categories/git/</loc>
+    <loc>https://tamir.dev/categories/git/</loc>
     <lastmod>2017-03-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.tamir.dev/bla/</loc>
-    <priority>0</priority>
-  </url><url>
-    <loc>https://blog.tamir.dev/archives/</loc>
+    <loc>https://tamir.dev/archives/</loc>
   </url>
 </urlset>
