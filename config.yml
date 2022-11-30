@@ -17,19 +17,20 @@ minify:
 params:
   env: production
   title: Tamir Bahar
-  description: "Tamir Bahar's Blog. Blogging about tech, code, and anything else that's interesting."
-  keywords: [Blog, Portfolio, PaperMod]
+  description: "Tamir Bahar writes things."
+  keywords: [Blog, Portfolio, "Tamir Bahar", "tmr232", "Tamir"]
 #  author: Me
   # author: ["Me", "You"] # multiple authors
   images: ["<link or path of image for opengraph, twitter-cards>"]
-  DateFormat: "January 2, 2006"
+  DateFormat: "2006-01-02"
+#  DateFormat: "January 2, 2006"
   defaultTheme: auto # dark, light
   disableThemeToggle: false
 
 #  ShowReadingTime: true
 #  ShowShareButtons: true
 #  ShowPostNavLinks: true
-#  ShowBreadCrumbs: true
+  ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
 #  ShowWordCount: true
   ShowRssButtonInSectionTermList: true
