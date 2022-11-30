@@ -1,6 +1,7 @@
 ---
 title: Blogvent Calendar
 published: true
+description: One post every day in December.
 date: 2022-11-30
 ---
 
