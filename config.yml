@@ -17,11 +17,11 @@ minify:
 params:
   env: production
   title: Tamir Bahar
-  description: "Tamir Bahar writes things."
+  description: "I writes things."
   keywords: [Blog, Portfolio, "Tamir Bahar", "tmr232", "Tamir"]
 #  author: Me
   # author: ["Me", "You"] # multiple authors
-  images: ["<link or path of image for opengraph, twitter-cards>"]
+  images: ["images/profilepic.jpg"]
   DateFormat: "Jan 2, 2006"
 #  DateFormat: "January 2, 2006"
   defaultTheme: auto # dark, light
