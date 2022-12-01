@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Blogvent🎄 on Tamir Bahar</title>
+    <link>https://tamir.dev/blogvent/</link>
+    <description>Recent content in Blogvent🎄 on Tamir Bahar</description>
+    <image>
+      <url>https://tamir.dev/images/profilepic.jpg</url>
+      <link>https://tamir.dev/images/profilepic.jpg</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 01 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/blogvent/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Bit of Codeviz</title>
+      <link>https://tamir.dev/blogvent/2022-12-01/</link>
+      <pubDate>Thu, 01 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/blogvent/2022-12-01/</guid>
+      <description>When I started my professional career I was not doing software engineering, but rather reverse-engineering. Taking a compiled binary, disassembling it, and trying to understand what it does. My job was essentially reading code, with the stated goal in my job description was &amp;ldquo;vulnerability research&amp;rdquo;. Since then, I moved to the other side, and am now doing &amp;ldquo;forward engineering&amp;rdquo;.
+While it is very tempting to say that as programmers (or developers, or software engineers, or whichever term you&amp;rsquo;re comfortable with) we only write code, we know that this is not true.</description>
+    </item>
+    
+  </channel>
+</rss>
