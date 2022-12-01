@@ -15,6 +15,9 @@ minify:
   minifyOutput: true
 
 params:
+  mainSections:
+    - posts
+    - blogvent
   env: production
   title: Tamir Bahar
   description: "I writes things."
@@ -116,6 +119,10 @@ menu:
 #      name: tags
 #      url: /tags/
 #      weight: 20
+    - identifier: blogvent
+      name: blogvent🎄
+      url: /blogvent/
+      weight: 10
     - identifier: posts
       name: posts
       url: /posts/
