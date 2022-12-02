@@ -9,7 +9,17 @@
       <link>https://tamir.dev/images/profilepic.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 01 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 02 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Markdown Images &amp; Accessibility</title>
+      <link>https://tamir.dev/blogvent/2022-12-02/</link>
+      <pubDate>Fri, 02 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/blogvent/2022-12-02/</guid>
+      <description>I always knew image alt-text existed. I knew about it from learning HTML - it&amp;rsquo;s the text that shows when the image doesn&amp;rsquo;t load. And it&amp;rsquo;s also on XKCD as the extra pun (TIL that&amp;rsquo;s actually title= and not alt=). It&amp;rsquo;s only recently, when Twitter added image descriptions1 and my feed started talking about them, that I realized how important they are for accessibility.
+Since then, I&amp;rsquo;ve been making an effort to describe the images in all my tweets to the best of my ability.</description>
+    </item>
+    
     <item>
       <title>A Bit of Codeviz</title>
       <link>https://tamir.dev/blogvent/2022-12-01/</link>
