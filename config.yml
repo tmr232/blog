@@ -68,9 +68,8 @@ params:
 
   profileMode:
     enabled: true
-    title: "<Title>" # optional default will be site title
+    title: "Hi, I'm Tamir!"
     subtitle: |
-      # Hi, I'm Tamir!
       ## I write about code, tech, and anything else I find interesting.
     imageUrl: "images/profilepic.jpg" # optional
     imageTitle: "A picture of me" # optional
