@@ -9,7 +9,16 @@
       <link>https://tamir.dev/images/profilepic.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 08 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Karate Kid</title>
+      <link>https://tamir.dev/posts/karate-kid/</link>
+      <pubDate>Mon, 26 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/posts/karate-kid/</guid>
+      <description>The true mystery of Karate Kid (1984)</description>
+    </item>
+    
     <item>
       <title>Thoughts on Iterators in Python and C&#43;&#43;</title>
       <link>https://tamir.dev/blogvent/2022-12-08/</link>
