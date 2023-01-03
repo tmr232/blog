@@ -20,8 +20,8 @@ params:
     - blogvent
   env: production
   title: Tamir Bahar
-  description: "I writes things."
-  keywords: [Blog, Portfolio, "Tamir Bahar", "tmr232", "Tamir"]
+  description: "Sharing thoughts, ideas, and code. Finding complex solutions to simple problems."
+  keywords: [Blog, Portfolio, "Tamir Bahar", "tmr232", "Tamir", "code","programming",]
 #  author: Me
   # author: ["Me", "You"] # multiple authors
   images: ["images/profilepic.jpg"]
