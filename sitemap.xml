@@ -3,10 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://tamir.dev/posts/</loc>
-    <lastmod>2022-12-26T00:00:00+00:00</lastmod>
+    <lastmod>2023-01-14T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tamir.dev/posts/significant-whitespace/</loc>
+    <lastmod>2023-01-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tamir.dev/</loc>
-    <lastmod>2022-12-26T00:00:00+00:00</lastmod>
+    <lastmod>2023-01-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tamir.dev/posts/karate-kid/</loc>
     <lastmod>2022-12-26T00:00:00+00:00</lastmod>

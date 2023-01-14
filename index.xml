@@ -9,7 +9,18 @@
       <link>https://tamir.dev/images/profilepic.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 26 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Significant Whitespace</title>
+      <link>https://tamir.dev/posts/significant-whitespace/</link>
+      <pubDate>Sat, 14 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/posts/significant-whitespace/</guid>
+      <description>All whitespace is significant.
+It might not always matter to your computer, or compiler, or piece of code. But to you, a human reading the code, it is significant.
+I often here people complaining about significant whitespace. They say it makes no sense, that it makes working with the code harder. That whitespace, specifically in code, should not be significant. But the unavoidable truth is that whitespace is always significant, regardless of the language you use.</description>
+    </item>
+    
     <item>
       <title>The Karate Kid</title>
       <link>https://tamir.dev/posts/karate-kid/</link>
