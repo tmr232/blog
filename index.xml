@@ -9,7 +9,16 @@
       <link>https://tamir.dev/images/profilepic.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 14 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 10 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python Tools &amp; Libraries</title>
+      <link>https://tamir.dev/posts/python-tools-and-libs/</link>
+      <pubDate>Fri, 10 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/posts/python-tools-and-libs/</guid>
+      <description>Python tools &amp;amp; libraries that I use and would recommend</description>
+    </item>
+    
     <item>
       <title>Significant Whitespace</title>
       <link>https://tamir.dev/posts/significant-whitespace/</link>
