@@ -9,20 +9,20 @@
       <link>https://tamir.dev/images/profilepic.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 06 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>kotlin</title>
-      <link>https://tamir.dev/tags/kotlin/</link>
-      <pubDate>Fri, 06 Mar 2020 00:00:00 +0000</pubDate>
+      <title>C&#43;&#43;</title>
+      <link>https://tamir.dev/tags/c&#43;&#43;/</link>
+      <pubDate>Mon, 24 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://tamir.dev/tags/kotlin/</guid>
+      <guid>https://tamir.dev/tags/c&#43;&#43;/</guid>
       <description></description>
     </item>
     
     <item>
       <title>misguided</title>
       <link>https://tamir.dev/tags/misguided/</link>
-      <pubDate>Fri, 06 Mar 2020 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 24 Apr 2023 00:00:00 +0000</pubDate>
       
       <guid>https://tamir.dev/tags/misguided/</guid>
       <description></description>
@@ -31,9 +31,18 @@
     <item>
       <title>python</title>
       <link>https://tamir.dev/tags/python/</link>
-      <pubDate>Fri, 06 Mar 2020 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 24 Apr 2023 00:00:00 +0000</pubDate>
       
       <guid>https://tamir.dev/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kotlin</title>
+      <link>https://tamir.dev/tags/kotlin/</link>
+      <pubDate>Fri, 06 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/tags/kotlin/</guid>
       <description></description>
     </item>
     
