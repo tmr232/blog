@@ -253,18 +253,12 @@ class E4(ScopedEnum):
 	B = X + A
 ```
 
-- `E1`
-	- `A` is read once, and is a member definition
-- E2
-	- `A` is read twice; once in a definition and once in an assignment
-	- `B` is assigned to
-- E3
-	- `A` is assigned to
-	- `X` is read once, in an assignment
-- E4
-	- `A` is read twice; once in a definition and once in an assignment
-	- `B` is assigned to
-	- `X` is read once, in an assignment
+|     | A                                   | B           | X                     |
+| --- | ----------------------------------- | ----------- | --------------------- |
+| E1  | 1 read. Defined.                    | -           | -                     |
+| E2  | 2 reads. Defined and assigned from. | Assigned to | -                     |
+| E3  | Assigned to                         | -           | 1 read. Assigned from |
+| E4  | 2 reads. Defined and assigned from. | Assigned to | 1 read. Assigned from | 
 
 From this, we can deduce some rules.
 The first is straightforward - if a name is assigned to, we need to create that variable.
