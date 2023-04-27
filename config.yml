@@ -22,7 +22,7 @@ params:
   title: Tamir Bahar
   description: "Sharing thoughts, ideas, and code. Finding complex solutions to simple problems."
   keywords: [Blog, Portfolio, "Tamir Bahar", "tmr232", "Tamir", "code","programming",]
-#  author: Me
+  author: Tamir Bahar
   # author: ["Me", "You"] # multiple authors
   images: ["images/profilepic.jpg"]
   DateFormat: "Jan 2, 2006"
