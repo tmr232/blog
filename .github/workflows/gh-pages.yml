@@ -23,6 +23,17 @@ jobs:
           hugo-version: '0.106.0'
           extended: true
 
+      - name: Discuss Posts
+        uses: tmr232/hugo-discussions-action@main
+        continue-on-error: true
+        with:
+          hugo-root: "."
+          repo: "tamir.dev"
+          owner: tmr232
+          category: discussions
+          token: "${{ secrets.discussions_token }}"
+          
+
       - name: Build
         run: hugo --minify
 
