@@ -9,7 +9,16 @@
       <link>https://tamir.dev/images/profilepic.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 24 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Github Discussions</title>
+      <link>https://tamir.dev/posts/github-discussions/</link>
+      <pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/posts/github-discussions/</guid>
+      <description>POC of discussing posts on github</description>
+    </item>
+    
     <item>
       <title>Snake Eyes: C&#43;&#43; Scoped enums</title>
       <link>https://tamir.dev/posts/snake-eyes-cpp-scoped-enums/</link>
