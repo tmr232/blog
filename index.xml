@@ -9,7 +9,16 @@
       <link>https://tamir.dev/images/profilepic.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 06 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Context Managers in Go</title>
+      <link>https://tamir.dev/posts/context-managers-in-go/</link>
+      <pubDate>Thu, 20 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/posts/context-managers-in-go/</guid>
+      <description>Go&amp;#39;s new proposed range over func grammar allows for Python-style context-managers.</description>
+    </item>
+    
     <item>
       <title>Binary Reverse Engineering Features</title>
       <link>https://tamir.dev/posts/binary-re-feature-overview/</link>
