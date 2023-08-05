@@ -1,7 +1,7 @@
 ---
 title: Recognizing Ducks
 published: true
-description: An overview of type-checking techniques in Pytohn
+description: An overview of type-checking techniques in Python
 tags: 
     - python
     - duck-typing
