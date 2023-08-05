@@ -9,7 +9,16 @@
       <link>https://tamir.dev/images/profilepic.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 20 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Resource Management Models</title>
+      <link>https://tamir.dev/posts/resource-management-01/</link>
+      <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/posts/resource-management-01/</guid>
+      <description>An overview of different resource management models</description>
+    </item>
+    
     <item>
       <title>Context Managers in Go</title>
       <link>https://tamir.dev/posts/context-managers-in-go/</link>
@@ -166,7 +175,7 @@ If you run the following code (repl):
       <pubDate>Sat, 13 Oct 2018 00:00:00 +0000</pubDate>
       
       <guid>https://tamir.dev/posts/recognizing-ducks/</guid>
-      <description>An overview of type-checking techniques in Pytohn</description>
+      <description>An overview of type-checking techniques in Python</description>
     </item>
     
     <item>
