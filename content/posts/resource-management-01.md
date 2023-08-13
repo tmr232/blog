@@ -3,6 +3,7 @@ title: Resource Management Models
 published: true
 description: An overview of different resource management models
 date: 2023-08-05
+discuss: true
 ---
 
 In the last couple of years, I've been thinking a lot about resource management in different programming languages.

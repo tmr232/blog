@@ -3,6 +3,7 @@ title: Finalizing Mutexes
 published: true
 description: Looking into the release of Mutexes in GC languages
 date: 2023-08-13
+discuss: true
 ---
 
 
