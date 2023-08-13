@@ -9,7 +9,16 @@
       <link>https://tamir.dev/images/profilepic.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 05 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 13 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Finalizing Mutexes</title>
+      <link>https://tamir.dev/posts/resource-management-02/</link>
+      <pubDate>Sun, 13 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/posts/resource-management-02/</guid>
+      <description>Looking into the release of Mutexes in GC languages</description>
+    </item>
+    
     <item>
       <title>Resource Management Models</title>
       <link>https://tamir.dev/posts/resource-management-01/</link>
