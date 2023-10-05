@@ -21,21 +21,22 @@ params:
   env: production
   title: Tamir Bahar
   description: "Sharing thoughts, ideas, and code. Finding complex solutions to simple problems."
-  keywords: [Blog, Portfolio, "Tamir Bahar", "tmr232", "Tamir", "code","programming",]
+  keywords:
+    [Blog, Portfolio, "Tamir Bahar", "tmr232", "Tamir", "code", "programming"]
   author: Tamir Bahar
   # author: ["Me", "You"] # multiple authors
   images: ["images/profilepic.jpg"]
   DateFormat: "Jan 2, 2006"
-#  DateFormat: "January 2, 2006"
+  #  DateFormat: "January 2, 2006"
   defaultTheme: auto # dark, light
   disableThemeToggle: false
 
-#  ShowReadingTime: true
-#  ShowShareButtons: true
-#  ShowPostNavLinks: true
+  #  ShowReadingTime: true
+  #  ShowShareButtons: true
+  #  ShowPostNavLinks: true
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
-#  ShowWordCount: true
+  #  ShowWordCount: true
   ShowRssButtonInSectionTermList: true
   UseHugoToc: true
   disableSpecial1stPost: false
@@ -43,7 +44,7 @@ params:
   comments: false
   hidemeta: false
   hideSummary: true
-#  showtoc: false
+  #  showtoc: false
   tocopen: false
 
   assets:
@@ -57,9 +58,8 @@ params:
 
   label:
     text: "Tamir Bahar"
-#     icon: "images/pfp35px.png"
-#     iconHeight: 35
-
+  #     icon: "images/pfp35px.png"
+  #     iconHeight: 35
 
   # home-info mode
   homeInfoParams:
@@ -87,7 +87,7 @@ params:
     - name: github
       url: "https://github.com/tmr232"
     - name: dev
-      url: "https://https://dev.to/tmr232"
+      url: "https://dev.to/tmr232"
     - name: Mastodon
       url: "https://mastodon.social/@tmr232"
     - name: linkedin
@@ -110,14 +110,14 @@ params:
     keys: ["title", "permalink", "summary", "content"]
 menu:
   main:
-#    - identifier: categories
-#      name: categories
-#      url: /categories/
-#      weight: 10
-#    - identifier: tags
-#      name: tags
-#      url: /tags/
-#      weight: 20
+    #    - identifier: categories
+    #      name: categories
+    #      url: /categories/
+    #      weight: 10
+    #    - identifier: tags
+    #      name: tags
+    #      url: /tags/
+    #      weight: 20
     - identifier: blogvent
       name: blogvent🎄
       url: /blogvent/
@@ -138,13 +138,12 @@ menu:
 #pygmentsUseClasses: true
 markup:
   highlight:
-#    noClasses: false
-#    anchorLineNos: true
+    #    noClasses: false
+    #    anchorLineNos: true
     codeFences: true
-#    guessSyntax: true
+    #    guessSyntax: true
     lineNos: true
     style: monokai
-
 
 outputs:
   home:
