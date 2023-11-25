@@ -31,6 +31,8 @@ params:
   defaultTheme: auto # dark, light
   disableThemeToggle: false
 
+  webmentionEndpoint: "https://webmention.io/tamir.dev/webmention"
+
   #  ShowReadingTime: true
   #  ShowShareButtons: true
   #  ShowPostNavLinks: true
