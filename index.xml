@@ -9,7 +9,16 @@
       <link>https://tamir.dev/images/profilepic.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 15 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Some Thoughts About Version Numbers &amp; Security Patch Levels</title>
+      <link>https://tamir.dev/posts/thoughts-about-security-patch-levels/</link>
+      <pubDate>Sat, 13 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/posts/thoughts-about-security-patch-levels/</guid>
+      <description>Some thoughts about the issues with version numbers, supporting multiple versions, and the usefullness of Patch Levels.</description>
+    </item>
+    
     <item>
       <title>Home Cooked Software</title>
       <link>https://tamir.dev/posts/home-cooked-software/</link>
