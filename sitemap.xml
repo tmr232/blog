@@ -3,12 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://tamir.dev/posts/</loc>
-    <lastmod>2024-04-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://tamir.dev/posts/thoughts-about-security-patch-levels/</loc>
-    <lastmod>2024-04-13T00:00:00+00:00</lastmod>
+    <lastmod>2024-10-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tamir.dev/</loc>
+    <lastmod>2024-10-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tamir.dev/posts/cfg-visualization-legend/</loc>
+    <lastmod>2024-10-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tamir.dev/posts/thoughts-about-security-patch-levels/</loc>
     <lastmod>2024-04-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tamir.dev/posts/home-cooked-software/</loc>
