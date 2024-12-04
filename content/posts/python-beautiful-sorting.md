@@ -1,6 +1,7 @@
 ---
 title: Beautiful Sorting in Python
 published: true
+discuss: true
 date: 2024-12-04
 ---
 
