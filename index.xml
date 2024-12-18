@@ -9,7 +9,16 @@
       <link>https://tamir.dev/images/profilepic.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 04 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Invisible Codegen in Go</title>
+      <link>https://tamir.dev/posts/invisible-codegen-go/</link>
+      <pubDate>Wed, 18 Dec 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/posts/invisible-codegen-go/</guid>
+      <description>Go, sorting, and hiding code-generation.</description>
+    </item>
+    
     <item>
       <title>Beautiful Sorting in Python</title>
       <link>https://tamir.dev/posts/python-beautiful-sorting/</link>
