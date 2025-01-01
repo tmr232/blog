@@ -9,7 +9,17 @@
       <link>https://tamir.dev/images/profilepic.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 18 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello CFGBot 🤖</title>
+      <link>https://tamir.dev/posts/hello-cfgbot/</link>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/posts/hello-cfgbot/</guid>
+      <description>A few days ago I created CFGBot - a small Bluesky bot that publishes hourly control-flow-graphs.
+While technically simple, this bot is something I wanted to create for a few years now. Originally, I wanted to write one that publishes IDA Pro graphs of random functions in system binaries. But due to logistical issues (how to run a bot that uses software I&amp;rsquo;m only allowed to run on my own PC) and my concerns about copyright (can I freely post the disassembly of copyrighted software?</description>
+    </item>
+    
     <item>
       <title>Invisible Codegen in Go</title>
       <link>https://tamir.dev/posts/invisible-codegen-go/</link>
