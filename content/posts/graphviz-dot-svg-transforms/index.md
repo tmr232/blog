@@ -8,7 +8,7 @@ description: Adventures in manipulating Graphviz SVG outputs.
 
 I usually think of [SVGs](https://en.wikipedia.org/wiki/SVG) as a "simple" graphical files, but that's probably because I never had to edit them programmatically.
 
-I am currently working on adding overlay-notes to [Function Graph Overview].
+I am [currently working](https://github.com/tmr232/function-graph-overview/pull/63) on adding overlay-notes to [Function Graph Overview](https://tmr232.github.io/function-graph-overview/).
 The idea is that you use start- and end-comments in your code to define a region, and have that region reflected in the graph as a block surrounding the relevant nodes.
 Hopefully, this will allow better understanding, as whole regions of the graph can now be labelled.
 ![Side by side view of code with region comments and rendered graph with overlay notes](demo.png)
