@@ -9,7 +9,16 @@
       <link>https://tamir.dev/images/profilepic.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 13 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 14 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>New Tools I&#39;m Using (May 2025)</title>
+      <link>https://tamir.dev/posts/new-tools-remote-git/</link>
+      <pubDate>Wed, 14 May 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/posts/new-tools-remote-git/</guid>
+      <description>A few cool CLI tools I started using</description>
+    </item>
+    
     <item>
       <title>Graphviz DOT &amp; SVG Transforms</title>
       <link>https://tamir.dev/posts/graphviz-dot-svg-transforms/</link>
