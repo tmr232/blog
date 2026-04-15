@@ -9,7 +9,27 @@
       <link>https://tamir.dev/images/profilepic.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 28 Jan 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 15 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>20-20-20 Timers</title>
+      <link>https://tamir.dev/posts/2026-04-easy-eyes/</link>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/posts/2026-04-easy-eyes/</guid>
+      <description>A few weeks ago I saw some people chatting about the benefits of 20-20-20 timers. The idea is that to reduce eye strain (as we tend to stare at screens all day&amp;hellip;) you set a timer so that every 20 minutes you spend 20 seconds looking at something that&amp;rsquo;s 20 feet away.
+So I looked for an existing timer, and there are quite a lot of them, but they all have their issues.</description>
+    </item>
+    
+    <item>
+      <title>Signing out, for now</title>
+      <link>https://tamir.dev/posts/2026-04-signing-out-for-now/</link>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/posts/2026-04-signing-out-for-now/</guid>
+      <description>I&amp;rsquo;m signing out from Mastodon.
+I love the platform, and I&amp;rsquo;ve had many good interactions on it. But it no longer feels like a safe space for me. There is only so much that content filters can do to fend off hostility. And while that hostility is not directed at me, and the views behind it may sometimes align with my own, it is still smothering. We could all do with a bit more nuance and empathy.</description>
+    </item>
+    
     <item>
       <title>Embedding HTML in Graphviz Graphs</title>
       <link>https://tamir.dev/posts/graphviz-embed-html/</link>
