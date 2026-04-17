@@ -9,7 +9,17 @@
       <link>https://tamir.dev/images/profilepic.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 15 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 17 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Single Abstract Method (SAM) Interfaces in Python</title>
+      <link>https://tamir.dev/posts/2026-04-python-sam/</link>
+      <pubDate>Fri, 17 Apr 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/posts/2026-04-python-sam/</guid>
+      <description>There&amp;rsquo;s a pattern I often see in Python code that feels woefully un-Pythonic.
+1 2 3 4 5 6 7 8 9 10 class ConcreteBuilder(AbstractBuilder): def __init__(self, context): self._context = context def build(self): return do_something_with_context(context) def uses_builder(builder: AbstractBuilder): builder.build() It&amp;rsquo;s effectively defining a function the long way. The cause for this, of course, is &amp;ldquo;abstraction&amp;rdquo;. This might make sense in Java or C#, where you cannot define free-standing functions, but in Python it makes no sense.</description>
+    </item>
+    
     <item>
       <title>20-20-20 Timers</title>
       <link>https://tamir.dev/posts/2026-04-easy-eyes/</link>

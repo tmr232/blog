@@ -2,16 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://tamir.dev/posts/</loc>
+    <lastmod>2026-04-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tamir.dev/posts/2026-04-python-sam/</loc>
+    <lastmod>2026-04-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://tamir.dev/</loc>
+    <lastmod>2026-04-17T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://tamir.dev/posts/2026-04-easy-eyes/</loc>
     <lastmod>2026-04-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://tamir.dev/posts/</loc>
-    <lastmod>2026-04-15T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://tamir.dev/posts/2026-04-signing-out-for-now/</loc>
-    <lastmod>2026-04-15T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://tamir.dev/</loc>
     <lastmod>2026-04-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://tamir.dev/posts/graphviz-embed-html/</loc>
