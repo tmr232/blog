@@ -1,7 +1,15 @@
+.post-entry .entry-header h2,
+.first-entry .entry-header h1,
+.archive-item .archive-title {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.2s ease-in-out;
+}
+
 .post-entry:hover .entry-header h2,
 .first-entry:hover .entry-header h1,
 .archive-item:hover .archive-title {
-    text-decoration: underline;
+    text-decoration-color: currentColor;
 }
 
 .archive-list {
