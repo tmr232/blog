@@ -1,0 +1,3 @@
+{{- /* Image lightbox styles */ -}}
+{{- $lightboxCSS := resources.Get "css/lightbox.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $lightboxCSS.RelPermalink }}" integrity="{{ $lightboxCSS.Data.Integrity }}">
