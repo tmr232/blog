@@ -1,0 +1,5 @@
+.post-entry:hover .entry-header h2,
+.first-entry:hover .entry-header h1,
+.archive-entry:hover .archive-entry-title {
+    text-decoration: underline;
+}

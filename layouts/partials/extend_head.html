@@ -1,3 +1,6 @@
 {{- /* Image lightbox styles */ -}}
 {{- $lightboxCSS := resources.Get "css/lightbox.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $lightboxCSS.RelPermalink }}" integrity="{{ $lightboxCSS.Data.Integrity }}">
+{{- /* Custom site styles */ -}}
+{{- $customCSS := resources.Get "css/custom.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $customCSS.RelPermalink }}" integrity="{{ $customCSS.Data.Integrity }}">
