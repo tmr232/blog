@@ -1,8 +1,0 @@
-.archive-entry-day {
-    display: inline-block;
-    width: 2em;
-    margin-right: 0.5em;
-    color: var(--secondary);
-    font-variant-numeric: tabular-nums;
-    font-weight: 400;
-}

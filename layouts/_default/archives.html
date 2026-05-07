@@ -29,7 +29,6 @@
       {{- if eq .Kind "page" }}
       <div class="archive-entry">
         <h3 class="archive-entry-title">
-          <span class="archive-entry-day" title="{{ .Date | time.Format "January 2, 2006" }}">{{ .Date | time.Format "02" }}</span>
           {{- .Title | markdownify }}
           {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
         </h3>
