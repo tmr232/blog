@@ -10,37 +10,22 @@
 </header>
 
 {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
-
 {{- if site.Params.ShowAllPagesInArchive }}
 {{- $pages = site.RegularPages }}
 {{- end }}
 
-{{- range $pages.GroupByPublishDate "2006" }}
-{{- if ne .Key "0001" }}
-<div class="archive-year">
-  <h2 class="archive-year-header">
-    {{- replace .Key "0001" "" }}<sup class="archive-count">&nbsp;&nbsp;{{ len .Pages }}</sup>
-  </h2>
-  {{- range .Pages.GroupByDate "January" }}
-  <div class="archive-month">
-    <h3 class="archive-month-header">{{- .Key }}<sup class="archive-count">&nbsp;&nbsp;{{ len .Pages }}</sup></h3>
-    <div class="archive-posts">
-      {{- range .Pages }}
-      {{- if eq .Kind "page" }}
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">
-          {{- .Title | markdownify }}
-          {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
-        </h3>
-        <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
-      </div>
-      {{- end }}
-      {{- end }}
-    </div>
-  </div>
+<ul class="archive-list">
+  {{- range $pages.ByDate.Reverse }}
+  {{- if eq .Kind "page" }}
+  <li class="archive-item">
+    <a href="{{ .Permalink }}">
+      <time class="archive-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+      <span class="archive-title">{{ .Title | markdownify }}</span>
+      {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
+    </a>
+  </li>
   {{- end }}
-</div>
-{{- end }}
-{{- end }}
+  {{- end }}
+</ul>
 
 {{- end }}{{/* end main */}}

@@ -1,5 +1,29 @@
 .post-entry:hover .entry-header h2,
 .first-entry:hover .entry-header h1,
-.archive-entry:hover .archive-entry-title {
+.archive-item:hover .archive-title {
     text-decoration: underline;
+}
+
+.archive-list {
+    list-style: none;
+    padding: 0;
+    margin: var(--gap) 0;
+}
+
+.archive-item {
+    margin: 0;
+}
+
+.archive-item a {
+    display: flex;
+    gap: 1em;
+    padding: 0.35em 0;
+    align-items: baseline;
+}
+
+.archive-date {
+    color: var(--secondary);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.95em;
+    flex-shrink: 0;
 }
