@@ -1,3 +1,11 @@
+:root {
+    --archive-accent: #b3007a;
+}
+
+.dark {
+    --archive-accent: #ff00aa;
+}
+
 .archive-list {
     list-style: none;
     padding: 0;
@@ -23,12 +31,12 @@
 }
 
 .archive-item a:hover {
-    background: var(--primary);
-    color: var(--theme);
+    background: var(--archive-accent);
+    color: #fff;
 }
 
 .archive-date {
-    color: var(--secondary);
+    color: var(--archive-accent);
     font-variant-numeric: tabular-nums;
     font-weight: 700;
     font-size: 0.95em;
@@ -36,5 +44,5 @@
 }
 
 .archive-item a:hover .archive-date {
-    color: var(--theme);
+    color: #fff;
 }
