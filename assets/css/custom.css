@@ -30,19 +30,24 @@
     font-weight: 500;
 }
 
-.archive-item a:hover {
-    background: var(--archive-accent);
-    color: #fff;
-}
-
+/* D5 — quieter date: small, gray, lightly letter-spaced */
 .archive-date {
-    color: var(--archive-accent);
+    color: var(--secondary);
     font-variant-numeric: tabular-nums;
-    font-weight: 700;
-    font-size: 0.95em;
+    font-weight: 500;
+    font-size: 0.82em;
+    letter-spacing: 0.04em;
     flex-shrink: 0;
 }
 
+/* V6F — wavy pink underline under the title on hover */
+.archive-item a:hover .archive-title {
+    text-decoration: underline wavy var(--archive-accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+}
+
+/* D5 hover: bring the date back to the accent color */
 .archive-item a:hover .archive-date {
-    color: #fff;
+    color: var(--archive-accent);
 }
