@@ -37,7 +37,9 @@ params:
   #  ShowShareButtons: true
   #  ShowPostNavLinks: true
   ShowBreadCrumbs: true
-  ShowCodeCopyButtons: true
+  # We add our own "language label = copy" button via post-enhancements.js,
+  # so PaperMod's built-in copy button is disabled.
+  ShowCodeCopyButtons: false
   #  ShowWordCount: true
   ShowRssButtonInSectionTermList: true
   UseHugoToc: true

@@ -1,4 +1,5 @@
-{{- /* Image lightbox: only on single post pages. */ -}}
+{{- /* Image lightbox + post enhancements (footnote popup, code-copy button):
+       only on single post pages. */ -}}
 {{- if and (eq .Kind "page") (in (slice "posts" "blogvent") .Section) }}
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" tabindex="-1">
     <img id="lightbox-img" alt="">
@@ -6,4 +7,6 @@
 </div>
 {{- $lightboxJS := resources.Get "js/lightbox.js" | minify | fingerprint }}
 <script defer src="{{ $lightboxJS.RelPermalink }}" integrity="{{ $lightboxJS.Data.Integrity }}"></script>
+{{- $postJS := resources.Get "js/post-enhancements.js" | minify | fingerprint }}
+<script defer src="{{ $postJS.RelPermalink }}" integrity="{{ $postJS.Data.Integrity }}"></script>
 {{- end }}

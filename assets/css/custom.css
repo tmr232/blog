@@ -1,23 +1,77 @@
+/* ─────────────────────────────────────────────────────────
+ * Tamir Bahar — site styles
+ *
+ * These are the locked-in style decisions from the post mockup
+ * iterations (see post-mockups-v7.html). PaperMod uses .dark on <body>
+ * for dark mode, and provides --theme / --primary / --secondary /
+ * --tertiary / --content / --border / --hljs-bg / --code-bg vars.
+ *
+ * Locked decisions applied:
+ *   BG5 light background, pink-bracket logo, LJ-style links (gray
+ *   underline → pink on hover), HD-style ## section headings,
+ *   IC2 inline code (muted gray, less padding, rounded), CG-style code
+ *   block lang label that becomes "copy <lang>" on hover (instant),
+ *   LN2 thin gray gutter separator, UL8 pink hollow circle bullets,
+ *   OL27 secondary mono "1." numbering, BQ0 pink left border + italic,
+ *   FN0 footnote contrast (secondary), FNL0 pink mono footnote ref,
+ *   footnote popup (hover + click-pin, no-shift).
+ * ───────────────────────────────────────────────────────── */
+
+/* ── Pink accent, BG5 light bg ──────────────────────────── */
 :root {
     --archive-accent: #b3007a;
+    --archive-accent-rgb: 179, 0, 122;
+    /* BG5 — cooler gray (★ liked) */
+    --theme: rgb(240, 240, 242);
+    /* IC2 inline-code background, light theme */
+    --inline-code-bg-muted: rgba(0, 0, 0, 0.05);
 }
 
 .dark {
     --archive-accent: #ff00aa;
+    --archive-accent-rgb: 255, 0, 170;
+    --inline-code-bg-muted: rgba(255, 255, 255, 0.06);
 }
 
+/* ── Logo: pink brackets around site title ──────────────── */
+.logo a {
+    position: relative;
+    display: inline-block;
+}
+.logo a::before { content: '['; color: var(--archive-accent); }
+.logo a::after  { content: ']'; color: var(--archive-accent); }
+
+/* ── Header menu: pink hover, pink wavy underline for active ─ */
+#menu a:hover { color: var(--archive-accent); }
+#menu .active {
+    border-bottom: 0;
+    text-decoration: underline wavy var(--archive-accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+}
+
+/* ── Header layout: logo left, [menu | theme-toggle] together on right ──
+   The overridden header.html (layouts/partials/header.html) places the
+   .logo-switches after #menu instead of inside .logo. We push the menu
+   to the right with margin-inline-start: auto so the switches end up
+   right next to it on the right side of the nav. */
+.nav > #menu { margin-inline-start: auto; }
+.nav > .logo-switches { margin-inline-end: var(--gap); }
+#theme-toggle:hover { color: var(--archive-accent); }
+
+/* ─────────────────────────────────────────────────────────
+ * Archive list (PHC chrome already; was here in v1 of custom.css)
+ * ───────────────────────────────────────────────────────── */
 .archive-list {
     list-style: none;
     padding: 0;
     margin: var(--gap) 0;
     border-top: 1px solid var(--border);
 }
-
 .archive-item {
     margin: 0;
     border-bottom: 1px solid var(--border);
 }
-
 .archive-item a {
     display: grid;
     grid-template-columns: 110px 1fr;
@@ -29,8 +83,6 @@
     font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
     font-weight: 500;
 }
-
-/* D5 — quieter date: small, gray, lightly letter-spaced */
 .archive-date {
     color: var(--secondary);
     font-variant-numeric: tabular-nums;
@@ -39,15 +91,346 @@
     letter-spacing: 0.04em;
     flex-shrink: 0;
 }
-
-/* V6F — wavy pink underline under the title on hover */
 .archive-item a:hover .archive-title {
     text-decoration: underline wavy var(--archive-accent);
     text-decoration-thickness: 2px;
     text-underline-offset: 4px;
 }
-
-/* D5 hover: bring the date back to the accent color */
 .archive-item a:hover .archive-date {
     color: var(--archive-accent);
 }
+
+/* ─────────────────────────────────────────────────────────
+ * Post body styling
+ * ───────────────────────────────────────────────────────── */
+
+/* HD: H2 with pink mono "## " prefix */
+.post-content h2::before {
+    content: '## ';
+    color: var(--archive-accent);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-weight: 700;
+}
+
+/* LJ: subtle gray underline on body links → pink on hover (no wavy).
+   PaperMod adds `box-shadow: 0 1px 0` on .post-content a which produced
+   a double-underline next to our text-decoration; we disable it here.
+   Limit to inline links inside paragraphs/lists/td so headings & buttons
+   are not affected. */
+.post-content a,
+.post-content a span {
+    box-shadow: none;
+}
+.post-content p a,
+.post-content li a,
+.post-content td a,
+.post-content dd a {
+    color: var(--primary);
+    text-decoration: underline solid var(--secondary);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+.post-content p a:hover,
+.post-content li a:hover,
+.post-content td a:hover,
+.post-content dd a:hover {
+    /* Only the underline changes color on hover — text stays primary. */
+    text-decoration: underline solid var(--archive-accent);
+    text-decoration-thickness: 2px;
+}
+
+/* IC2: inline code — muted gray bg, less horizontal padding, slight
+   rounding, body color (not pink). Override PaperMod's default. */
+.post-content :not(pre) > code {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.88em;
+    color: var(--primary);
+    background: var(--inline-code-bg-muted);
+    padding: 1px 4px;
+    border-radius: 3px;
+    margin: 0 1px;
+}
+/* Reset PaperMod's special margin/padding for inline code */
+.post-content code {
+    margin: 0 1px;
+    padding: 1px 4px;
+}
+
+/* BQ0: blockquote — pink left border + italic */
+.post-content blockquote {
+    margin: 18px 0;
+    padding: 6px 16px;
+    font-size: 18px;
+    line-height: 1.55;
+    border-inline-start: 3px solid var(--archive-accent);
+    font-style: italic;
+    color: var(--content);
+}
+.post-content blockquote p { margin: 0 0 8px; }
+.post-content blockquote p:last-child { margin-bottom: 0; }
+
+/* UL8: pink hollow circle bullets (skip footnote list ol via .footnotes) */
+.post-content ul {
+    list-style: none;
+    padding-left: 1.4em;
+}
+.post-content ul li {
+    position: relative;
+}
+.post-content ul li::before {
+    content: '';
+    position: absolute;
+    left: -1em;
+    top: 0.55em;
+    width: 7px;
+    height: 7px;
+    border: 1.5px solid var(--archive-accent);
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+/* OL27: gray mono "1." for ordered lists. Skip footnote list (.footnotes ol). */
+.post-content ol {
+    list-style: none;
+    counter-reset: oli;
+    padding-left: 2em;
+}
+.post-content ol li {
+    counter-increment: oli;
+    position: relative;
+}
+.post-content ol li::before {
+    content: counter(oli) '.';
+    position: absolute;
+    left: -2em;
+    width: 1.6em;
+    text-align: right;
+    color: var(--secondary);
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 500;
+}
+
+/* Footnote ol stays as native decimal list */
+.post-content .footnotes ol,
+.footnotes ol {
+    list-style: decimal;
+    counter-reset: none;
+    padding-left: 20px;
+}
+.post-content .footnotes ol li,
+.footnotes ol li {
+    counter-increment: none;
+    position: static;
+}
+.post-content .footnotes ol li::before,
+.footnotes ol li::before {
+    content: none;
+}
+
+/* ─────────────────────────────────────────────────────────
+ * Code blocks
+ *
+ * Hugo + Chroma with `lineNos: true` (table style) renders:
+ *   <div class="highlight">
+ *     <pre tabindex="0" class="chroma">
+ *       <code>
+ *         <table class="lntable">
+ *           <tr>
+ *             <td class="lntd"><pre class="chroma"><code>... line nums ...</code></pre></td>
+ *             <td class="lntd"><pre class="chroma"><code class="language-python" data-lang="python">... code ...</code></pre></td>
+ *           </tr>
+ *         </table>
+ *       </code>
+ *     </pre>
+ *   </div>
+ * ───────────────────────────────────────────────────────── */
+
+/* Each .highlight is the positioning context for the lang/copy button */
+.post-content div.highlight,
+.post-content .highlighttable {
+    position: relative;
+    margin: 18px 0;
+}
+
+/* LN2: thin gray vertical separator between line numbers and code.
+   Hugo's chroma here uses inline styles (no .lntable/.lntd classes),
+   so we target the table structure directly. The inline `border:0` on
+   the <td> means we need !important on the right border. */
+.post-content .highlight table tr td:first-child {
+    border-right: 1px solid var(--border) !important;
+    padding-right: 8px !important;
+}
+.post-content .highlight table tr td + td {
+    padding-left: 12px !important;
+}
+
+/* CG: language label that becomes "copy <lang>" on hover.
+   Injected by JS in extend_footer.html as <button class="lang-copy">.
+   - position: absolute, top-right of .highlight
+   - hit-area enlarged with transparent left padding so hovering the
+     general top-right area triggers the "copy" preview
+   - color/opacity changes are INSTANT (no transition) */
+.post-content .highlight .lang-copy {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: transparent;
+    border: 0;
+    padding: 8px 14px 8px 90px;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--secondary);
+    opacity: 0.65;
+    cursor: pointer;
+    font-weight: 500;
+    transition: none;
+    z-index: 2;
+    text-align: right;
+    min-width: 140px;
+    line-height: 1;
+}
+.post-content .highlight .lang-copy .prefix::before { content: ''; }
+.post-content .highlight .lang-copy:hover .prefix::before {
+    content: 'copy ';
+    color: var(--archive-accent);
+}
+.post-content .highlight .lang-copy:hover {
+    color: var(--archive-accent);
+    opacity: 1;
+}
+.post-content .highlight .lang-copy.copied {
+    color: var(--archive-accent);
+    opacity: 1;
+}
+.post-content .highlight .lang-copy.copied .prefix::before {
+    content: '✓ copied ';
+}
+.post-content .highlight .lang-copy.copied:hover .prefix::before {
+    content: '✓ copied ';
+}
+
+/* ─────────────────────────────────────────────────────────
+ * Footnotes
+ *
+ * Goldmark renders:
+ *   <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>
+ *   <div class="footnotes" role="doc-endnotes">
+ *     <hr>
+ *     <ol>
+ *       <li id="fn:1">...<a href="#fnref:1" class="footnote-backref">↩︎</a></li>
+ *     </ol>
+ *   </div>
+ * ───────────────────────────────────────────────────────── */
+
+/* FNL0: pink mono "[N]" for the in-text footnote ref */
+.post-content sup { line-height: 0; }
+.post-content sup a.footnote-ref,
+.post-content a.footnote-ref {
+    text-decoration: none;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: var(--archive-accent);
+    font-size: 11px;
+}
+.post-content a.footnote-ref:hover {
+    color: var(--archive-accent);
+    opacity: 0.75;
+    text-decoration: none;
+}
+/* Wrap the bare "1" in [1] visual */
+.post-content a.footnote-ref::before { content: '['; }
+.post-content a.footnote-ref::after  { content: ']'; }
+
+/* FN0: footnote contrast — secondary color, links match surrounding
+   footnote text instead of being high-contrast body links */
+.post-content .footnotes,
+.footnotes {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--secondary);
+}
+/* Hide the <hr> goldmark renders since we already draw a top border */
+.post-content .footnotes > hr,
+.footnotes > hr { display: none; }
+.post-content .footnotes li,
+.footnotes li { margin-bottom: 6px; }
+
+.post-content .footnotes a,
+.footnotes a {
+    color: inherit;
+    text-decoration: underline solid var(--tertiary);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+.post-content .footnotes a:hover,
+.footnotes a:hover {
+    color: var(--archive-accent);
+    text-decoration-color: var(--archive-accent);
+}
+/* Backref ↩︎ is small and unobtrusive */
+.post-content .footnotes a.footnote-backref,
+.footnotes a.footnote-backref {
+    text-decoration: none;
+    color: var(--secondary);
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.post-content .footnotes a.footnote-backref:hover,
+.footnotes a.footnote-backref:hover {
+    color: var(--archive-accent);
+}
+
+/* ── Footnote popup (hover + click-pin) ────────────────── */
+.fn-popup {
+    position: absolute;
+    z-index: 50;
+    background: var(--entry);
+    color: var(--content);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--archive-accent);
+    border-radius: 6px;
+    /* reserve room for the × close button so pinning never reflows */
+    padding: 10px 28px 10px 14px;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 360px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    pointer-events: auto;
+}
+.fn-popup a {
+    color: inherit;
+    text-decoration: underline solid var(--tertiary);
+    text-underline-offset: 3px;
+}
+.fn-popup a:hover {
+    color: var(--archive-accent);
+    text-decoration-color: var(--archive-accent);
+}
+.fn-popup .num {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    color: var(--archive-accent);
+    font-weight: 700;
+    margin-right: 6px;
+}
+.fn-popup .footnote-backref { display: none; }
+.fn-popup.pinned {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+}
+.fn-popup .pin-close {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    background: transparent;
+    border: 0;
+    color: var(--secondary);
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 6px;
+}
+.fn-popup .pin-close:hover { color: var(--archive-accent); }
+.fn-popup:not(.pinned) .pin-close { display: none; }
