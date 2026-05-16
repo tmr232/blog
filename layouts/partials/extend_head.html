@@ -5,6 +5,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+{{- /* Chroma syntax highlighting (catppuccin-latte / catppuccin-frappe).
+       The two stylesheets are scoped with body:not(.dark) and body.dark
+       respectively so they switch with the theme. */ -}}
+{{- $chromaLight := resources.Get "css/chroma-light.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $chromaLight.RelPermalink }}" integrity="{{ $chromaLight.Data.Integrity }}">
+{{- $chromaDark := resources.Get "css/chroma-dark.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $chromaDark.RelPermalink }}" integrity="{{ $chromaDark.Data.Integrity }}">
 {{- /* Custom site styles */ -}}
 {{- $customCSS := resources.Get "css/custom.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $customCSS.RelPermalink }}" integrity="{{ $customCSS.Data.Integrity }}">

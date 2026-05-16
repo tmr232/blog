@@ -142,12 +142,15 @@ menu:
 #pygmentsUseClasses: true
 markup:
   highlight:
-    #    noClasses: false
-    #    anchorLineNos: true
+    # noClasses: false makes chroma emit class names instead of inline
+    # styles, so we can ship our own per-theme stylesheets:
+    #   assets/css/chroma-light.css (catppuccin-latte)
+    #   assets/css/chroma-dark.css  (catppuccin-frappe)
+    # Both are loaded by layouts/partials/extend_head.html.
+    noClasses: false
     codeFences: true
-    #    guessSyntax: true
     lineNos: true
-    style: monokai
+    style: catppuccin-latte
 
 outputs:
   home:

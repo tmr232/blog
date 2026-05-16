@@ -41,11 +41,11 @@
 .logo a::before { content: '['; color: var(--archive-accent); }
 .logo a::after  { content: ']'; color: var(--archive-accent); }
 
-/* ── Header menu: pink hover, pink wavy underline for active ─ */
+/* ── Header menu: pink hover, pink underline for active item ── */
 #menu a:hover { color: var(--archive-accent); }
 #menu .active {
     border-bottom: 0;
-    text-decoration: underline wavy var(--archive-accent);
+    text-decoration: underline solid var(--archive-accent);
     text-decoration-thickness: 2px;
     text-underline-offset: 6px;
 }
@@ -155,6 +155,24 @@
     margin: 0 1px;
     padding: 1px 4px;
 }
+/* Link-wrapped inline code: PaperMod adds box-shadow: 0 -1px 0 inset on
+   `.post-content a code` which combined with the link's own underline
+   produced a double underline. Disable the box-shadow and restore the
+   IC2 rounded look so links with code in them look like everything else. */
+.post-content a code {
+    box-shadow: none;
+    border-radius: 3px;
+}
+
+/* Center images horizontally inside posts. PaperMod default uses
+   `margin: 1rem 0` (left-aligned); we change to `1rem auto` and force
+   block layout so the image actually centers. */
+.post-content img,
+.post-content figure {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 /* BQ0: blockquote — pink left border + italic */
 .post-content blockquote {
@@ -251,6 +269,33 @@
     position: relative;
     margin: 18px 0;
 }
+
+/* Let the chroma theme own the code-block background and foreground.
+   PaperMod sets `background: var(--hljs-bg) !important` on .highlight
+   and `pre code`, which is dark even in light mode and fights with the
+   catppuccin palette — producing the "extremely dark" code blocks.
+   We strip those overrides so the chroma stylesheet wins. */
+.post-content .highlight,
+.post-content .highlight:not(table),
+.post-content .highlight pre,
+.post-content .highlight pre code,
+.post-content .highlight code {
+    background: transparent !important;
+    color: inherit;
+}
+
+/* Catppuccin's chroma palette in this Hugo version mis-maps the default
+   foreground to "peach" (#fe640b / #ef9f76) instead of "text". Fix it to
+   the proper text colors so plain (non-token) source reads normally. */
+body:not(.dark) .post-content .chroma { color: #4c4f69; }  /* latte text */
+body.dark        .post-content .chroma { color: #c6d0f5; }  /* frappe text */
+
+/* Same issue for line numbers (.lnt / .ln): the generated CSS uses a
+   peach tint; replace with a quiet "overlay" gray from the palette. */
+body:not(.dark) .post-content .chroma .lnt,
+body:not(.dark) .post-content .chroma .ln  { color: #9ca0b0; }
+body.dark        .post-content .chroma .lnt,
+body.dark        .post-content .chroma .ln { color: #737994; }
 
 /* LN2: thin gray vertical separator between line numbers and code.
    Hugo's chroma here uses inline styles (no .lntable/.lntd classes),
