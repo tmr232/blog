@@ -17,12 +17,17 @@
  *   footnote popup (hover + click-pin, no-shift).
  * ───────────────────────────────────────────────────────── */
 
-/* ── Pink accent, BG5 light bg ──────────────────────────── */
+/* ── Pink accent, page bg ───────────────────────────────────
+   The chosen BG5 (rgb(240,240,242)) turned out to be essentially the
+   same color as catppuccin-latte's base (#eff1f5) — which the code
+   blocks use — making code indistinguishable from the page. We switch
+   the light-theme page bg to catppuccin's `crust` (#dce0e8); the
+   catppuccin design system uses crust for page bg and base for code
+   surfaces, so the two colors sit naturally together. */
 :root {
     --archive-accent: #b3007a;
     --archive-accent-rgb: 179, 0, 122;
-    /* BG5 — cooler gray (★ liked) */
-    --theme: rgb(240, 240, 242);
+    --theme: #dce0e8;
     /* IC2 inline-code background, light theme */
     --inline-code-bg-muted: rgba(0, 0, 0, 0.05);
 }
@@ -273,8 +278,9 @@
 /* Let the chroma theme own the code-block background and foreground.
    PaperMod sets `background: var(--hljs-bg) !important` on .highlight
    and `pre code`, which is dark even in light mode and fights with the
-   catppuccin palette — producing the "extremely dark" code blocks.
-   We strip those overrides so the chroma stylesheet wins. */
+   catppuccin palette. We strip those overrides so the chroma stylesheet
+   wins; the .chroma rule (background-color: #eff1f5 / #303446) then
+   correctly paints the code block. */
 .post-content .highlight,
 .post-content .highlight:not(table),
 .post-content .highlight pre,
@@ -283,19 +289,6 @@
     background: transparent !important;
     color: inherit;
 }
-
-/* Catppuccin's chroma palette in this Hugo version mis-maps the default
-   foreground to "peach" (#fe640b / #ef9f76) instead of "text". Fix it to
-   the proper text colors so plain (non-token) source reads normally. */
-body:not(.dark) .post-content .chroma { color: #4c4f69; }  /* latte text */
-body.dark        .post-content .chroma { color: #c6d0f5; }  /* frappe text */
-
-/* Same issue for line numbers (.lnt / .ln): the generated CSS uses a
-   peach tint; replace with a quiet "overlay" gray from the palette. */
-body:not(.dark) .post-content .chroma .lnt,
-body:not(.dark) .post-content .chroma .ln  { color: #9ca0b0; }
-body.dark        .post-content .chroma .lnt,
-body.dark        .post-content .chroma .ln { color: #737994; }
 
 /* LN2: thin gray vertical separator between line numbers and code.
    Hugo's chroma here uses inline styles (no .lntable/.lntd classes),
