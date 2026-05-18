@@ -474,3 +474,16 @@ body.dark        .post-content .highlight { background: #303446 !important; } /*
 }
 .fn-popup .pin-close:hover { color: var(--archive-accent); }
 .fn-popup:not(.pinned) .pin-close { display: none; }
+
+/* On small screens the popup spans the content width (side-to-side)
+   instead of trying to anchor against the tiny [n] reference. The JS
+   sets an inline `left` based on the trigger position; we override it
+   with !important so the popup uses the viewport edges instead. */
+@media (max-width: 768px) {
+    .fn-popup {
+        left: 12px !important;
+        right: 12px;
+        max-width: none;
+        width: auto;
+    }
+}
