@@ -275,14 +275,16 @@
     margin: 18px 0;
 }
 
-/* Let the chroma theme own the code-block background and foreground.
+/* Code-block backgrounds.
    PaperMod sets `background: var(--hljs-bg) !important` on .highlight
-   and `pre code`, which is dark even in light mode and fights with the
-   catppuccin palette. We strip those overrides so the chroma stylesheet
-   wins; the .chroma rule (background-color: #eff1f5 / #303446) then
-   correctly paints the code block. */
-.post-content .highlight,
-.post-content .highlight:not(table),
+   and `pre code`, which is dark in both modes and fights with the
+   catppuccin palette. Override with the catppuccin BASE color directly
+   on the outer .highlight so the whole code block gets the chroma bg,
+   and make every inner element transparent so PaperMod's --hljs-bg
+   doesn't peek through. */
+body:not(.dark) .post-content .highlight { background: #eff1f5 !important; } /* latte base */
+body.dark        .post-content .highlight { background: #303446 !important; } /* frappe base */
+
 .post-content .highlight pre,
 .post-content .highlight pre code,
 .post-content .highlight code {
