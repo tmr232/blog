@@ -389,7 +389,7 @@ body.dark        .post-content .highlight { background: #303446 !important; } /*
     margin-top: 40px;
     padding-top: 16px;
     border-top: 1px solid var(--border);
-    font-size: 14px;
+    font-size: 18px;
     color: var(--secondary);
 }
 /* Hide the <hr> goldmark renders since we already draw a top border */
@@ -433,7 +433,7 @@ body.dark        .post-content .highlight { background: #303446 !important; } /*
     border-radius: 6px;
     /* reserve room for the × close button so pinning never reflows */
     padding: 10px 28px 10px 14px;
-    font-size: 14px;
+    font-size: 18px;
     line-height: 1.5;
     max-width: 360px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
