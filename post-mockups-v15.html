@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Blog Post — Mockups V15 (Light bg + logo font)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&family=B612+Mono:wght@400;700&family=Cutive+Mono&family=DM+Mono:wght@400;500&family=Fira+Code:wght@400;500;700&family=Geist+Mono:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&family=Inconsolata:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&family=Major+Mono+Display&family=Roboto+Mono:wght@400;500;700&family=Share+Tech+Mono&family=Source+Code+Pro:wght@400;500;700&family=Space+Mono:wght@400;700&family=Ubuntu+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+<style>
+/* ──────────────────────────────────────────────────────────
+ * Mockups v15 — LIGHT-THEME BACKGROUND + LOGO FONT variations.
+ *
+ * Locked from v14:
+ *   BL1 — UL8 pink hollow circles for inline ToC (matches site body
+ *         lists), card chrome = TI2 from v13.
+ *
+ * Locked from v13:
+ *   TI2 — card + pink left bar + white fill + mono "##" title +
+ *         manual +/- toggle, starts open.
+ *   Heading prefixes (HD H2, HL24 H3/H4), HD body, LJ links,
+ *   IC2 inline code, BQ0 blockquote, code-block + lang button,
+ *   floating ToC = TF33 + PR10 + ST40 + TT-NONE + TP-TOP.
+ *
+ * NEW variation groups:
+ *   BG — light-theme PAGE background + inline-ToC (entry) background
+ *        combos. Only affects the LIGHT theme. Dark theme stays
+ *        Catppuccin Frappé as before.
+ *   LF — logo font. Most are monospace flavors; LF0 keeps the system
+ *        sans-serif baseline.
+ * ────────────────────────────────────────────────────────── */
+:root,
+[data-theme="light"] {
+  --gap: 24px;
+  --content-gap: 20px;
+  --nav-width: 1024px;
+  --main-width: 720px;
+  --header-height: 60px;
+  --radius: 8px;
+  --theme: #fdf9ee;
+  --code-bg: #eff1f5;
+  --entry: #ffffff;
+  --primary: rgb(30, 30, 30);
+  --secondary: rgb(108, 108, 108);
+  --tertiary: rgb(214, 214, 214);
+  --content: rgb(31, 31, 31);
+  --border: rgb(212, 215, 222);
+  --inline-code-bg-muted: rgba(0, 0, 0, 0.05);
+  --archive-accent: #b3007a;
+  --archive-accent-rgb: 179, 0, 122;
+}
+[data-theme="dark"] {
+  --theme: #232634;
+  --code-bg: #303446;
+  --entry: #292c3c;
+  --primary: rgb(218, 218, 219);
+  --secondary: rgb(155, 156, 157);
+  --tertiary: rgb(85, 86, 90);
+  --content: rgb(196, 196, 197);
+  --border: rgb(60, 62, 76);
+  --inline-code-bg-muted: rgba(255, 255, 255, 0.06);
+  --archive-accent: #ff00aa;
+  --archive-accent-rgb: 255, 0, 170;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--theme);
+  color: var(--primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  font-size: 18px;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  min-height: 100vh;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* ─── Sidebar picker ───────────────────────────────────── */
+aside.picker {
+  background: var(--entry);
+  border-right: 1px solid var(--border);
+  padding: 20px 0;
+  position: sticky; top: 0;
+  align-self: start;
+  height: 100vh;
+  overflow-y: auto;
+  font-size: 14px;
+  display: flex; flex-direction: column;
+}
+aside.picker .top-controls {
+  padding: 0 20px 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+aside.picker h2 {
+  margin: 0; font-size: 13px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--secondary); font-weight: 600;
+}
+aside.picker .group-title {
+  margin: 14px 20px 4px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  font-weight: 700;
+  opacity: 0.8;
+}
+aside.picker ul { list-style: none; padding: 0; margin: 0; }
+aside.picker li button {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-left: 3px solid transparent;
+  color: var(--primary);
+  padding: 6px 20px 6px 17px;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex; flex-direction: column; gap: 2px;
+}
+aside.picker li button:hover { background: rgba(var(--archive-accent-rgb), 0.06); }
+aside.picker li button.active {
+  background: rgba(var(--archive-accent-rgb), 0.10);
+  border-left-color: var(--archive-accent);
+  color: var(--archive-accent);
+  font-weight: 700;
+}
+aside.picker li button .id {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 700;
+}
+aside.picker li button .desc {
+  font-size: 12px;
+  color: var(--secondary);
+  font-weight: 400;
+  line-height: 1.3;
+}
+aside.picker li button.active .desc { color: var(--archive-accent); opacity: 0.85; }
+
+aside.picker .strip {
+  margin-top: auto;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--secondary);
+}
+aside.picker .strip .vid {
+  display: block;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 700;
+  color: var(--archive-accent);
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+aside.picker .strip .row { margin: 2px 0; }
+
+#theme-toggle-mock {
+  background: var(--theme);
+  border: 1px solid var(--border);
+  color: var(--primary);
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+}
+#theme-toggle-mock:hover { border-color: var(--archive-accent); }
+
+/* ─── Stage / page chrome ──────────────────────────────── */
+.page { width: 100%; display: flex; flex-direction: column; }
+
+header.site-header { border-bottom: 1px solid var(--border); }
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: calc(var(--nav-width) + var(--gap) * 2);
+  margin-inline-start: auto; margin-inline-end: auto;
+  line-height: var(--header-height);
+  width: 100%;
+}
+.nav a { display: block; color: inherit; text-decoration: none; }
+.logo, .menu-wrap { display: flex; margin: auto var(--gap); }
+.menu-wrap { position: relative; align-items: center; gap: 4px; }
+.logo a {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+  position: relative;
+  display: inline-block;
+}
+.logo a::before { content: '['; color: var(--archive-accent); }
+.logo a::after  { content: ']'; color: var(--archive-accent); }
+
+#theme-toggle-header {
+  background: transparent; border: 0;
+  color: var(--primary); cursor: pointer;
+  padding: 0 12px;
+  display: inline-flex; align-items: center;
+  height: var(--header-height);
+}
+#theme-toggle-header:hover { color: var(--archive-accent); }
+[data-theme="dark"] #moon { display: none; }
+[data-theme="light"] #sun { display: none; }
+
+ul#menu { list-style: none; padding: 0; margin: 0; word-break: keep-all; white-space: nowrap; display: flex; }
+ul#menu li { display: block; margin: 0; }
+ul#menu a {
+  display: block;
+  padding: 0 12px;
+  position: relative;
+  font-size: 16px;
+  color: var(--primary);
+  line-height: var(--header-height);
+}
+ul#menu a:hover { color: var(--archive-accent); }
+ul#menu .active {
+  text-decoration: underline solid var(--archive-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+.main {
+  position: relative;
+  max-width: calc(var(--main-width) + var(--gap) * 2);
+  margin: auto;
+  padding: var(--gap);
+  width: 100%;
+}
+
+/* ─── Locked styles ────────────────────────────────────── */
+.post-header { margin: 0 0 28px; position: relative; display: flex; flex-direction: column; }
+.post-header h1 { font-size: 36px; margin: 0; line-height: 1.2; letter-spacing: -0.01em; }
+.post-header .meta {
+  margin: 0 0 10px;
+  font-size: 12px; color: var(--secondary);
+  display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  text-transform: uppercase; letter-spacing: 0.18em;
+  order: -1;
+}
+
+.post-body h2 {
+  font-size: 26px; margin: 40px 0 12px;
+  line-height: 1.3; scroll-margin-top: 80px;
+}
+.post-body h2::before {
+  content: '## '; color: var(--archive-accent);
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 700;
+}
+.post-body { color: var(--content); }
+.post-body p { margin: 0 0 16px; }
+.post-body p a, .post-body li a {
+  color: var(--primary);
+  text-decoration: underline solid var(--secondary);
+  text-decoration-thickness: 1px; text-underline-offset: 3px;
+}
+.post-body p a:hover, .post-body li a:hover {
+  text-decoration: underline solid var(--archive-accent);
+  text-decoration-thickness: 2px;
+}
+
+.post-body h3, .post-body h4 { scroll-margin-top: 100px; line-height: 1.3; }
+.post-body h3 { font-size: 21px; margin: 30px 0 10px; font-weight: 700; }
+.post-body h3::before {
+  content: '### '; color: var(--archive-accent);
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 500;
+  opacity: 0.75; font-size: 0.9em;
+}
+.post-body h4 { font-size: 18px; margin: 22px 0 8px; font-weight: 700; }
+.post-body h4::before {
+  content: '#### '; color: var(--archive-accent);
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 400;
+  opacity: 0.5; font-size: 0.8em;
+}
+
+/* Inline ToC — TI2 base chrome (locked from v13/v14) */
+.post-body nav.toc {
+  margin: 24px 0 32px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--archive-accent);
+  border-radius: 4px;
+  padding: 14px 18px; background: var(--entry);
+}
+.post-body nav.toc .toc-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; cursor: pointer;
+}
+.post-body nav.toc .toc-head:hover .toc-title { color: var(--archive-accent); }
+.post-body nav.toc .toc-title {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 14px; letter-spacing: 0.10em;
+  text-transform: uppercase; color: var(--secondary);
+  font-weight: 700; margin: 0;
+}
+.post-body nav.toc .toc-title::before {
+  content: '## '; color: var(--archive-accent);
+}
+.post-body nav.toc .toc-toggle {
+  background: transparent; border: 0; cursor: pointer;
+  color: var(--secondary);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 14px; line-height: 1;
+  padding: 2px 6px; border-radius: 4px;
+}
+.post-body nav.toc .toc-toggle:hover { color: var(--archive-accent); }
+.post-body nav.toc .toc-body { margin-top: 10px; }
+.post-body nav.toc.collapsed .toc-body { display: none; }
+.post-body nav.toc.collapsed .toc-body { margin-top: 0; }
+
+.post-body nav.toc a {
+  color: var(--primary); text-decoration: none;
+  font-size: 15px; line-height: 1.55;
+}
+.post-body nav.toc a:hover { color: var(--archive-accent); }
+
+.post-body nav.toc ol, .post-body nav.toc ul {
+  list-style: none; padding-left: 0; margin: 0;
+}
+.post-body nav.toc li {
+  position: relative; padding: 2px 0 2px 14px;
+  counter-increment: none;
+}
+.post-body nav.toc li::before {
+  content: ''; position: absolute;
+  left: 0; top: 0.65em;
+  width: 6px; height: 6px;
+  border: 1.5px solid var(--archive-accent);
+  border-radius: 50%; box-sizing: border-box;
+}
+.post-body nav.toc li ol, .post-body nav.toc li ul {
+  padding-left: 18px; margin-top: 2px;
+}
+
+/* ──────────────────────────────────────────────────────────
+ * BG — LIGHT-theme page & ToC background combos.
+ *
+ * Each rule overrides `--theme` (page bg) and/or `--entry`
+ * (ToC + cards bg) ONLY when the active theme is light. Dark
+ * theme is untouched so the swatches don't poison the night view.
+ *
+ * Naming the duo: "page / ToC". When the two are the same color,
+ * the card border alone differentiates the ToC from its surround.
+ * ────────────────────────────────────────────────────────── */
+
+/* BG0 — current: Catppuccin Latte Crust page + white ToC. */
+
+/* BG1 — pure white page, light gray ToC (card slightly darker). */
+html[data-theme="light"] body.bg-1 { --theme: #ffffff; --entry: #f5f5f5; }
+
+/* BG2 — near-white page (#fafafa), white ToC. Subtle card lift. */
+html[data-theme="light"] body.bg-2 { --theme: #fafafa; --entry: #ffffff; }
+
+/* BG3 — soft gray page (#f5f5f5), white ToC. */
+html[data-theme="light"] body.bg-3 { --theme: #f5f5f5; --entry: #ffffff; }
+
+/* BG4 — Catppuccin Latte BASE (#eff1f5), white ToC. One step
+   warmer than Crust. */
+html[data-theme="light"] body.bg-4 { --theme: #eff1f5; --entry: #ffffff; }
+
+/* BG5 — Catppuccin Latte MANTLE (#e6e9ef), white ToC. */
+html[data-theme="light"] body.bg-5 { --theme: #e6e9ef; --entry: #ffffff; }
+
+/* BG6 — fully flat: white page AND white ToC. Border carries the
+   card chrome on its own. */
+html[data-theme="light"] body.bg-6 { --theme: #ffffff; --entry: #ffffff; }
+
+/* BG7 — warm cream (Solarized-ish #fdf6e3), white ToC. */
+html[data-theme="light"] body.bg-7 { --theme: #fdf6e3; --entry: #ffffff; }
+
+/* BG8 — pink-tinted page (#fdf2f8), white ToC. Accent-coherent. */
+html[data-theme="light"] body.bg-8 { --theme: #fdf2f8; --entry: #ffffff; }
+
+/* BG9 — GitHub-cool page (#f6f8fa), white ToC. */
+html[data-theme="light"] body.bg-9 { --theme: #f6f8fa; --entry: #ffffff; }
+
+/* BG10 — Tailwind Zinc-100 page (#f4f4f5), white ToC. */
+html[data-theme="light"] body.bg-10 { --theme: #f4f4f5; --entry: #ffffff; }
+
+/* BG11 — both very light grays, ToC slightly lighter than page. */
+html[data-theme="light"] body.bg-11 { --theme: #ececec; --entry: #f7f7f7; }
+
+/* BG12 — white page, very soft pink-tinted ToC (#fef7fb). */
+html[data-theme="light"] body.bg-12 { --theme: #ffffff; --entry: #fef7fb; }
+
+/* BG13 — white page, pink ToC (#fdf2f8). Card pops pink. */
+html[data-theme="light"] body.bg-13 { --theme: #ffffff; --entry: #fdf2f8; }
+
+/* BG14 — lavender-tinted page (#ecebf0), white ToC. */
+html[data-theme="light"] body.bg-14 { --theme: #ecebf0; --entry: #ffffff; }
+
+/* BG15 — light lavender (#f5f3ff), white ToC. */
+html[data-theme="light"] body.bg-15 { --theme: #f5f3ff; --entry: #ffffff; }
+
+/* BG16 — near-white page (#fafafa), pink-tinted ToC (#fcf2f7). */
+html[data-theme="light"] body.bg-16 { --theme: #fafafa; --entry: #fcf2f7; }
+
+/* BG17 — deeper neutral gray page (#e8eaee), white ToC. */
+html[data-theme="light"] body.bg-17 { --theme: #e8eaee; --entry: #ffffff; }
+
+/* BG18 — sepia / tan paper (#f5efe6), white ToC. */
+html[data-theme="light"] body.bg-18 { --theme: #f5efe6; --entry: #ffffff; }
+
+/* BG19 — slate-blue page (#f0f4f8), white ToC. */
+html[data-theme="light"] body.bg-19 { --theme: #f0f4f8; --entry: #ffffff; }
+
+/* BG20 — Stone-100 (Tailwind) page (#f5f5f4), white ToC. Warm
+   neutral, very subtly different from BG3. */
+html[data-theme="light"] body.bg-20 { --theme: #f5f5f4; --entry: #ffffff; }
+
+/* BG21 — page #eff1f5 (Latte Base), ToC matches code-bg same value
+   — so ToC and code blocks read as the same "card" surface. */
+html[data-theme="light"] body.bg-21 { --theme: #ffffff; --entry: #eff1f5; }
+
+/* ──────────────────────────────────────────────────────────
+ * LF — LOGO FONT variations.
+ *
+ * Affects only `.logo a` (and its bracket pseudo-elements via
+ * inheritance). Most variants are monospace; LF0 keeps the system
+ * sans-serif baseline so we can see the difference.
+ *
+ * Some fonts (VT323, Major Mono Display, Cutive Mono, Share Tech
+ * Mono) only ship one weight — those rules skip `font-weight`
+ * overrides so the font renders at its single design weight.
+ * ────────────────────────────────────────────────────────── */
+
+/* LF0 — baseline: current sans-serif 700 (no override). */
+
+/* LF1 — JetBrains Mono 700. Sharp, devy, matches site mono. */
+body.lf-1  .logo a { font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 700; letter-spacing: -0.02em; }
+
+/* LF2 — JetBrains Mono 500. Slightly lighter for a softer logo. */
+body.lf-2  .logo a { font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 500; letter-spacing: -0.02em; }
+
+/* LF3 — JetBrains Mono 400. Light, technical, almost terminal. */
+body.lf-3  .logo a { font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 400; letter-spacing: -0.01em; }
+
+/* LF4 — IBM Plex Mono 700. Clean, slight humanist warmth. */
+body.lf-4  .logo a { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; }
+
+/* LF5 — IBM Plex Mono 500. */
+body.lf-5  .logo a { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 500; }
+
+/* LF6 — Space Mono 700. Quirky big counters, large dot of "i". */
+body.lf-6  .logo a { font-family: 'Space Mono', ui-monospace, monospace; font-weight: 700; letter-spacing: -0.04em; }
+
+/* LF7 — Fira Code 700. Programmer font, distinctive shapes. */
+body.lf-7  .logo a { font-family: 'Fira Code', ui-monospace, monospace; font-weight: 700; }
+
+/* LF8 — Source Code Pro 700. Adobe utility mono, very neutral. */
+body.lf-8  .logo a { font-family: 'Source Code Pro', ui-monospace, monospace; font-weight: 700; }
+
+/* LF9 — Inconsolata 700. Compact, friendly. */
+body.lf-9  .logo a { font-family: 'Inconsolata', ui-monospace, monospace; font-weight: 700; letter-spacing: 0.01em; }
+
+/* LF10 — Roboto Mono 700. Geometric, even, very modern. */
+body.lf-10 .logo a { font-family: 'Roboto Mono', ui-monospace, monospace; font-weight: 700; }
+
+/* LF11 — DM Mono 500. Modern with stylized italics if used. */
+body.lf-11 .logo a { font-family: 'DM Mono', ui-monospace, monospace; font-weight: 500; }
+
+/* LF12 — Anonymous Pro 700. Old-school programmer font. */
+body.lf-12 .logo a { font-family: 'Anonymous Pro', ui-monospace, monospace; font-weight: 700; }
+
+/* LF13 — Ubuntu Mono 700. Soft, slightly rounded. */
+body.lf-13 .logo a { font-family: 'Ubuntu Mono', ui-monospace, monospace; font-weight: 700; }
+
+/* LF14 — VT323 (single weight). Pixel/CRT terminal feel.
+   Renders heavy — bump size up so it doesn't look anemic. */
+body.lf-14 .logo a {
+  font-family: 'VT323', ui-monospace, monospace;
+  font-weight: 400; font-size: 32px; letter-spacing: 0.02em;
+}
+
+/* LF15 — B612 Mono 700. Airbus cockpit font, extremely neutral. */
+body.lf-15 .logo a { font-family: 'B612 Mono', ui-monospace, monospace; font-weight: 700; }
+
+/* LF16 — Cutive Mono (single weight). Vintage typewriter. */
+body.lf-16 .logo a { font-family: 'Cutive Mono', ui-monospace, monospace; font-weight: 400; }
+
+/* LF17 — Major Mono Display (single weight). Geometric display
+   mono, ALL letterforms lowercase-shaped; only really sings when
+   you accept the all-lower aesthetic. */
+body.lf-17 .logo a {
+  font-family: 'Major Mono Display', ui-monospace, monospace;
+  font-weight: 400; text-transform: lowercase; letter-spacing: 0.02em;
+}
+
+/* LF18 — Share Tech Mono (single weight). Techno / sci-fi feel. */
+body.lf-18 .logo a { font-family: 'Share Tech Mono', ui-monospace, monospace; font-weight: 400; }
+
+/* LF19 — Geist Mono 700. Vercel's modern mono. */
+body.lf-19 .logo a { font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 700; letter-spacing: -0.02em; }
+
+/* LF20 — Geist Mono 500. Softer Geist. */
+body.lf-20 .logo a { font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 500; letter-spacing: -0.01em; }
+
+/* LF21 — IBM Plex Mono 700 + UPPERCASE + tracked, "wordmark" style. */
+body.lf-21 .logo a {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 20px;
+}
+
+/* LF22 — JetBrains Mono 700 + lowercase. Devy, casual. */
+body.lf-22 .logo a {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: -0.02em;
+}
+
+/* ──────────────────────────────────────────────────────────
+ * Code block / inline code / blockquote / footer (locked from v14).
+ * ────────────────────────────────────────────────────────── */
+
+.post-body pre {
+  background: var(--code-bg); border-radius: var(--radius);
+  padding: 12px 16px; overflow-x: auto;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 14px; line-height: 1.55;
+  margin: 18px 0;
+}
+.post-body pre code { font-family: inherit; font-size: inherit; background: none; padding: 0; display: block; }
+
+.post-body :not(pre) > code {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.88em;
+  color: var(--primary); background: var(--inline-code-bg-muted);
+  padding: 1px 4px; border-radius: 3px; margin: 0 1px;
+}
+
+.post-body blockquote {
+  margin: 18px 0; padding: 6px 16px; font-size: 18px; line-height: 1.55;
+  border-inline-start: 3px solid var(--archive-accent);
+  font-style: italic; color: var(--content);
+}
+
+.post-footer-nav {
+  margin: 48px 0 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+}
+.post-footer-nav a { color: var(--secondary); text-decoration: none; }
+.post-footer-nav a:hover { color: var(--archive-accent); }
+.post-footer-nav .arr { color: var(--archive-accent); }
+
+.post-body pre .kw  { color: #c2185b; }
+.post-body pre .str { color: #2e7d32; }
+.post-body pre .com { color: var(--secondary); font-style: italic; }
+.post-body pre .fn  { color: #1565c0; }
+[data-theme="dark"] .post-body pre .kw  { color: #ff80ab; }
+[data-theme="dark"] .post-body pre .str { color: #a5d6a7; }
+[data-theme="dark"] .post-body pre .fn  { color: #82b1ff; }
+</style>
+</head>
+<body id="top" class="bg-0 lf-1">
+
+<aside class="picker">
+  <div class="top-controls">
+    <h2>Light bg + logo font · v15</h2>
+    <button id="theme-toggle-mock">🌓 Toggle theme</button>
+    <div style="font-size:11px;color:var(--secondary);line-height:1.4;">
+      BG variants only affect the <strong>light</strong> theme.
+      Toggle to dark to verify nothing leaks.
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="group-title">BG — light page / ToC bg</div>
+    <ul id="group-bg"></ul>
+  </div>
+
+  <div class="group">
+    <div class="group-title">LF — logo font</div>
+    <ul id="group-lf"></ul>
+  </div>
+
+  <div class="strip">
+    <span class="vid" id="current-id">BG-0 · LF-1</span>
+    <div class="row"><strong>BG:</strong> <span id="d-bg"></span></div>
+    <div class="row"><strong>LF:</strong> <span id="d-lf"></span></div>
+    <div class="row" style="margin-top:6px;opacity:0.7"><em>
+      Locked: TI2 chrome + BL1 hollow circles from v14.
+    </em></div>
+  </div>
+</aside>
+
+<main class="page" id="page">
+  <header class="site-header">
+    <nav class="nav">
+      <div class="logo">
+        <a class="logo-link" href="#"><span class="real">Tamir Bahar</span></a>
+      </div>
+      <div class="menu-wrap">
+        <ul id="menu">
+          <li><a href="#"><span>blogvent🎄</span></a></li>
+          <li><a href="#"><span class="active">posts</span></a></li>
+          <li><a href="#"><span>archives</span></a></li>
+          <li><a href="#"><span>rss</span></a></li>
+        </ul>
+        <button id="theme-toggle-header" title="Toggle theme">
+          <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <section class="main">
+    <article>
+      <header class="post-header">
+        <h1>Implementing C++ Semantics in Python — a writeup</h1>
+        <div class="meta">
+          <time datetime="2023-10-22">2023-10-22</time>
+          <span>·</span>
+          <span class="reading">12 min read</span>
+        </div>
+      </header>
+
+      <div class="post-body" id="post-body">
+        <p><em>Writeup of my talk about the <a href="#">cpppy library</a></em></p>
+
+        <p>A few years ago I gave a talk about implementing C++ semantics
+        (namely, destructors) in Python. After giving the talk, I published
+        my speaker notes and slides, to make it as accessible as possible.
+        Which brings us here — this is that talk, but as a blogpost.</p>
+
+        <nav class="toc" id="toc-inline">
+          <div class="toc-head">
+            <span class="toc-title">table of contents</span>
+            <button class="toc-toggle" id="toc-toggle" type="button"
+                    aria-expanded="true" aria-controls="toc-body">−</button>
+          </div>
+          <div class="toc-body" id="toc-body">
+          <ol class="toc-list">
+            <li><a href="#h-but-why">But Why?</a>
+              <ol>
+                <li><a href="#h-context-managers">Context Managers</a></li>
+                <li><a href="#h-real-code">Real Code</a></li>
+                <li><a href="#h-cpp-destructors">C++ Destructors</a>
+                  <ol>
+                    <li><a href="#h-automatic">Automatic Invocation</a></li>
+                    <li><a href="#h-composition">Seamless Composition</a></li>
+                    <li><a href="#h-implicit">Implicit Interfaces</a></li>
+                  </ol>
+                </li>
+                <li><a href="#h-our-goal">Our Goal</a></li>
+              </ol>
+            </li>
+            <li><a href="#h-wrapping-up">Wrapping Up</a>
+              <ol><li><a href="#h-but">But…</a></li></ol>
+            </li>
+            <li><a href="#h-further-reading">Further Reading</a></li>
+          </ol>
+          </div>
+        </nav>
+
+        <h2 id="h-but-why">But Why?</h2>
+        <p>When coming to implement C++ semantics in Python, the first
+        question we need to ask ourselves is "why?". The answer to that
+        question is resource-management.</p>
+
+        <h3 id="h-context-managers">Context Managers</h3>
+        <p>Context-managers are relatively straight-forward. To use them,
+        we use the <code>with</code> statement.</p>
+
+        <pre><code><span class="kw">with</span> open(<span class="str">"file.txt"</span>) <span class="kw">as</span> f:
+    data = f.read()
+<span class="com"># f is closed automatically when the block exits.</span></code></pre>
+
+        <h3 id="h-real-code">Real Code</h3>
+        <p>This is well and nice, but let's look at some real code, a
+        redacted version of something we had running in production.</p>
+
+        <blockquote>"Resource management is the hardest problem in
+        systems programming." — someone, probably</blockquote>
+
+        <h3 id="h-cpp-destructors">C++ Destructors</h3>
+        <p>C++, however, has a solution to those issues — destructors.</p>
+
+        <h4 id="h-automatic">Automatic Invocation</h4>
+        <p>The invocation of a destructor is automatic.</p>
+
+        <h4 id="h-composition">Seamless Composition</h4>
+        <p>Destructors of member fields are called automatically.</p>
+
+        <h4 id="h-implicit">Implicit Interfaces</h4>
+        <p>Destructors are implicit in object interfaces.</p>
+
+        <h3 id="h-our-goal">Our Goal</h3>
+        <p>With that in mind, we want to bring destructors from C++ to
+        Python.</p>
+
+        <h2 id="h-wrapping-up">Wrapping Up</h2>
+        <p>We started by looking at Python's take on destructors.</p>
+
+        <h3 id="h-but">But…</h3>
+        <p>Some of you may have noticed a glaring issue.</p>
+
+        <h2 id="h-further-reading">Further Reading</h2>
+        <p>First, thank you for reading this entire post.</p>
+
+        <nav class="post-footer-nav">
+          <a href="#"><span class="arr">←</span> Previous post</a>
+          <a href="#">Next post <span class="arr">→</span></a>
+        </nav>
+      </div>
+    </article>
+  </section>
+</main>
+
+<script>
+/* BG — light-theme page + ToC background combos. Only affects the
+   light theme; dark stays Catppuccin Frappé. */
+const bgVariants = [
+  { id: '0',  desc: 'Locked — warm cream #fdf9ee / white ToC' },
+  { id: '1',  desc: 'Pure white page / light gray ToC #f5f5f5' },
+  { id: '2',  desc: 'Near-white #fafafa / white ToC' },
+  { id: '3',  desc: 'Soft gray #f5f5f5 / white ToC' },
+  { id: '4',  desc: 'Latte Base #eff1f5 / white ToC' },
+  { id: '5',  desc: 'Latte Mantle #e6e9ef / white ToC' },
+  { id: '6',  desc: 'Flat: white page AND white ToC (border-only card)' },
+  { id: '7',  desc: 'Cream / Solarized #fdf6e3 / white ToC' },
+  { id: '8',  desc: 'Pink-tinted #fdf2f8 / white ToC' },
+  { id: '9',  desc: 'GitHub cool #f6f8fa / white ToC' },
+  { id: '10', desc: 'Zinc-100 #f4f4f5 / white ToC' },
+  { id: '11', desc: 'Both light grays — page #ececec / ToC #f7f7f7' },
+  { id: '12', desc: 'White page / very soft pink ToC #fef7fb' },
+  { id: '13', desc: 'White page / pink ToC #fdf2f8 (card pops pink)' },
+  { id: '14', desc: 'Lavender-tinted #ecebf0 / white ToC' },
+  { id: '15', desc: 'Light lavender #f5f3ff / white ToC' },
+  { id: '16', desc: 'Near-white #fafafa / pink-tinted ToC #fcf2f7' },
+  { id: '17', desc: 'Deeper neutral #e8eaee / white ToC' },
+  { id: '18', desc: 'Sepia paper #f5efe6 / white ToC' },
+  { id: '19', desc: 'Slate-blue #f0f4f8 / white ToC' },
+  { id: '20', desc: 'Stone-100 #f5f5f4 / white ToC (warm neutral)' },
+  { id: '21', desc: 'White page / Latte Base ToC (matches code-bg)' },
+];
+
+/* LF — logo font. Mostly monospace. */
+const lfVariants = [
+  { id: '0',  desc: 'Baseline — system sans-serif 700 (current)' },
+  { id: '1',  desc: 'JetBrains Mono 700' },
+  { id: '2',  desc: 'JetBrains Mono 500' },
+  { id: '3',  desc: 'JetBrains Mono 400' },
+  { id: '4',  desc: 'IBM Plex Mono 700' },
+  { id: '5',  desc: 'IBM Plex Mono 500' },
+  { id: '6',  desc: 'Space Mono 700 — quirky big counters' },
+  { id: '7',  desc: 'Fira Code 700' },
+  { id: '8',  desc: 'Source Code Pro 700' },
+  { id: '9',  desc: 'Inconsolata 700 — compact, friendly' },
+  { id: '10', desc: 'Roboto Mono 700 — geometric, modern' },
+  { id: '11', desc: 'DM Mono 500' },
+  { id: '12', desc: 'Anonymous Pro 700 — old-school programmer' },
+  { id: '13', desc: 'Ubuntu Mono 700 — soft / rounded' },
+  { id: '14', desc: 'VT323 — pixel CRT terminal (bumped to 32px)' },
+  { id: '15', desc: 'B612 Mono 700 — Airbus cockpit, very neutral' },
+  { id: '16', desc: 'Cutive Mono — vintage typewriter' },
+  { id: '17', desc: 'Major Mono Display — geometric, lowercase only' },
+  { id: '18', desc: 'Share Tech Mono — techno / sci-fi' },
+  { id: '19', desc: 'Geist Mono 700 — Vercel modern mono' },
+  { id: '20', desc: 'Geist Mono 500' },
+  { id: '21', desc: 'IBM Plex Mono 700 UPPERCASE tracked (wordmark)' },
+  { id: '22', desc: 'JetBrains Mono 700 lowercase — devy / casual' },
+];
+
+const allBgClasses = bgVariants.map(v => 'bg-' + v.id);
+const allLfClasses = lfVariants.map(v => 'lf-' + v.id);
+const body = document.body;
+const idEl = document.getElementById('current-id');
+const dBg = document.getElementById('d-bg');
+const dLf = document.getElementById('d-lf');
+
+let state = { bg: '0', lf: '1' };
+
+function render() {
+  body.classList.remove(...allBgClasses, ...allLfClasses);
+  body.classList.add('bg-' + state.bg, 'lf-' + state.lf);
+  const bg = bgVariants.find(v => v.id === state.bg);
+  const lf = lfVariants.find(v => v.id === state.lf);
+  idEl.textContent = 'BG-' + state.bg + ' · LF-' + state.lf;
+  dBg.textContent = bg ? bg.desc : '';
+  dLf.textContent = lf ? lf.desc : '';
+  document.querySelectorAll('aside.picker button[data-kind="bg"]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.id === state.bg);
+  });
+  document.querySelectorAll('aside.picker button[data-kind="lf"]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.id === state.lf);
+  });
+  try { localStorage.setItem('post-mockup-v15-state', JSON.stringify(state)); } catch {}
+}
+
+function buildGroup(elId, items, kind, stateKey) {
+  const ul = document.getElementById(elId);
+  for (const v of items) {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.dataset.kind = kind;
+    btn.dataset.id = v.id;
+    btn.innerHTML = '<span class="id">' + kind.toUpperCase() + '-' + v.id +
+                    '</span><span class="desc">' + v.desc + '</span>';
+    btn.addEventListener('click', () => { state[stateKey] = v.id; render(); });
+    li.appendChild(btn);
+    ul.appendChild(li);
+  }
+}
+
+buildGroup('group-bg', bgVariants, 'bg', 'bg');
+buildGroup('group-lf', lfVariants, 'lf', 'lf');
+
+try {
+  const saved = JSON.parse(localStorage.getItem('post-mockup-v15-state') || 'null');
+  if (saved
+      && bgVariants.some(v => v.id === saved.bg)
+      && lfVariants.some(v => v.id === saved.lf)) {
+    state = saved;
+  }
+} catch {}
+
+/* Inline ToC: clicking the head toggles collapse. */
+const tocNav = document.getElementById('toc-inline');
+const tocHead = tocNav && tocNav.querySelector('.toc-head');
+const tocToggle = document.getElementById('toc-toggle');
+if (tocHead) {
+  tocHead.addEventListener('click', () => {
+    tocNav.classList.toggle('collapsed');
+    const collapsed = tocNav.classList.contains('collapsed');
+    tocToggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+    tocToggle.textContent = collapsed ? '+' : '−';
+  });
+}
+
+/* Smooth-scroll for in-page anchors. */
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+  const href = a.getAttribute('href');
+  if (!href || href === '#') return;
+  const id = href.slice(1);
+  const target = id === 'top' ? document.documentElement
+                              : document.getElementById(id);
+  if (!target) return;
+  e.preventDefault();
+  if (id === 'top') {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+});
+
+render();
+
+/* Theme toggle */
+(function () {
+  const root = document.documentElement;
+  const btns = [
+    document.getElementById('theme-toggle-mock'),
+    document.getElementById('theme-toggle-header'),
+  ].filter(Boolean);
+  const stored = (() => { try { return localStorage.getItem('mockup-theme-pink'); } catch { return null; } })();
+  const initial = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  root.setAttribute('data-theme', initial);
+  function toggle() {
+    const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('mockup-theme-pink', next); } catch {}
+  }
+  btns.forEach(b => b.addEventListener('click', toggle));
+})();
+</script>
+
+</body>
+</html>

@@ -18,16 +18,13 @@
  * ───────────────────────────────────────────────────────── */
 
 /* ── Pink accent, page bg ───────────────────────────────────
-   The chosen BG5 (rgb(240,240,242)) turned out to be essentially the
-   same color as catppuccin-latte's base (#eff1f5) — which the code
-   blocks use — making code indistinguishable from the page. We switch
-   the light-theme page bg to catppuccin's `crust` (#dce0e8); the
-   catppuccin design system uses crust for page bg and base for code
-   surfaces, so the two colors sit naturally together. */
+   Light-theme page bg is a warm cream (#fdf9ee) — picked in v15 of the
+   mockup series. Code blocks keep catppuccin-latte's base (#eff1f5) so
+   they still read as a distinct surface against the warmer page. */
 :root {
     --archive-accent: #b3007a;
     --archive-accent-rgb: 179, 0, 122;
-    --theme: #dce0e8;
+    --theme: #fdf9ee;
     /* IC2 inline-code background, light theme */
     --inline-code-bg-muted: rgba(0, 0, 0, 0.05);
 }
@@ -38,10 +35,13 @@
     --inline-code-bg-muted: rgba(255, 255, 255, 0.06);
 }
 
-/* ── Logo: pink brackets around site title ──────────────── */
+/* ── Logo: JetBrains Mono 700, pink brackets around site title ──── */
 .logo a {
     position: relative;
     display: inline-block;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }
 .logo a::before { content: '['; color: var(--archive-accent); }
 .logo a::after  { content: ']'; color: var(--archive-accent); }
