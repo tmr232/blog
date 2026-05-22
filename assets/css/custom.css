@@ -22,8 +22,8 @@
    mockup series. Code blocks keep catppuccin-latte's base (#eff1f5) so
    they still read as a distinct surface against the warmer page. */
 :root {
-    --archive-accent: #b3007a;
-    --archive-accent-rgb: 179, 0, 122;
+    --archive-accent: #d3009a;
+    --archive-accent-rgb: 211, 0, 154;
     --theme: #fdf9ee;
     /* IC2 inline-code background, light theme */
     --inline-code-bg-muted: rgba(0, 0, 0, 0.05);
@@ -215,13 +215,8 @@
 .post-content blockquote p { margin: 0 0 8px; }
 .post-content blockquote p:last-child { margin-bottom: 0; }
 
-/* BL25-style alternating hollow markers, per nesting depth:
-   level 1 = pink hollow circle (1.5px stroke)
-   level 2 = pink hollow square (0.5px hairline, alpha 0.85)
-   level 3 = pink hollow diamond (rotated square, 1.5px stroke)
-   The square uses a thinner, slightly-transparent stroke so its
-   axis-aligned edges don't read heavier than the anti-aliased curve
-   and diagonals of the other two shapes. */
+/* Pink hollow circles for every nesting level — same shape and weight
+   throughout, no shape-by-depth alternation. */
 .post-content ul {
     list-style: none;
     padding-left: 1.4em;
@@ -240,20 +235,6 @@
     background: transparent;
     border-radius: 50%;
     box-sizing: border-box;
-}
-.post-content ul ul li::before {
-    border-radius: 0;
-    border-width: 0.5px;
-    border-color: rgba(var(--archive-accent-rgb), 0.85);
-}
-.post-content ul ul ul li::before {
-    border-radius: 0;
-    border-width: 1.5px;
-    border-color: var(--archive-accent);
-    width: 6px;
-    height: 6px;
-    top: 0.6em;
-    transform: rotate(45deg);
 }
 
 /* OL27: gray mono "1." for ordered lists. Skip footnote list (.footnotes ol). */
@@ -655,18 +636,10 @@ body.dark        .post-content .highlight { background: #303446 !important; } /*
     text-decoration: none;
 }
 
-/* BL25 — alternating hollow-shape markers per heading level.
-   H2 (top-level)  = hollow pink circle (1.5px stroke)
-   H3 (nested)     = hollow pink square (0.5px hairline, alpha 0.85)
-   H4 (nested×2)   = hollow pink diamond (rotated square, 1.5px stroke)
-   Locked from post-mockups-v14 (BL25, latest tuning).
-
-   `top` values are em-relative to the ::before's inherited font-size
-   (post-content / body, ~18px), and place the marker's visual center
-   on the line center of the 15px ToC link text. The square uses a
-   0.5px hairline (renders as 1 physical pixel on retina) with a
-   slight alpha so its axis-aligned stroke matches the perceived
-   weight of the anti-aliased curve / diagonals. */
+/* Inline ToC markers: pink hollow circle at every level. `top` is
+   em-relative to the ::before's inherited font-size (post-content /
+   body, ~18px), placing the marker's visual center on the line
+   center of the 15px ToC link text. */
 .post-single nav.toc li { padding-left: 14px; }
 .post-single nav.toc li::before {
     content: '';
@@ -679,22 +652,6 @@ body.dark        .post-content .highlight { background: #303446 !important; } /*
     background: transparent;
     border-radius: 50%;
     box-sizing: border-box;
-}
-.post-single nav.toc .toc-body ol ol > li::before,
-.post-single nav.toc .toc-body ul ul > li::before {
-    border-radius: 0;
-    border-width: 0.5px;
-    border-color: rgba(var(--archive-accent-rgb), 0.85);
-}
-.post-single nav.toc .toc-body ol ol ol > li::before,
-.post-single nav.toc .toc-body ul ul ul > li::before {
-    border-radius: 0;
-    border-width: 1.5px;
-    border-color: var(--archive-accent);
-    width: 6px;
-    height: 6px;
-    top: 0.86em;
-    transform: rotate(45deg);
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -791,12 +748,14 @@ aside.toc-float .toc-top-link:hover {
 }
 
 /* Floating ToC only appears when there is room for it next to the
-   720px content column. Below 1400px we collapse back to the inline
-   card only. */
-@media (max-width: 1399px) {
+   720px content column. Geometry: 50vw + main-width/2 + 24px gutter
+   + 220px ToC width must fit inside the viewport — that crosses over
+   around 1208px, so we light it up at 1280px (gives ~36px right
+   margin). Below that we collapse back to the inline card only. */
+@media (max-width: 1279px) {
     aside.toc-float { display: none !important; }
 }
-@media (min-width: 1400px) {
+@media (min-width: 1280px) {
     aside.toc-float.has-headings { display: block; }
 }
 
