@@ -117,6 +117,29 @@
     font-weight: 700;
 }
 
+/* Hide PaperMod's "#" anchor that appears next to headings on hover.
+   The render hook (themes/PaperMod/layouts/partials/anchored_headings.html)
+   wraps headings in <a href="#id"> and adds a <span class="anchor">#</span>
+   that is revealed on hover by post-single.css. We don't want it. */
+.post-content h1 .anchor,
+.post-content h2 .anchor,
+.post-content h3 .anchor,
+.post-content h4 .anchor,
+.post-content h5 .anchor,
+.post-content h6 .anchor { display: none !important; }
+/* The heading itself stays clickable (the wrapping <a>) but should look
+   like normal heading text — no underline, no link colors. */
+.post-content h1 > a,
+.post-content h2 > a,
+.post-content h3 > a,
+.post-content h4 > a,
+.post-content h5 > a,
+.post-content h6 > a {
+    color: inherit;
+    text-decoration: none;
+    box-shadow: none;
+}
+
 /* LJ: subtle gray underline on body links → pink on hover (no wavy).
    PaperMod adds `box-shadow: 0 1px 0` on .post-content a which produced
    a double-underline next to our text-decoration; we disable it here.
@@ -192,7 +215,13 @@
 .post-content blockquote p { margin: 0 0 8px; }
 .post-content blockquote p:last-child { margin-bottom: 0; }
 
-/* UL8: pink hollow circle bullets (skip footnote list ol via .footnotes) */
+/* BL25-style alternating hollow markers, per nesting depth:
+   level 1 = pink hollow circle (1.5px stroke)
+   level 2 = pink hollow square (0.5px hairline, alpha 0.85)
+   level 3 = pink hollow diamond (rotated square, 1.5px stroke)
+   The square uses a thinner, slightly-transparent stroke so its
+   axis-aligned edges don't read heavier than the anti-aliased curve
+   and diagonals of the other two shapes. */
 .post-content ul {
     list-style: none;
     padding-left: 1.4em;
@@ -208,8 +237,23 @@
     width: 7px;
     height: 7px;
     border: 1.5px solid var(--archive-accent);
+    background: transparent;
     border-radius: 50%;
     box-sizing: border-box;
+}
+.post-content ul ul li::before {
+    border-radius: 0;
+    border-width: 0.5px;
+    border-color: rgba(var(--archive-accent-rgb), 0.85);
+}
+.post-content ul ul ul li::before {
+    border-radius: 0;
+    border-width: 1.5px;
+    border-color: var(--archive-accent);
+    width: 6px;
+    height: 6px;
+    top: 0.6em;
+    transform: rotate(45deg);
 }
 
 /* OL27: gray mono "1." for ordered lists. Skip footnote list (.footnotes ol). */
@@ -487,3 +531,272 @@ body.dark        .post-content .highlight { background: #303446 !important; } /*
         width: auto;
     }
 }
+
+/* ─────────────────────────────────────────────────────────
+ * Headings — HL24 muting for H3 / H4
+ *
+ * Locked from post-mockups-v13. H2 already gets its pink "## " prefix
+ * earlier in this file (HD). H3 and H4 get progressively muted "###"
+ * and "####" prefixes (lower opacity, lighter weight, smaller size)
+ * to make the hierarchy obvious without shouting.
+ * ───────────────────────────────────────────────────────── */
+.post-content h2 { scroll-margin-top: 80px; }
+
+.post-content h3,
+.post-content h4 {
+    scroll-margin-top: 100px;
+    line-height: 1.3;
+}
+.post-content h3::before {
+    content: '### ';
+    color: var(--archive-accent);
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 500;
+    opacity: 0.75;
+    font-size: 0.9em;
+}
+.post-content h4::before {
+    content: '#### ';
+    color: var(--archive-accent);
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 400;
+    opacity: 0.5;
+    font-size: 0.8em;
+}
+
+/* ─────────────────────────────────────────────────────────
+ * Inline Table of Contents — TI2 (from post-mockups-v13)
+ *
+ * Card with a 1px neutral border, a 3px solid pink left bar, white fill,
+ * a mono "## table of contents" title, and a manual +/− collapse toggle.
+ * Starts open; clicking anywhere on .toc-head toggles .collapsed.
+ *
+ * The markup (layouts/partials/toc.html) overrides PaperMod's default
+ * <div class="toc"><details>… with <nav class="toc"> + .toc-head /
+ * .toc-body so the chrome and collapse behavior are under our control.
+ * ───────────────────────────────────────────────────────── */
+.post-single nav.toc {
+    margin: 24px 0 32px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--archive-accent);
+    border-radius: 4px;
+    padding: 14px 18px;
+    background: var(--entry);
+}
+.post-single nav.toc .toc-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    cursor: pointer;
+}
+.post-single nav.toc .toc-head:hover .toc-title {
+    color: var(--archive-accent);
+}
+.post-single nav.toc .toc-title {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 14px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--secondary);
+    font-weight: 700;
+    margin: 0;
+}
+.post-single nav.toc .toc-title::before {
+    content: '## ';
+    color: var(--archive-accent);
+}
+.post-single nav.toc .toc-toggle {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: var(--secondary);
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 14px;
+    line-height: 1;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+.post-single nav.toc .toc-toggle:hover { color: var(--archive-accent); }
+.post-single nav.toc .toc-body { margin-top: 10px; }
+.post-single nav.toc.collapsed .toc-body { display: none; }
+.post-single nav.toc.collapsed .toc-body { margin-top: 0; }
+
+/* List reset inside the ToC — kill UL8/OL27 bullets and numbering for
+   the toc-body since it has its own dense indented layout. */
+.post-single nav.toc ol,
+.post-single nav.toc ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    counter-reset: none;
+}
+.post-single nav.toc li {
+    /* position: relative + no auto bullets — actual markers are drawn
+       by the BL25 ::before rules below. */
+    position: relative;
+    padding: 2px 0;
+    counter-increment: none;
+}
+.post-single nav.toc li ol,
+.post-single nav.toc li ul {
+    padding-left: 18px;
+    margin-top: 2px;
+}
+.post-single nav.toc a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 1.55;
+    box-shadow: none;
+}
+.post-single nav.toc a:hover {
+    color: var(--archive-accent);
+    text-decoration: none;
+}
+
+/* BL25 — alternating hollow-shape markers per heading level.
+   H2 (top-level)  = hollow pink circle (1.5px stroke)
+   H3 (nested)     = hollow pink square (0.5px hairline, alpha 0.85)
+   H4 (nested×2)   = hollow pink diamond (rotated square, 1.5px stroke)
+   Locked from post-mockups-v14 (BL25, latest tuning).
+
+   `top` values are em-relative to the ::before's inherited font-size
+   (post-content / body, ~18px), and place the marker's visual center
+   on the line center of the 15px ToC link text. The square uses a
+   0.5px hairline (renders as 1 physical pixel on retina) with a
+   slight alpha so its axis-aligned stroke matches the perceived
+   weight of the anti-aliased curve / diagonals. */
+.post-single nav.toc li { padding-left: 14px; }
+.post-single nav.toc li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.81em;
+    width: 7px;
+    height: 7px;
+    border: 1.5px solid var(--archive-accent);
+    background: transparent;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+.post-single nav.toc .toc-body ol ol > li::before,
+.post-single nav.toc .toc-body ul ul > li::before {
+    border-radius: 0;
+    border-width: 0.5px;
+    border-color: rgba(var(--archive-accent-rgb), 0.85);
+}
+.post-single nav.toc .toc-body ol ol ol > li::before,
+.post-single nav.toc .toc-body ul ul ul > li::before {
+    border-radius: 0;
+    border-width: 1.5px;
+    border-color: var(--archive-accent);
+    width: 6px;
+    height: 6px;
+    top: 0.86em;
+    transform: rotate(45deg);
+}
+
+/* ─────────────────────────────────────────────────────────
+ * Floating Table of Contents — TF33 (from post-mockups-v13)
+ *
+ * Sits to the right of the main content column at viewports ≥1400px.
+ * Position is JS-driven: starts at 40% of the viewport height and
+ * eases to PIN_TOP (90px) as the page scrolls (pow10 ease — snaps
+ * almost immediately on the first scroll). A pink slider bar tracks
+ * the currently-active section heading. A "↑ top" link sits above
+ * the list.
+ * ───────────────────────────────────────────────────────── */
+aside.toc-float {
+    position: fixed;
+    top: 90px;
+    /* PaperMod centers .main with margin: auto; the floating ToC sits
+       just outside the right edge of the content column. */
+    left: calc(50vw + var(--main-width, 720px) / 2 + 24px);
+    width: 220px;
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+    font-size: 13px;
+    display: none;
+    padding-left: 6px;
+    transition: none;
+    z-index: 5;
+}
+aside.toc-float ol,
+aside.toc-float ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    counter-reset: none;
+}
+aside.toc-float li {
+    padding: 0;
+    counter-increment: none;
+}
+aside.toc-float li::before { content: none !important; }
+aside.toc-float li ol,
+aside.toc-float li ul { padding-left: 12px; }
+aside.toc-float a {
+    display: block;
+    color: var(--secondary);
+    text-decoration: none;
+    line-height: 1.4;
+    padding: 3px 8px 3px 14px;
+    position: relative;
+    transition: color 0.15s;
+    box-shadow: none;
+}
+aside.toc-float a:hover {
+    color: var(--archive-accent);
+    text-decoration: none;
+}
+aside.toc-float a.is-active {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* TF33 — pink slider bar tracking the active link. Offset & height
+   are written by JS into a per-page <style> block. */
+aside.toc-float::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 3px;
+    height: 18px;
+    background: var(--archive-accent);
+    border-radius: 2px;
+    top: 0;
+    transform: translateY(0);
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), height 0.32s;
+    pointer-events: none;
+}
+
+/* TP-TOP — "↑ top" link at the top of the floating ToC. */
+aside.toc-float .toc-top-link {
+    display: block;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--secondary);
+    text-decoration: none;
+    padding: 3px 8px 3px 14px;
+    line-height: 1.4;
+    margin: 0 0 8px;
+    box-shadow: none;
+}
+aside.toc-float .toc-top-link:hover {
+    color: var(--archive-accent);
+    text-decoration: none;
+}
+
+/* Floating ToC only appears when there is room for it next to the
+   720px content column. Below 1400px we collapse back to the inline
+   card only. */
+@media (max-width: 1399px) {
+    aside.toc-float { display: none !important; }
+}
+@media (min-width: 1400px) {
+    aside.toc-float.has-headings { display: block; }
+}
+

@@ -183,6 +183,165 @@
         return code ? code.innerText : '';
     }
 
+    /* ─── Inline ToC: +/− collapse toggle (TI2) ────────────
+       The whole .toc-head is the click target. Starts open. */
+    const tocInline = document.getElementById('toc-inline');
+    const tocToggleBtn = tocInline && tocInline.querySelector('.toc-toggle');
+    if (tocInline) {
+        const head = tocInline.querySelector('.toc-head');
+        if (head) {
+            head.addEventListener('click', () => {
+                tocInline.classList.toggle('collapsed');
+                const collapsed = tocInline.classList.contains('collapsed');
+                if (tocToggleBtn) {
+                    tocToggleBtn.setAttribute(
+                        'aria-expanded', collapsed ? 'false' : 'true');
+                    tocToggleBtn.textContent = collapsed ? '+' : '−';
+                }
+            });
+        }
+    }
+
+    /* ─── Floating ToC: build, scroll-spy, slider, progress-mapped
+           position (TF33 visual + PR10 easing + ST40 start). ────── */
+    const tocFloat = document.getElementById('toc-float');
+    const tocFloatList = document.getElementById('toc-float-list');
+    if (tocFloat && tocFloatList) {
+        const headings = Array.from(
+            document.querySelectorAll(
+                '.post-content h2[id], .post-content h3[id]'));
+
+        // Hugo+PaperMod wraps each heading in <a href="#id"> via
+        // anchored_headings.html and appends a <span class="anchor">#</span>
+        // — we need to ignore that span when extracting the title.
+        function headingText(h) {
+            const clone = h.cloneNode(true);
+            clone.querySelectorAll('.anchor').forEach(el => el.remove());
+            return clone.textContent.trim();
+        }
+
+        let currentH2Li = null;
+        for (const h of headings) {
+            const a = document.createElement('a');
+            a.href = '#' + h.id;
+            a.textContent = headingText(h);
+            a.dataset.target = h.id;
+            const li = document.createElement('li');
+            li.appendChild(a);
+            if (h.tagName === 'H2') {
+                const sub = document.createElement('ol');
+                li.appendChild(sub);
+                tocFloatList.appendChild(li);
+                currentH2Li = li;
+            } else if (h.tagName === 'H3' && currentH2Li) {
+                currentH2Li.querySelector('ol').appendChild(li);
+            } else {
+                // Orphan h3 (no preceding h2) — just append at top level.
+                tocFloatList.appendChild(li);
+            }
+        }
+
+        if (headings.length === 0) {
+            tocFloat.remove();
+        } else {
+            tocFloat.classList.add('has-headings');
+
+            const tocLinks = Array.from(
+                tocFloatList.querySelectorAll('a[data-target]'));
+
+            // Smooth-scroll for every link in the floating ToC (including
+            // the "↑ top" link). PaperMod's footer.html attaches its own
+            // smooth-scroll handler at page load, but the floating ToC
+            // entries are built dynamically here so they miss that pass —
+            // wire them up ourselves.
+            const reduceMotion = window.matchMedia(
+                '(prefers-reduced-motion: reduce)').matches;
+            tocFloat.querySelectorAll('a[href^="#"]').forEach(a => {
+                a.addEventListener('click', e => {
+                    const id = (a.getAttribute('href') || '').slice(1);
+                    if (!id) return;
+                    const target = document.getElementById(id);
+                    if (!target) return;
+                    e.preventDefault();
+                    target.scrollIntoView(
+                        reduceMotion ? {} : { behavior: 'smooth' });
+                    if (id === 'top') {
+                        history.replaceState(null, null, ' ');
+                    } else {
+                        history.pushState(null, null, '#' + id);
+                    }
+                });
+            });
+
+            // Per-page <style> block that drives the TF33 pink slider.
+            let sliderStyleEl = null;
+            function ensureSliderStyle() {
+                if (!sliderStyleEl) {
+                    sliderStyleEl = document.createElement('style');
+                    document.head.appendChild(sliderStyleEl);
+                }
+                return sliderStyleEl;
+            }
+
+            function applyScrollSpy() {
+                let active = null;
+                const y = window.scrollY + 130;
+                for (const h of headings) {
+                    if (h.offsetTop <= y) active = h.id;
+                }
+                for (const a of tocLinks) {
+                    a.classList.toggle('is-active', a.dataset.target === active);
+                }
+                const activeLink = tocLinks.find(
+                    a => a.classList.contains('is-active'));
+                if (activeLink) {
+                    const linkRect = activeLink.getBoundingClientRect();
+                    const navRect = tocFloat.getBoundingClientRect();
+                    const offset = linkRect.top - navRect.top + tocFloat.scrollTop;
+                    ensureSliderStyle().textContent =
+                        'aside.toc-float::before { transform: translateY(' +
+                        offset + 'px); height: ' +
+                        Math.max(linkRect.height - 4, 14) +
+                        'px; top: 2px; }';
+                }
+            }
+
+            // PR10 (ease-out pow10): floating ToC snaps from its
+            // ST40 starting position (40% of viewport) up to PIN_TOP
+            // almost immediately on the first scroll.
+            const PIN_TOP = 90;
+            const START_PERCENT = 0.40;
+            const easeFn = t => 1 - Math.pow(1 - t, 10);
+
+            function computeInitialTop() {
+                return Math.max(PIN_TOP,
+                    window.innerHeight * START_PERCENT);
+            }
+            function pageScrollProgress() {
+                const max = Math.max(1,
+                    document.documentElement.scrollHeight - window.innerHeight);
+                return Math.min(1, Math.max(0, window.scrollY / max));
+            }
+            function updateToc() {
+                const initialTop = computeInitialTop();
+                const t = pageScrollProgress();
+                const top = initialTop + (PIN_TOP - initialTop) * easeFn(t);
+                tocFloat.style.top = top + 'px';
+            }
+
+            window.addEventListener('scroll', () => {
+                updateToc();
+                applyScrollSpy();
+            }, { passive: true });
+            window.addEventListener('resize', () => {
+                updateToc();
+                applyScrollSpy();
+            });
+            updateToc();
+            applyScrollSpy();
+        }
+    }
+
     document.querySelectorAll('.post-content div.highlight').forEach(hl => {
         if (hl.querySelector(':scope > .lang-copy')) return;
         const lang = langOf(hl) || 'code';

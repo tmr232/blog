@@ -1,0 +1,25 @@
+{{- /* Inline Table of Contents — TI2 (from post-mockups-v13).
+       Card with 1px neutral border, 3px pink left bar, white fill,
+       a mono "## table of contents" title, and a +/− collapse toggle.
+       Starts open. Collapse is wired by post-enhancements.js — clicking
+       anywhere on .toc-head toggles .collapsed on the nav.
+
+       We rely on Hugo's built-in .TableOfContents (UseHugoToc: true in
+       config.yml) for the list itself; this partial only adds the
+       chrome around it. */ -}}
+{{- $toc := .TableOfContents -}}
+{{- if $toc -}}
+{{- /* Hugo emits <nav id="TableOfContents"><ul>…</ul></nav>; strip the
+       outer <nav> wrapper so we control the nav element ourselves. */ -}}
+{{- $inner := replaceRE `(?s)^\s*<nav id="TableOfContents">(.*)</nav>\s*$` `$1` $toc -}}
+<nav class="toc" id="toc-inline" aria-label="Table of contents">
+  <div class="toc-head">
+    <span class="toc-title">table of contents</span>
+    <button class="toc-toggle" type="button"
+            aria-expanded="true" aria-controls="toc-body">−</button>
+  </div>
+  <div class="toc-body" id="toc-body">
+    {{- $inner | safeHTML -}}
+  </div>
+</nav>
+{{- end -}}
