@@ -219,9 +219,14 @@ header.site-header { border-bottom: 1px solid var(--border); }
   font-size: 14px;
   line-height: 1.55;
 }
+/* Outer pre has NO vertical padding — that lets the per-td backgrounds
+   (gutter color, etc.) extend all the way to the top and bottom of the
+   .highlight surface. We re-add the 12px of vertical breathing room on
+   the inner pre.chroma inside each td, so it lives inside the td and
+   the gutter bg covers it. */
 .post-body .highlight pre {
   margin: 0;
-  padding: 12px 0;
+  padding: 0;
   background: transparent;
   overflow-x: auto;
 }
@@ -250,10 +255,10 @@ header.site-header { border-bottom: 1px solid var(--border); }
   text-align: right;
 }
 .post-body .highlight .lntd pre.chroma {
-  padding: 0;
+  padding: 12px 0;
   background: transparent;
 }
-.post-body .highlight td.code pre.chroma { padding: 0 14px; }
+.post-body .highlight td.code pre.chroma { padding: 12px 14px; }
 
 /* Tiny dummy syntax colors so the code looks plausible */
 .k  { color: #8839ef; font-weight: 600; } /* keyword     */
