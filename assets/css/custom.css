@@ -317,14 +317,22 @@ body.dark        .post-content .highlight { background: #303446 !important; } /*
     color: inherit;
 }
 
-/* LN2: thin gray vertical separator between line numbers and code.
-   Hugo's chroma here uses inline styles (no .lntable/.lntd classes),
-   so we target the table structure directly. The inline `border:0` on
-   the <td> means we need !important on the right border. Padding
-   removed from the td's so the code sits tight against the gutter. */
-.post-content .highlight table tr td:first-child {
-    border-right: 1px solid var(--border) !important;
+/* LS2: the line-number gutter is set apart from the code by being a
+   shade DARKER than the code-block surface — no separator line, no
+   extra padding. Picked from post-mockups-v17. The gutter color is
+   catppuccin-latte's `surface0` (#ccd0da) in light mode and
+   catppuccin-frappe's `mantle` (#292c3c) in dark mode, both one step
+   off the code background so the contrast reads even on low-end
+   displays. */
+body:not(.dark) .post-content .highlight table tr td:first-child {
+    background: #ccd0da !important;
     padding: 0 !important;
+    border: 0 !important;
+}
+body.dark .post-content .highlight table tr td:first-child {
+    background: #292c3c !important;
+    padding: 0 !important;
+    border: 0 !important;
 }
 .post-content .highlight table tr td + td {
     padding: 0 !important;
