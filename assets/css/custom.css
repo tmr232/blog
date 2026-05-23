@@ -18,13 +18,13 @@
  * ───────────────────────────────────────────────────────── */
 
 /* ── Pink accent, page bg ───────────────────────────────────
-   Light-theme page bg is a warm cream (#fdf9ee) — picked in v15 of the
-   mockup series. Code blocks keep catppuccin-latte's base (#eff1f5) so
-   they still read as a distinct surface against the warmer page. */
+   Light-theme page bg restored to the original PaperMod neutral
+   rgb(245, 245, 245). Code blocks keep catppuccin-latte's base
+   (#eff1f5) so they still read as a distinct surface. */
 :root {
     --archive-accent: #d3009a;
     --archive-accent-rgb: 211, 0, 154;
-    --theme: #fdf9ee;
+    --theme: rgb(245, 245, 245);
     /* IC2 inline-code background, light theme */
     --inline-code-bg-muted: rgba(0, 0, 0, 0.05);
 }
@@ -320,13 +320,14 @@ body.dark        .post-content .highlight { background: #303446 !important; } /*
 /* LN2: thin gray vertical separator between line numbers and code.
    Hugo's chroma here uses inline styles (no .lntable/.lntd classes),
    so we target the table structure directly. The inline `border:0` on
-   the <td> means we need !important on the right border. */
+   the <td> means we need !important on the right border. Padding
+   removed from the td's so the code sits tight against the gutter. */
 .post-content .highlight table tr td:first-child {
     border-right: 1px solid var(--border) !important;
-    padding-right: 8px !important;
+    padding: 0 !important;
 }
 .post-content .highlight table tr td + td {
-    padding-left: 12px !important;
+    padding: 0 !important;
 }
 
 /* CG: language label that becomes "copy <lang>" on hover.

@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<title>Blog Post — Mockups V17 (Code-block line-no separator)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ──────────────────────────────────────────────────────────
+ * Mockups v17 — separating line numbers from code.
+ *
+ * Locked from live blog:
+ *   --theme rgb(245,245,245), catppuccin-latte code bg #eff1f5,
+ *   pink "## " heading prefix, IC2 inline code, etc.
+ *
+ * NEW dimension: LS — how the line-number gutter is visually
+ *                separated from the code body inside a code block.
+ *
+ *   LS0 — thin gray separator line, no padding (current live).
+ *   LS1 — no separator at all, just whitespace gap.
+ *   LS2 — gutter slightly DARKER than code bg, no separator line.
+ *   LS3 — gutter slightly LIGHTER than code bg, no separator line.
+ *   LS4 — gutter darker bg + thin gray separator (belt + braces).
+ *   LS5 — 2px solid pink accent separator instead of gray.
+ *   LS6 — dashed gray separator.
+ *   LS7 — gutter darker bg + wider gap, no separator line.
+ * ────────────────────────────────────────────────────────── */
+:root,
+[data-theme="light"] {
+  --gap: 24px;
+  --nav-width: 1024px;
+  --main-width: 720px;
+  --header-height: 60px;
+  --theme: rgb(245, 245, 245);
+  --code-bg: #eff1f5;            /* catppuccin latte base */
+  --code-bg-dark: #e1e4ec;       /* slightly darker for gutter */
+  --code-bg-light: #f5f7fb;      /* slightly lighter for gutter */
+  --entry: #ffffff;
+  --primary: rgb(30, 30, 30);
+  --secondary: rgb(108, 108, 108);
+  --tertiary: rgb(214, 214, 214);
+  --content: rgb(31, 31, 31);
+  --border: rgb(212, 215, 222);
+  --gutter-num: #8c96b0;
+  --archive-accent: #d3009a;
+  --archive-accent-rgb: 211, 0, 154;
+}
+[data-theme="dark"] {
+  --theme: #232634;
+  --code-bg: #303446;
+  --code-bg-dark: #292c3c;
+  --code-bg-light: #383c54;
+  --entry: #292c3c;
+  --primary: rgb(218, 218, 219);
+  --secondary: rgb(155, 156, 157);
+  --tertiary: rgb(85, 86, 90);
+  --content: rgb(196, 196, 197);
+  --border: rgb(60, 62, 76);
+  --gutter-num: #737994;
+  --archive-accent: #ff00aa;
+  --archive-accent-rgb: 255, 0, 170;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--theme);
+  color: var(--primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  font-size: 18px;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  min-height: 100vh;
+}
+
+/* ─── Sidebar picker ───────────────────────────────────── */
+aside.picker {
+  background: var(--entry);
+  border-right: 1px solid var(--border);
+  padding: 20px 0;
+  position: sticky; top: 0;
+  align-self: start;
+  height: 100vh;
+  overflow-y: auto;
+  font-size: 14px;
+  display: flex; flex-direction: column;
+}
+aside.picker .top-controls {
+  padding: 0 20px 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+aside.picker h2 {
+  margin: 0; font-size: 13px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--secondary); font-weight: 600;
+}
+aside.picker .group-title {
+  margin: 14px 20px 4px;
+  font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--secondary);
+  font-weight: 700; opacity: 0.8;
+}
+aside.picker ul { list-style: none; padding: 0; margin: 0; }
+aside.picker li button {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-left: 3px solid transparent;
+  color: var(--primary);
+  padding: 6px 20px 6px 17px;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex; flex-direction: column; gap: 2px;
+}
+aside.picker li button:hover { background: rgba(var(--archive-accent-rgb), 0.06); }
+aside.picker li button.active {
+  background: rgba(var(--archive-accent-rgb), 0.10);
+  border-left-color: var(--archive-accent);
+  color: var(--archive-accent);
+  font-weight: 700;
+}
+aside.picker li button .id {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px; font-weight: 700;
+}
+aside.picker li button .desc {
+  font-size: 12px; color: var(--secondary);
+  font-weight: 400; line-height: 1.3;
+}
+aside.picker li button.active .desc { color: var(--archive-accent); opacity: 0.85; }
+
+aside.picker .strip {
+  margin-top: auto;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  font-size: 12px; color: var(--secondary);
+}
+aside.picker .strip .vid {
+  display: block;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 700;
+  color: var(--archive-accent);
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+#theme-toggle-mock {
+  background: var(--theme);
+  border: 1px solid var(--border);
+  color: var(--primary);
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+}
+#theme-toggle-mock:hover { border-color: var(--archive-accent); }
+
+/* ─── Stage / page chrome ──────────────────────────────── */
+.page { width: 100%; display: flex; flex-direction: column; }
+header.site-header { border-bottom: 1px solid var(--border); }
+.nav {
+  display: flex; justify-content: space-between;
+  max-width: calc(var(--nav-width) + var(--gap) * 2);
+  margin: 0 auto;
+  line-height: var(--header-height);
+  width: 100%;
+}
+.logo { margin: auto var(--gap); }
+.logo span {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 700; font-size: 20px;
+}
+.logo span::before { content: '['; color: var(--archive-accent); }
+.logo span::after  { content: ']'; color: var(--archive-accent); }
+
+.main {
+  max-width: calc(var(--main-width) + var(--gap) * 2);
+  margin: 0 auto;
+  padding: var(--gap);
+  width: 100%;
+}
+
+.post-body h2 {
+  font-size: 26px; margin: 40px 0 12px;
+  line-height: 1.3;
+}
+.post-body h2::before {
+  content: '## '; color: var(--archive-accent);
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 700;
+}
+.post-body p { margin: 0 0 16px; }
+
+/* ──────────────────────────────────────────────────────────
+ * Code block — base chrome
+ *
+ * The mockup hand-rolls the table structure that Hugo+Chroma emits
+ * for `lineNos: true` (table style):
+ *
+ *   .highlight > pre.chroma > code > table.lntable
+ *     > tr > td.lntd (line numbers)
+ *     > tr > td.lntd (code)
+ *
+ * Both td's get padding: 0 by default — the LS variants below
+ * re-introduce backgrounds / borders / spacing as needed.
+ * ────────────────────────────────────────────────────────── */
+.post-body .highlight {
+  position: relative;
+  margin: 18px 0;
+  background: var(--code-bg);
+  border-radius: 6px;
+  overflow: hidden;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.post-body .highlight pre {
+  margin: 0;
+  padding: 12px 0;
+  background: transparent;
+  overflow-x: auto;
+}
+.post-body .highlight pre.chroma > code { display: block; }
+.post-body .highlight table.lntable {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+.post-body .highlight table.lntable td {
+  vertical-align: top;
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+.post-body .highlight table.lntable td:first-child {
+  width: 1%;
+  white-space: nowrap;
+}
+.post-body .highlight .ln {
+  display: inline-block;
+  width: 100%;
+  padding: 0 12px;
+  color: var(--gutter-num);
+  user-select: none;
+  text-align: right;
+}
+.post-body .highlight .lntd pre.chroma {
+  padding: 0;
+  background: transparent;
+}
+.post-body .highlight td.code pre.chroma { padding: 0 14px; }
+
+/* Tiny dummy syntax colors so the code looks plausible */
+.k  { color: #8839ef; font-weight: 600; } /* keyword     */
+.s  { color: #40a02b; }                   /* string      */
+.n  { color: var(--primary); }            /* name        */
+.c  { color: var(--secondary); font-style: italic; } /* comment */
+.o  { color: #d20f39; }                   /* operator    */
+.nb { color: #1e66f5; }                   /* builtin     */
+[data-theme="dark"] .k  { color: #ca9ee6; }
+[data-theme="dark"] .s  { color: #a6d189; }
+[data-theme="dark"] .c  { color: var(--secondary); }
+[data-theme="dark"] .o  { color: #e78284; }
+[data-theme="dark"] .nb { color: #8caaee; }
+
+/* lang label */
+.post-body .highlight .lang {
+  position: absolute; top: 0; right: 0;
+  padding: 6px 10px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--secondary); opacity: 0.7;
+  z-index: 2;
+}
+
+/* ──────────────────────────────────────────────────────────
+ * LS — line-no / code separation variants
+ * ────────────────────────────────────────────────────────── */
+
+/* LS0 — current live: thin gray separator, no extra padding. */
+body.ls-0 .post-body .highlight td.gutter {
+  border-right: 1px solid var(--border);
+}
+
+/* LS1 — no separator, no gutter bg, just whitespace gap. */
+body.ls-1 .post-body .highlight td.gutter { border-right: 0; }
+
+/* LS2 — gutter slightly darker than code bg. */
+body.ls-2 .post-body .highlight td.gutter {
+  background: var(--code-bg-dark);
+}
+
+/* LS3 — gutter slightly lighter than code bg. */
+body.ls-3 .post-body .highlight td.gutter {
+  background: var(--code-bg-light);
+}
+
+/* LS4 — gutter darker bg + thin gray separator. */
+body.ls-4 .post-body .highlight td.gutter {
+  background: var(--code-bg-dark);
+  border-right: 1px solid var(--border);
+}
+
+/* LS5 — 2px solid pink accent separator. */
+body.ls-5 .post-body .highlight td.gutter {
+  border-right: 2px solid var(--archive-accent);
+}
+
+/* LS6 — dashed gray separator. */
+body.ls-6 .post-body .highlight td.gutter {
+  border-right: 1px dashed var(--border);
+}
+
+/* LS7 — gutter darker bg + wider gap (extra padding on code td). */
+body.ls-7 .post-body .highlight td.gutter {
+  background: var(--code-bg-dark);
+}
+body.ls-7 .post-body .highlight td.code pre.chroma { padding: 0 14px 0 22px; }
+
+</style>
+</head>
+<body class="ls-0" data-theme="light">
+
+<aside class="picker">
+  <div class="top-controls">
+    <h2>v17 — code line-no separator</h2>
+    <button id="theme-toggle-mock" type="button">🌙 dark mode</button>
+  </div>
+
+  <div class="group-title">Variants</div>
+  <ul id="variants">
+    <li><button data-cls="ls-0" class="active">
+      <span class="id">LS0 — gray line (current)</span>
+      <span class="desc">1px gray separator, no extra padding</span>
+    </button></li>
+    <li><button data-cls="ls-1">
+      <span class="id">LS1 — no separator</span>
+      <span class="desc">just whitespace; nothing between gutter &amp; code</span>
+    </button></li>
+    <li><button data-cls="ls-2">
+      <span class="id">LS2 — darker gutter</span>
+      <span class="desc">gutter slightly darker than code bg</span>
+    </button></li>
+    <li><button data-cls="ls-3">
+      <span class="id">LS3 — lighter gutter</span>
+      <span class="desc">gutter slightly lighter than code bg</span>
+    </button></li>
+    <li><button data-cls="ls-4">
+      <span class="id">LS4 — darker bg + line</span>
+      <span class="desc">darker gutter AND a thin gray separator</span>
+    </button></li>
+    <li><button data-cls="ls-5">
+      <span class="id">LS5 — pink separator</span>
+      <span class="desc">2px solid pink accent line</span>
+    </button></li>
+    <li><button data-cls="ls-6">
+      <span class="id">LS6 — dashed line</span>
+      <span class="desc">1px dashed gray separator</span>
+    </button></li>
+    <li><button data-cls="ls-7">
+      <span class="id">LS7 — darker + wide gap</span>
+      <span class="desc">darker gutter, larger gap to the code</span>
+    </button></li>
+  </ul>
+
+  <div class="strip">
+    <span class="vid" id="strip-id">LS0</span>
+    <span id="strip-desc">1px gray separator (current live behavior)</span>
+  </div>
+</aside>
+
+<div class="page">
+  <header class="site-header">
+    <nav class="nav">
+      <div class="logo"><span>tamir.dev</span></div>
+    </nav>
+  </header>
+
+  <main class="main">
+    <article class="post-body">
+      <h2>Code blocks</h2>
+      <p>Below is a representative code block — Python with line numbers,
+      using the same table structure Hugo (Chroma) emits when
+      <code>lineNos</code> is enabled. Switch the LS variant in the
+      sidebar to see how the line-number gutter can be visually
+      separated from the code body.</p>
+
+      <div class="highlight">
+        <span class="lang">python</span>
+        <pre class="chroma"><code><table class="lntable"><tbody><tr>
+<td class="lntd gutter"><pre class="chroma"><code><span class="ln"> 1</span><br><span class="ln"> 2</span><br><span class="ln"> 3</span><br><span class="ln"> 4</span><br><span class="ln"> 5</span><br><span class="ln"> 6</span><br><span class="ln"> 7</span><br><span class="ln"> 8</span><br><span class="ln"> 9</span><br><span class="ln">10</span></code></pre></td>
+<td class="lntd code"><pre class="chroma"><code><span class="c"># Tiny demo: paginate a list lazily.</span><br><span class="k">from</span> <span class="n">itertools</span> <span class="k">import</span> <span class="n">islice</span><br><br><span class="k">def</span> <span class="n">paginate</span><span class="o">(</span><span class="n">items</span><span class="o">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">10</span><span class="o">):</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="n">it</span> <span class="o">=</span> <span class="nb">iter</span><span class="o">(</span><span class="n">items</span><span class="o">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">while</span> <span class="nb">True</span><span class="o">:</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="n">chunk</span> <span class="o">=</span> <span class="nb">list</span><span class="o">(</span><span class="n">islice</span><span class="o">(</span><span class="n">it</span><span class="o">,</span> <span class="n">size</span><span class="o">))</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">if</span> <span class="k">not</span> <span class="n">chunk</span><span class="o">:</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">yield</span> <span class="n">chunk</span></code></pre></td>
+</tr></tbody></table></code></pre>
+      </div>
+
+      <p>And a shorter shell snippet for variety:</p>
+
+      <div class="highlight">
+        <span class="lang">bash</span>
+        <pre class="chroma"><code><table class="lntable"><tbody><tr>
+<td class="lntd gutter"><pre class="chroma"><code><span class="ln">1</span><br><span class="ln">2</span><br><span class="ln">3</span><br><span class="ln">4</span></code></pre></td>
+<td class="lntd code"><pre class="chroma"><code><span class="c"># start a local hugo server on port 1313</span><br><span class="nb">hugo</span> server <span class="o">--</span>buildDrafts<br><span class="c"># in another shell, deploy</span><br><span class="nb">hugo</span> <span class="o">&amp;&amp;</span> <span class="nb">rsync</span> <span class="o">-az</span> public/ host:/var/www/</code></pre></td>
+</tr></tbody></table></code></pre>
+      </div>
+    </article>
+  </main>
+</div>
+
+<script>
+// Variant switcher
+const VARIANTS = {
+  'ls-0': ['LS0', '1px gray separator (current live behavior)'],
+  'ls-1': ['LS1', 'No separator at all; bare whitespace gap'],
+  'ls-2': ['LS2', 'Gutter slightly DARKER than code bg'],
+  'ls-3': ['LS3', 'Gutter slightly LIGHTER than code bg'],
+  'ls-4': ['LS4', 'Darker gutter + thin gray separator'],
+  'ls-5': ['LS5', '2px solid pink accent line separator'],
+  'ls-6': ['LS6', '1px dashed gray separator'],
+  'ls-7': ['LS7', 'Darker gutter + wider gap to the code'],
+};
+
+const body = document.body;
+const stripId = document.getElementById('strip-id');
+const stripDesc = document.getElementById('strip-desc');
+
+document.querySelectorAll('#variants button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const cls = btn.dataset.cls;
+    // remove all ls-* classes
+    body.className = body.className
+      .split(/\s+/).filter(c => !c.startsWith('ls-')).join(' ');
+    body.classList.add(cls);
+    document.querySelectorAll('#variants button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const [id, desc] = VARIANTS[cls];
+    stripId.textContent = id;
+    stripDesc.textContent = desc;
+  });
+});
+
+// theme toggle
+const toggle = document.getElementById('theme-toggle-mock');
+toggle.addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  document.body.setAttribute('data-theme', next);
+  toggle.textContent = next === 'dark' ? '☀ light mode' : '🌙 dark mode';
+});
+</script>
+
+</body>
+</html>
