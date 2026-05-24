@@ -338,6 +338,12 @@ body.dark .post-content .highlight table tr td:first-child {
     padding: 0 !important;
 }
 
+/* Line-number spans must be block-level so each number stacks on its
+   own line and aligns with the corresponding code line. */
+.post-content .highlight .lnt {
+    display: block;
+}
+
 /* CG: language label that becomes "copy <lang>" on hover.
    Injected by JS in extend_footer.html as <button class="lang-copy">.
    - position: absolute, top-right of .highlight
