@@ -774,3 +774,51 @@ aside.toc-float .toc-top-link:hover {
     aside.toc-float.has-headings { display: block; }
 }
 
+
+
+/* ─────────────────────────────────────────────────────────
+ * Back-to-top button — BT11 (post-mockups-v18)
+ *
+ * Page-bg pill with a thin gray border and a mono "↑ TOP" label.
+ * Replaces PaperMod's gray-circle + filled-triangle default.
+ *
+ * - The base PaperMod .top-link rules are in
+ *   themes/PaperMod/assets/css/common/footer.css; we override
+ *   geometry, colors, border, padding, font, and transition here.
+ * - The SVG triangle the partial ships with is hidden; the "↑ TOP"
+ *   label is injected via ::before so no markup override is needed.
+ * - transition: none → button appears / hovers instantly. The
+ *   show/hide is still driven by PaperMod's footer.html script
+ *   setting style.visibility / style.opacity past 800px scroll.
+ * ───────────────────────────────────────────────────────── */
+.top-link {
+    /* Geometry: drop the 42×42 circle, become an auto-sized pill. */
+    width: auto;
+    height: auto;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--theme);
+    border: 1px solid var(--border);
+    color: var(--secondary);
+    /* Typography */
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    text-decoration: none;
+    /* Instant appearance / hover */
+    transition: none;
+    /* Remove PaperMod's filter: drop-shadow(...) */
+    filter: none;
+}
+.top-link::before { content: "↑ TOP"; }
+.top-link svg { display: none; }
+.top-link:hover {
+    color: var(--archive-accent);
+    border-color: var(--archive-accent);
+}
+.top-link,
+.top-link svg {
+    filter: none;
+}
