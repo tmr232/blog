@@ -283,32 +283,57 @@
                 return sliderStyleEl;
             }
 
-            function applyScrollSpy() {
-                let active = null;
-                const y = window.scrollY + 130;
-                for (const h of headings) {
-                    if (h.offsetTop <= y) active = h.id;
-                }
+            // ── Scroll-spy via IntersectionObserver ─────────
+            // Each heading reports band membership; the deepest
+            // heading currently inside the (130px → 50vh) activation
+            // band wins. DOM work (toggle classes, write slider
+            // style) only happens when the active heading actually
+            // changes, instead of on every scroll event.
+            let activeId = null;
+            const inBand = new Set();
+
+            function setActiveLink(id) {
                 for (const a of tocLinks) {
-                    a.classList.toggle('is-active', a.dataset.target === active);
+                    a.classList.toggle(
+                        'is-active', a.dataset.target === id);
                 }
-                const activeLink = tocLinks.find(
-                    a => a.classList.contains('is-active'));
-                if (activeLink) {
-                    const linkRect = activeLink.getBoundingClientRect();
-                    const navRect = tocFloat.getBoundingClientRect();
-                    const offset = linkRect.top - navRect.top + tocFloat.scrollTop;
-                    ensureSliderStyle().textContent =
-                        'aside.toc-float::before { transform: translateY(' +
-                        offset + 'px); height: ' +
-                        Math.max(linkRect.height - 4, 14) +
-                        'px; top: 2px; }';
-                }
+                const link = tocLinks.find(a => a.dataset.target === id);
+                if (!link) return;
+                const linkRect = link.getBoundingClientRect();
+                const navRect = tocFloat.getBoundingClientRect();
+                const offset = linkRect.top - navRect.top + tocFloat.scrollTop;
+                ensureSliderStyle().textContent =
+                    'aside.toc-float::before { transform: translateY(' +
+                    offset + 'px); height: ' +
+                    Math.max(linkRect.height - 4, 14) +
+                    'px; top: 2px; }';
             }
 
+            const spyIO = new IntersectionObserver(entries => {
+                for (const e of entries) {
+                    if (e.isIntersecting) inBand.add(e.target);
+                    else inBand.delete(e.target);
+                }
+                // Pick the deepest heading currently in the band; if
+                // none, keep the last active (so transitions between
+                // sections don't flicker).
+                let next = null;
+                for (let i = headings.length - 1; i >= 0; i--) {
+                    if (inBand.has(headings[i])) { next = headings[i]; break; }
+                }
+                if (next && next.id !== activeId) {
+                    activeId = next.id;
+                    setActiveLink(activeId);
+                }
+            }, { rootMargin: '-130px 0px -50% 0px', threshold: 0 });
+            headings.forEach(h => spyIO.observe(h));
+
+            // ── Eased "snap from 40% down to 90px" position ────
             // PR10 (ease-out pow10): floating ToC snaps from its
             // ST40 starting position (40% of viewport) up to PIN_TOP
-            // almost immediately on the first scroll.
+            // almost immediately on the first scroll. Coalesced via
+            // requestAnimationFrame so we never do this synchronously
+            // on the scroll event.
             const PIN_TOP = 90;
             const START_PERCENT = 0.40;
             const easeFn = t => 1 - Math.pow(1 - t, 10);
@@ -329,16 +354,25 @@
                 tocFloat.style.top = top + 'px';
             }
 
-            window.addEventListener('scroll', () => {
-                updateToc();
-                applyScrollSpy();
-            }, { passive: true });
+            let tocTicking = false;
+            function scheduleUpdateToc() {
+                if (tocTicking) return;
+                tocTicking = true;
+                requestAnimationFrame(() => {
+                    tocTicking = false;
+                    updateToc();
+                });
+            }
+
+            window.addEventListener('scroll', scheduleUpdateToc,
+                { passive: true });
             window.addEventListener('resize', () => {
-                updateToc();
-                applyScrollSpy();
+                scheduleUpdateToc();
+                // Slider position depends on rendered link rect — refresh
+                // it when the layout changes.
+                if (activeId) setActiveLink(activeId);
             });
             updateToc();
-            applyScrollSpy();
         }
     }
 
