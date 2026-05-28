@@ -10,13 +10,11 @@
     | minify | fingerprint }}
 <link rel="preload" href="{{ $jbmFont.RelPermalink }}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{{ $jbmCSS.RelPermalink }}" integrity="{{ $jbmCSS.Data.Integrity }}">
-{{- /* Chroma syntax highlighting (catppuccin-latte / catppuccin-frappe).
-       The two stylesheets are scoped with body:not(.dark) and body.dark
-       respectively so they switch with the theme. */ -}}
-{{- $chromaLight := resources.Get "css/chroma-light.css" | minify | fingerprint }}
-<link rel="stylesheet" href="{{ $chromaLight.RelPermalink }}" integrity="{{ $chromaLight.Data.Integrity }}">
-{{- $chromaDark := resources.Get "css/chroma-dark.css" | minify | fingerprint }}
-<link rel="stylesheet" href="{{ $chromaDark.RelPermalink }}" integrity="{{ $chromaDark.Data.Integrity }}">
+{{- /* Chroma syntax highlighting — catppuccin-latte (light) and
+       catppuccin-frappe (dark) in one stylesheet, scoped by
+       body:not(.dark) and body.dark respectively. */ -}}
+{{- $chromaCSS := resources.Get "css/chroma.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $chromaCSS.RelPermalink }}" integrity="{{ $chromaCSS.Data.Integrity }}">
 {{- /* Custom site styles */ -}}
 {{- $customCSS := resources.Get "css/custom.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $customCSS.RelPermalink }}" integrity="{{ $customCSS.Data.Integrity }}">
