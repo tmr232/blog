@@ -1,10 +1,15 @@
 {{- /* Image lightbox styles */ -}}
 {{- $lightboxCSS := resources.Get "css/lightbox.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $lightboxCSS.RelPermalink }}" integrity="{{ $lightboxCSS.Data.Integrity }}">
-{{- /* JetBrains Mono for archives list */ -}}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+{{- /* Self-hosted JetBrains Mono (latin subset). The woff2 file is the same
+       variable font Google Fonts ships for weights 400/500/700 — one file,
+       three @font-face rules generated from assets/css/jetbrains-mono.css. */ -}}
+{{- $jbmFont := resources.Get "fonts/jetbrains-mono-latin.woff2" | fingerprint }}
+{{- $jbmCSS := resources.Get "css/jetbrains-mono.css"
+    | resources.ExecuteAsTemplate "css/jetbrains-mono.css" (dict "fontURL" $jbmFont.RelPermalink)
+    | minify | fingerprint }}
+<link rel="preload" href="{{ $jbmFont.RelPermalink }}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ $jbmCSS.RelPermalink }}" integrity="{{ $jbmCSS.Data.Integrity }}">
 {{- /* Chroma syntax highlighting (catppuccin-latte / catppuccin-frappe).
        The two stylesheets are scoped with body:not(.dark) and body.dark
        respectively so they switch with the theme. */ -}}
