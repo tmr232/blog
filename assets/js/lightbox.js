@@ -8,11 +8,38 @@
     var caption = document.getElementById("lightbox-caption");
     var lastFocused = null;
 
-    function open(src, alt) {
+    // Wrap each lightboxable post image in a real <button> so keyboard
+    // users can focus it and activate with Enter/Space. We keep the
+    // original <img> as the button's only child (no visual change), and
+    // collect the wrapped pairs in document order so arrow keys can
+    // walk between them once the lightbox is open.
+    var triggers = [];
+    Array.prototype.forEach.call(
+        document.querySelectorAll(".post-content img"),
+        function (el) {
+            if (el.closest("a")) return;
+            var btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "lightbox-trigger";
+            var alt = el.getAttribute("alt") || "";
+            btn.setAttribute(
+                "aria-label",
+                alt ? "View image: " + alt : "View image");
+            el.parentNode.insertBefore(btn, el);
+            btn.appendChild(el);
+            triggers.push({ btn: btn, img: el });
+        });
+
+    var currentIndex = -1;
+
+    function open(index) {
+        if (index < 0 || index >= triggers.length) return;
+        currentIndex = index;
+        var el = triggers[index].img;
         lastFocused = document.activeElement;
-        img.src = src;
-        img.alt = alt || "";
-        caption.textContent = alt || "";
+        img.src = el.currentSrc || el.src;
+        img.alt = el.getAttribute("alt") || "";
+        caption.textContent = el.getAttribute("alt") || "";
         lightbox.classList.add("is-open");
         document.documentElement.classList.add("lightbox-open");
         document.body.classList.add("lightbox-open");
@@ -29,25 +56,36 @@
         if (lastFocused && typeof lastFocused.focus === "function") {
             lastFocused.focus();
         }
+        currentIndex = -1;
     }
 
-    // Wire up post images. Skip images already wrapped in a link.
-    var images = document.querySelectorAll(".post-content img");
-    images.forEach(function (el) {
-        if (el.closest("a")) return;
-        el.addEventListener("click", function () {
-            open(el.currentSrc || el.src, el.getAttribute("alt"));
-        });
+    function next() {
+        if (triggers.length <= 1) return;
+        open((currentIndex + 1) % triggers.length);
+    }
+
+    function prev() {
+        if (triggers.length <= 1) return;
+        open((currentIndex - 1 + triggers.length) % triggers.length);
+    }
+
+    triggers.forEach(function (t, i) {
+        t.btn.addEventListener("click", function () { open(i); });
     });
 
-    // Close on click anywhere on the overlay (including the image).
-    lightbox.addEventListener("click", function () {
-        close();
-    });
+    // Click anywhere on the overlay (including the image) closes.
+    lightbox.addEventListener("click", function () { close(); });
 
     document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape" && lightbox.classList.contains("is-open")) {
-            close();
+        if (!lightbox.classList.contains("is-open")) return;
+        if (e.key === "Escape") { close(); e.preventDefault(); return; }
+        if (e.key === "ArrowRight") { next(); e.preventDefault(); return; }
+        if (e.key === "ArrowLeft") { prev(); e.preventDefault(); return; }
+        // Focus trap: the lightbox holds no other focusable elements,
+        // so just keep focus on it while open.
+        if (e.key === "Tab") {
+            e.preventDefault();
+            lightbox.focus();
         }
     });
 })();

@@ -1,5 +1,35 @@
 /* Image lightbox: click an image in a post to view it full-screen. */
 
+/* Each lightboxable image is wrapped in a <button class="lightbox-trigger">
+   by JS so keyboard users can focus and activate it. The button itself is
+   invisible — just gives a focus ring — and inherits the existing image
+   centering from .post-content img. */
+.post-content .lightbox-trigger {
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+    line-height: 0;
+    width: fit-content;
+    max-width: 100%;
+}
+
+.post-content .lightbox-trigger:focus-visible {
+    outline: 2px solid var(--archive-accent);
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
+.post-content .lightbox-trigger img {
+    cursor: zoom-in;
+    display: block;
+    margin: 0;
+}
+
+/* Standalone post images not wrapped (e.g. inside a link) still get
+   the zoom cursor for consistency until the JS wrap runs. */
 .post-content img {
     cursor: zoom-in;
 }
