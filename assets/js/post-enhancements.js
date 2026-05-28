@@ -328,51 +328,12 @@
             }, { rootMargin: '-130px 0px -50% 0px', threshold: 0 });
             headings.forEach(h => spyIO.observe(h));
 
-            // ── Eased "snap from 40% down to 90px" position ────
-            // PR10 (ease-out pow10): floating ToC snaps from its
-            // ST40 starting position (40% of viewport) up to PIN_TOP
-            // almost immediately on the first scroll. Coalesced via
-            // requestAnimationFrame so we never do this synchronously
-            // on the scroll event.
-            const PIN_TOP = 90;
-            const START_PERCENT = 0.40;
-            const easeFn = t => 1 - Math.pow(1 - t, 10);
-
-            function computeInitialTop() {
-                return Math.max(PIN_TOP,
-                    window.innerHeight * START_PERCENT);
-            }
-            function pageScrollProgress() {
-                const max = Math.max(1,
-                    document.documentElement.scrollHeight - window.innerHeight);
-                return Math.min(1, Math.max(0, window.scrollY / max));
-            }
-            function updateToc() {
-                const initialTop = computeInitialTop();
-                const t = pageScrollProgress();
-                const top = initialTop + (PIN_TOP - initialTop) * easeFn(t);
-                tocFloat.style.top = top + 'px';
-            }
-
-            let tocTicking = false;
-            function scheduleUpdateToc() {
-                if (tocTicking) return;
-                tocTicking = true;
-                requestAnimationFrame(() => {
-                    tocTicking = false;
-                    updateToc();
-                });
-            }
-
-            window.addEventListener('scroll', scheduleUpdateToc,
-                { passive: true });
+            // Position is handled entirely by CSS (position: sticky)
+            // — no scroll handler. We still re-run the slider on
+            // resize because link rects depend on layout.
             window.addEventListener('resize', () => {
-                scheduleUpdateToc();
-                // Slider position depends on rendered link rect — refresh
-                // it when the layout changes.
                 if (activeId) setActiveLink(activeId);
             });
-            updateToc();
         }
     }
 

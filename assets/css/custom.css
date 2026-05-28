@@ -672,26 +672,33 @@ body.dark .post-content .highlight table tr td:first-child {
 /* ─────────────────────────────────────────────────────────
  * Floating Table of Contents — TF33 (from post-mockups-v13)
  *
- * Sits to the right of the main content column at viewports ≥1400px.
- * Position is JS-driven: starts at 40% of the viewport height and
- * eases to PIN_TOP (90px) as the page scrolls (pow10 ease — snaps
- * almost immediately on the first scroll). A pink slider bar tracks
- * the currently-active section heading. A "↑ top" link sits above
- * the list.
+ * Sits to the right of the main content column at viewports ≥1280px.
+ * Pure CSS sticky: the aside floats right out of the article's block
+ * flow, gets pushed past the article's right edge with a negative
+ * margin, and `position: sticky; top: 90px;` makes it follow the
+ * scroll within the article. A pink slider bar (driven by JS via an
+ * IntersectionObserver scroll-spy) tracks the active section heading.
+ * A "↑ top" link sits above the list.
  * ───────────────────────────────────────────────────────── */
 aside.toc-float {
-    position: fixed;
+    /* Float right so we drop out of block flow and don't push
+       post-content down; sticky so we follow the scroll within the
+       article; negative margin-right pushes us past the article's
+       right edge into the gutter outside the centered column. The
+       article is the sticky containing block, so when you scroll
+       past the article (into the footer / comments) the ToC
+       naturally un-sticks instead of overlapping. Zero JS for the
+       position now — just CSS layout. */
+    float: right;
+    position: sticky;
     top: 90px;
-    /* PaperMod centers .main with margin: auto; the floating ToC sits
-       just outside the right edge of the content column. */
-    left: calc(50vw + var(--main-width, 720px) / 2 + 24px);
     width: 220px;
+    margin: 0 -244px 0 24px;
     max-height: calc(100vh - 110px);
     overflow-y: auto;
     font-size: 13px;
     display: none;
     padding-left: 6px;
-    transition: none;
     z-index: 5;
 }
 aside.toc-float ol,
