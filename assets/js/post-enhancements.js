@@ -12,11 +12,14 @@
     let pinned = false;
 
     function closeAllPopups() {
+        if (activeTrigger) {
+            activeTrigger.removeAttribute('aria-describedby');
+        }
         if (activePopup) {
             activePopup.remove();
             activePopup = null;
-            activeTrigger = null;
         }
+        activeTrigger = null;
         if (popupHideTimer) {
             clearTimeout(popupHideTimer);
             popupHideTimer = null;
@@ -44,6 +47,8 @@
         closeAllPopups();
         const popup = buildPopup(fnref);
         if (!popup) return;
+        popup.id = 'fn-popup-active';
+        popup.setAttribute('role', 'tooltip');
         document.body.appendChild(popup);
         const r = fnref.getBoundingClientRect();
         popup.style.left = (window.scrollX + r.left) + 'px';
@@ -53,6 +58,7 @@
             popup.style.left =
                 (window.innerWidth - pr.width - 12 + window.scrollX) + 'px';
         }
+        fnref.setAttribute('aria-describedby', popup.id);
         activePopup = popup;
         activeTrigger = fnref;
     }
@@ -95,7 +101,8 @@
     Array.from(document.querySelectorAll('.post-content a.footnote-ref')).forEach(orig => {
         const ref = orig.cloneNode(true);
         orig.parentNode.replaceChild(ref, orig);
-        ref.addEventListener('mouseenter', () => {
+
+        function openOrKeep() {
             if (popupHideTimer) {
                 clearTimeout(popupHideTimer);
                 popupHideTimer = null;
@@ -103,11 +110,18 @@
             if (activeTrigger === ref) return;
             if (pinned) return;
             showPopup(ref);
-        });
-        ref.addEventListener('mouseleave', () => {
+        }
+
+        function scheduleClose() {
             if (pinned) return;
             popupHideTimer = setTimeout(closeAllPopups, 220);
-        });
+        }
+
+        ref.addEventListener('mouseenter', openOrKeep);
+        ref.addEventListener('mouseleave', scheduleClose);
+        // Keyboard parity: focus shows, blur hides (unless pinned).
+        ref.addEventListener('focus', openOrKeep);
+        ref.addEventListener('blur', scheduleClose);
         ref.addEventListener('click', e => {
             e.preventDefault();
             e.stopPropagation();
@@ -118,6 +132,17 @@
             if (activeTrigger !== ref) showPopup(ref);
             pinCurrent();
         });
+    });
+
+    // Escape closes the popup and returns focus to the footnote ref.
+    document.addEventListener('keydown', e => {
+        if (e.key !== 'Escape') return;
+        if (!activePopup) return;
+        const trigger = activeTrigger;
+        closeAllPopups();
+        if (trigger && typeof trigger.focus === 'function') {
+            trigger.focus();
+        }
     });
 
     document.body.addEventListener('mouseover', e => {
