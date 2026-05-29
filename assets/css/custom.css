@@ -372,13 +372,23 @@ body.dark .post-content .highlight table tr td:first-child {
     line-height: 1;
 }
 .post-content .highlight .lang-copy .prefix::before { content: ''; }
-.post-content .highlight .lang-copy:hover .prefix::before {
+/* Reveal the "copy" verb (and the active accent color) on both hover
+   AND keyboard focus, so keyboard users get the same affordance.
+   A visible focus ring lands the button into a code block predictably. */
+.post-content .highlight .lang-copy:hover .prefix::before,
+.post-content .highlight .lang-copy:focus-visible .prefix::before {
     content: 'copy ';
     color: var(--archive-accent);
 }
-.post-content .highlight .lang-copy:hover {
+.post-content .highlight .lang-copy:hover,
+.post-content .highlight .lang-copy:focus-visible {
     color: var(--archive-accent);
     opacity: 1;
+}
+.post-content .highlight .lang-copy:focus-visible {
+    outline: 2px solid var(--archive-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
 }
 .post-content .highlight .lang-copy.copied {
     color: var(--archive-accent);
@@ -387,7 +397,8 @@ body.dark .post-content .highlight table tr td:first-child {
 .post-content .highlight .lang-copy.copied .prefix::before {
     content: '✓ copied ';
 }
-.post-content .highlight .lang-copy.copied:hover .prefix::before {
+.post-content .highlight .lang-copy.copied:hover .prefix::before,
+.post-content .highlight .lang-copy.copied:focus-visible .prefix::before {
     content: '✓ copied ';
 }
 
