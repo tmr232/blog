@@ -1,37 +1,18 @@
 /* Image lightbox: click an image in a post to view it full-screen. */
 
-/* Each lightboxable image is wrapped in a <button class="lightbox-trigger">
-   by JS so keyboard users can focus and activate it. The button itself is
-   invisible — just gives a focus ring — and inherits the existing image
-   centering from .post-content img. */
-.post-content .lightbox-trigger {
-    display: block;
-    margin: 0 auto;
-    padding: 0;
-    border: 0;
-    background: transparent;
+/* Lightboxable post images get role="button" + tabindex="0" applied
+   in JS (see assets/js/lightbox.js) so keyboard users can focus and
+   activate them in place — no wrapper element, so readability
+   extractors (Pocket, Instapaper, Readwise) still find the <img>
+   sitting directly inside its <p>/<figure>/etc. */
+.post-content img {
     cursor: zoom-in;
-    line-height: 0;
-    width: fit-content;
-    max-width: 100%;
 }
 
-.post-content .lightbox-trigger:focus-visible {
+.post-content img.lightbox-trigger:focus-visible {
     outline: 2px solid var(--archive-accent);
     outline-offset: 4px;
     border-radius: 2px;
-}
-
-.post-content .lightbox-trigger img {
-    cursor: zoom-in;
-    display: block;
-    margin: 0;
-}
-
-/* Standalone post images not wrapped (e.g. inside a link) still get
-   the zoom cursor for consistency until the JS wrap runs. */
-.post-content img {
-    cursor: zoom-in;
 }
 
 #lightbox {

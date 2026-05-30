@@ -8,26 +8,24 @@
     var caption = document.getElementById("lightbox-caption");
     var lastFocused = null;
 
-    // Wrap each lightboxable post image in a real <button> so keyboard
-    // users can focus it and activate with Enter/Space. We keep the
-    // original <img> as the button's only child (no visual change), and
-    // collect the wrapped pairs in document order so arrow keys can
-    // walk between them once the lightbox is open.
+    // Make each lightboxable post image focusable in-place via ARIA
+    // instead of wrapping it in a <button>. Wrapping breaks readability
+    // extractors (Pocket, Instapaper, Readwise) that expect <img> to
+    // sit directly inside <p>/<figure>/etc., so we keep the original
+    // markup and bolt keyboard semantics onto the <img> itself.
     var triggers = [];
     Array.prototype.forEach.call(
         document.querySelectorAll(".post-content img"),
         function (el) {
             if (el.closest("a")) return;
-            var btn = document.createElement("button");
-            btn.type = "button";
-            btn.className = "lightbox-trigger";
             var alt = el.getAttribute("alt") || "";
-            btn.setAttribute(
+            el.classList.add("lightbox-trigger");
+            el.setAttribute("role", "button");
+            el.setAttribute("tabindex", "0");
+            el.setAttribute(
                 "aria-label",
                 alt ? "View image: " + alt : "View image");
-            el.parentNode.insertBefore(btn, el);
-            btn.appendChild(el);
-            triggers.push({ btn: btn, img: el });
+            triggers.push(el);
         });
 
     var currentIndex = -1;
@@ -35,7 +33,7 @@
     function open(index) {
         if (index < 0 || index >= triggers.length) return;
         currentIndex = index;
-        var el = triggers[index].img;
+        var el = triggers[index];
         lastFocused = document.activeElement;
         img.src = el.currentSrc || el.src;
         img.alt = el.getAttribute("alt") || "";
@@ -69,8 +67,16 @@
         open((currentIndex - 1 + triggers.length) % triggers.length);
     }
 
-    triggers.forEach(function (t, i) {
-        t.btn.addEventListener("click", function () { open(i); });
+    triggers.forEach(function (el, i) {
+        el.addEventListener("click", function () { open(i); });
+        // Enter / Space activate the button-roled image; preventDefault
+        // on Space stops the page from scrolling.
+        el.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+                e.preventDefault();
+                open(i);
+            }
+        });
     });
 
     // Click anywhere on the overlay (including the image) closes.
