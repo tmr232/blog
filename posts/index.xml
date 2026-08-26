@@ -9,7 +9,18 @@
       <link>https://tamir.dev/images/profilepic.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 17 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 26 Aug 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://tamir.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python&#39;s double leading underscore</title>
+      <link>https://tamir.dev/posts/python-double-leading-underscore/</link>
+      <pubDate>Wed, 26 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamir.dev/posts/python-double-leading-underscore/</guid>
+      <description>A colleague recently asked me what Python&amp;rsquo;s double-leading-underscore behaviour in class definitions is for, so I figured I&amp;rsquo;ll write my thoughts down.
+For those unfamiliar, when you use a name starting with __ but not ending with __ inside a class definition, Python mangles that name before code generation by adding an underscore and the containing class name before it1. So if we inspect the following class:
+1 2 3 class Example: def __init__(self): self.</description>
+    </item>
+    
     <item>
       <title>Single Abstract Method (SAM) Interfaces in Python</title>
       <link>https://tamir.dev/posts/2026-04-python-sam/</link>
