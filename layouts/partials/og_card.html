@@ -1,0 +1,47 @@
+{{- /* Generate a 1200x630 OG card for a page, returning the processed
+       image Resource. Callers should consume .Permalink and (optionally)
+       .Width / .Height for the meta tags.
+       
+       The card composites:
+         - assets/images/og-bg.png       — cream bg with pink accent stripes
+         - assets/images/profilepic.jpg  — square-cropped to 240x240, left
+         - the page title (word-wrapped, mono bold, mid-right)
+         - "tamir.dev" subtitle (pink mono, lower-right)
+       
+       Coordinates are in pixels from the top-left of the 1200x630 canvas.
+       
+       Args (passed as the dot context):
+         Page — the page whose .Title and assets we render
+*/ -}}
+{{- $page := .Page -}}
+{{- $bg   := resources.Get "images/og-bg.png" -}}
+{{- $pfp  := resources.Get "images/profilepic.jpg" -}}
+{{- $font := resources.Get "fonts/jetbrains-mono-bold.ttf" -}}
+
+{{- /* Hugo / Go templates scope `:=` to the enclosing block, so we
+       must declare $card at the top level and reassign it inside the
+       if with `=`. Otherwise the `return` below cannot see it. */ -}}
+{{- $card := "" -}}
+{{- if and $bg $pfp $font $page.Title -}}
+  {{- $pfpScaled := $pfp.Fill "240x240 Center" -}}
+  {{- /* partial returns template.HTML; images.Text wants a plain
+         string, so coerce with printf. */ -}}
+  {{- $title := printf "%s" (partial "og_card_wrap.html" (dict "text" $page.Title "max" 20)) -}}
+
+  {{- $pfpFilter   := images.Overlay $pfpScaled 80 195 -}}
+  {{- $titleFilter := images.Text $title (dict
+            "color"       "#1a1a2e"
+            "size"        56
+            "linespacing" 14
+            "x"           380
+            "y"           180
+            "font"        $font) -}}
+  {{- $subFilter   := images.Text "tamir.dev" (dict
+            "color" "#d3009a"
+            "size"  24
+            "x"     380
+            "y"     540
+            "font"  $font) -}}
+  {{- $card = $bg | images.Filter $pfpFilter $titleFilter $subFilter -}}
+{{- end -}}
+{{- return $card -}}

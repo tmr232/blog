@@ -1,0 +1,31 @@
+{{- /* Word-wrap helper for og_card.html.
+       Splits a string into lines of at most $max characters, breaking
+       only on spaces. Words longer than $max are emitted on their own
+       line (no mid-word break). Returns the lines joined with "\n",
+       suitable for handing to images.Text (which renders newlines but
+       does not wrap on its own).
+       
+       Args (passed as a dict):
+         text — the string to wrap
+         max  — maximum line length in characters (default 22)
+*/ -}}
+{{- $text := .text -}}
+{{- $max  := .max | default 22 -}}
+{{- $lines := slice -}}
+{{- $current := "" -}}
+{{- range (split $text " ") -}}
+  {{- $word := . -}}
+  {{- $candidate := cond (eq $current "") $word (printf "%s %s" $current $word) -}}
+  {{- if le (len $candidate) $max -}}
+    {{- $current = $candidate -}}
+  {{- else -}}
+    {{- if ne $current "" -}}
+      {{- $lines = $lines | append $current -}}
+    {{- end -}}
+    {{- $current = $word -}}
+  {{- end -}}
+{{- end -}}
+{{- if ne $current "" -}}
+  {{- $lines = $lines | append $current -}}
+{{- end -}}
+{{- return (delimit $lines "\n") -}}

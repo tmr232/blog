@@ -1,0 +1,31 @@
+{{- define "main" }}
+
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- if .Description }}
+  <div class="post-description">
+    {{ .Description }}
+  </div>
+  {{- end }}
+</header>
+
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- if site.Params.ShowAllPagesInArchive }}
+{{- $pages = site.RegularPages }}
+{{- end }}
+
+<ul class="archive-list">
+  {{- range $pages.ByDate.Reverse }}
+  {{- if eq .Kind "page" }}
+  <li class="archive-item">
+    <a href="{{ .Permalink }}">
+      <time class="archive-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+      <span class="archive-title">{{ .Title | markdownify }}</span>
+      {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
+    </a>
+  </li>
+  {{- end }}
+  {{- end }}
+</ul>
+
+{{- end }}{{/* end main */}}
