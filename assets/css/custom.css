@@ -888,7 +888,8 @@ aside.toc-float .toc-top-link:hover {
     aside.toc-float { display: none !important; }
 }
 @media (min-width: 1280px) {
-    aside.toc-float.has-headings { display: block; }
+    aside.toc-float.has-headings,
+    html:not(.js) aside.toc-float:has(#toc-float-list > li) { display: block; }
 }
 
 
@@ -938,4 +939,12 @@ aside.toc-float .toc-top-link:hover {
 .top-link,
 .top-link svg {
     filter: none;
+}
+
+/* JavaScript retains PaperMod's show-after-scrolling behavior. Without it,
+   the native #top link remains visibly available and CSS handles scrolling. */
+html:not(.js) .top-link {
+    display: block !important;
+    visibility: visible;
+    opacity: 1;
 }

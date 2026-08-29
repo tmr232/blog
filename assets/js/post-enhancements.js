@@ -230,6 +230,9 @@
     const tocFloat = document.getElementById('toc-float');
     const tocFloatList = document.getElementById('toc-float-list');
     if (tocFloat && tocFloatList) {
+        // Replace the server-rendered no-JS fallback with the existing
+        // JS-enhanced list so behavior remains unchanged when JS is on.
+        tocFloatList.replaceChildren();
         const headings = Array.from(
             document.querySelectorAll(
                 '.post-content h2[id], .post-content h3[id]'));

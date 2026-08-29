@@ -9,6 +9,7 @@
 {{- /* Apply only a saved choice before the header is painted. Without
       JavaScript, CSS falls back to the visitor's system preference. */}}
 <script>
+    document.documentElement.classList.add('js');
     try {
         const theme = localStorage.getItem('pref-theme');
         if (theme === 'light' || theme === 'dark') document.body.classList.add(theme);
