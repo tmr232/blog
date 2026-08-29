@@ -1,3 +1,7 @@
+{{- /* Persist the CSS-first theme switch when JavaScript is available. */ -}}
+{{- $themeJS := resources.Get "js/theme-preference.js" | minify | fingerprint }}
+<script defer src="{{ $themeJS.RelPermalink }}" integrity="{{ $themeJS.Data.Integrity }}"></script>
+
 {{- /* Image lightbox + post enhancements (footnote popup, code-copy button):
        only on single post pages. */ -}}
 {{- if and (eq .Kind "page") (in (slice "posts" "blogvent") .Section) }}

@@ -10,7 +10,7 @@
  *   BG5 light background, pink-bracket logo, LJ-style links (gray
  *   underline → pink on hover), HD-style ## section headings,
  *   IC2 inline code (muted gray, less padding, rounded), CG-style code
- *   block lang label that becomes "copy <lang>" on hover (instant),
+ *   block lang label that becomes "Copy" on hover (instant),
  *   LN2 thin gray gutter separator, UL8 pink hollow circle bullets,
  *   OL27 secondary mono "1." numbering, BQ0 pink left border + italic,
  *   FN0 footnote contrast (secondary), FNL0 pink mono footnote ref,
@@ -29,10 +29,56 @@
     --inline-code-bg-muted: rgba(0, 0, 0, 0.05);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+}
+
 .dark {
+    color-scheme: dark;
     --archive-accent: #ff00aa;
     --archive-accent-rgb: 255, 0, 170;
     --inline-code-bg-muted: rgba(255, 255, 255, 0.06);
+}
+
+.light { color-scheme: light; }
+
+/* Theme selection is CSS-first. With no script, the unchecked control uses
+   the system preference and checking it temporarily selects the opposite
+   palette. JavaScript only adds .light/.dark to persist that selection. */
+@media (prefers-color-scheme: dark) {
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) {
+        color-scheme: dark;
+        --theme: rgb(29, 30, 32);
+        --entry: rgb(46, 46, 51);
+        --primary: rgb(218, 218, 219);
+        --secondary: rgb(155, 156, 157);
+        --tertiary: rgb(65, 66, 68);
+        --content: rgb(196, 196, 197);
+        --hljs-bg: rgb(46, 46, 51);
+        --code-bg: rgb(55, 56, 62);
+        --border: rgb(51, 51, 51);
+        --archive-accent: #ff00aa;
+        --archive-accent-rgb: 255, 0, 170;
+        --inline-code-bg-muted: rgba(255, 255, 255, 0.06);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) {
+        color-scheme: dark;
+        --theme: rgb(29, 30, 32);
+        --entry: rgb(46, 46, 51);
+        --primary: rgb(218, 218, 219);
+        --secondary: rgb(155, 156, 157);
+        --tertiary: rgb(65, 66, 68);
+        --content: rgb(196, 196, 197);
+        --hljs-bg: rgb(46, 46, 51);
+        --code-bg: rgb(55, 56, 62);
+        --border: rgb(51, 51, 51);
+        --archive-accent: #ff00aa;
+        --archive-accent-rgb: 255, 0, 170;
+        --inline-code-bg-muted: rgba(255, 255, 255, 0.06);
+    }
 }
 
 /* ── Logo: JetBrains Mono 700, pink brackets around site title ──── */
@@ -62,7 +108,39 @@
    right next to it on the right side of the nav. */
 .nav > #menu { margin-inline-start: auto; }
 .nav > .logo-switches { margin-inline-end: var(--gap); }
-#theme-toggle:hover { color: var(--archive-accent); }
+.theme-preference-toggle {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    opacity: 0;
+}
+.theme-preference-label {
+    display: flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 0 4px;
+    cursor: pointer;
+    color: var(--primary);
+}
+.theme-preference-label:hover { color: var(--archive-accent); }
+.theme-preference-toggle:focus-visible + .theme-preference-label {
+    outline: 2px solid var(--archive-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+.theme-icon-sun { display: none; }
+body.dark .theme-icon-moon { display: none; }
+body.dark .theme-icon-sun { display: block; }
+
+/* No-JS icon states match the CSS-selected palette. */
+@media (prefers-color-scheme: dark) {
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .theme-icon-moon { display: none; }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .theme-icon-sun { display: block; }
+}
+@media (prefers-color-scheme: light) {
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .theme-icon-moon { display: none; }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .theme-icon-sun { display: block; }
+}
 
 /* ─────────────────────────────────────────────────────────
  * Archive list (PHC chrome already; was here in v1 of custom.css)
@@ -334,6 +412,24 @@ body.dark .post-content .highlight table tr td:first-child {
     padding: 0 !important;
     border: 0 !important;
 }
+
+/* Keep code-block surfaces in step with the CSS-only theme states. */
+@media (prefers-color-scheme: dark) {
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .post-content .highlight {
+        background: #303446 !important;
+    }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .post-content .highlight table tr td:first-child {
+        background: #292c3c !important;
+    }
+}
+@media (prefers-color-scheme: light) {
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .post-content .highlight {
+        background: #303446 !important;
+    }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .post-content .highlight table tr td:first-child {
+        background: #292c3c !important;
+    }
+}
 .post-content .highlight table tr td + td {
     padding: 0 !important;
 }
@@ -344,7 +440,7 @@ body.dark .post-content .highlight table tr td:first-child {
     display: block;
 }
 
-/* CG: language label that becomes "copy <lang>" on hover.
+/* CG: language label that becomes "Copy" on hover.
    Injected by JS in extend_footer.html as <button class="lang-copy">.
    - position: absolute, top-right of .highlight
    - hit-area enlarged with transparent left padding so hovering the
@@ -372,14 +468,17 @@ body.dark .post-content .highlight table tr td:first-child {
     line-height: 1;
 }
 .post-content .highlight .lang-copy .prefix::before { content: ''; }
-/* Reveal the "copy" verb (and the active accent color) on both hover
+/* Replace the language with "Copy" on both hover
    AND keyboard focus, so keyboard users get the same affordance.
    A visible focus ring lands the button into a code block predictably. */
 .post-content .highlight .lang-copy:hover .prefix::before,
 .post-content .highlight .lang-copy:focus-visible .prefix::before {
-    content: 'copy ';
+    content: 'Copy';
     color: var(--archive-accent);
 }
+.post-content .highlight .lang-copy:hover .lang-text,
+.post-content .highlight .lang-copy:focus-visible .lang-text,
+.post-content .highlight .lang-copy.copied .lang-text { display: none; }
 .post-content .highlight .lang-copy:hover,
 .post-content .highlight .lang-copy:focus-visible {
     color: var(--archive-accent);
@@ -395,11 +494,11 @@ body.dark .post-content .highlight table tr td:first-child {
     opacity: 1;
 }
 .post-content .highlight .lang-copy.copied .prefix::before {
-    content: '✓ copied ';
+    content: '✓ Copied';
 }
 .post-content .highlight .lang-copy.copied:hover .prefix::before,
 .post-content .highlight .lang-copy.copied:focus-visible .prefix::before {
-    content: '✓ copied ';
+    content: '✓ Copied';
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -789,7 +888,8 @@ aside.toc-float .toc-top-link:hover {
     aside.toc-float { display: none !important; }
 }
 @media (min-width: 1280px) {
-    aside.toc-float.has-headings { display: block; }
+    aside.toc-float.has-headings,
+    html:not(.js) aside.toc-float:has(#toc-float-list > li) { display: block; }
 }
 
 
@@ -839,4 +939,12 @@ aside.toc-float .toc-top-link:hover {
 .top-link,
 .top-link svg {
     filter: none;
+}
+
+/* JavaScript retains PaperMod's show-after-scrolling behavior. Without it,
+   the native #top link remains visibly available and CSS handles scrolling. */
+html:not(.js) .top-link {
+    display: block !important;
+    visibility: visible;
+    opacity: 1;
 }

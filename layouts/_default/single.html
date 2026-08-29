@@ -26,14 +26,15 @@
   {{- if (.Param "ShowToc") }}
   {{- partial "toc.html" . }}
 
-  {{- /* Floating Table of Contents — TF33 (from post-mockups-v13).
-         The list is built from the rendered post headings by JS in
-         post-enhancements.js. It is hidden below 1400px viewport
-         width by CSS, and its top position is animated by JS as the
-         page scrolls (40% of viewport → 90px from top, pow10 ease). */ -}}
+  {{- /* Floating Table of Contents — server-rendered as a no-JS fallback.
+         post-enhancements.js replaces this list when it is available to
+         retain the existing scroll-spy and slider behavior. */ -}}
+  {{- $floatingToc := .TableOfContents -}}
+  {{- $floatingToc = replaceRE `(?s)^\s*<nav id="TableOfContents">(.*)</nav>\s*$` `$1` $floatingToc -}}
+  {{- $floatingToc = replaceRE `(?s)^\s*<ul>(.*)</ul>\s*$` `$1` $floatingToc -}}
   <aside class="toc-float" id="toc-float" aria-label="On this page">
     <a class="toc-top-link" href="#top">↑ top</a>
-    <ol id="toc-float-list" class="toc-float-list"></ol>
+    <ol id="toc-float-list" class="toc-float-list">{{- $floatingToc | safeHTML -}}</ol>
   </aside>
   {{- end }}
 

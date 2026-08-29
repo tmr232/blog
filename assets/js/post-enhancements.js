@@ -1,5 +1,5 @@
-/* Footnote popup (hover-show + click-pin) and code-block "language label
-   becomes copy" button. Locked behavior from post-mockups-v7.html. */
+/* Footnote popup (hover-show + click-pin) and code-block language/copy
+   button. Locked behavior from post-mockups-v7.html. */
 
 (function () {
     'use strict';
@@ -93,11 +93,9 @@
         if (close) close.remove();
     }
 
-    // PaperMod's footer.html registers a smooth-scroll click listener on
-    // every a[href^="#"], which would jump the page to the footnote when
-    // clicking the popup-pinning link. cloneNode strips addEventListener-
-    // registered handlers, so we replace each ref with a clone and bind
-    // our own listeners to the clone.
+    // Without JavaScript the native hash link uses CSS smooth scrolling.
+    // With JavaScript, clicking pins the preview instead. Clone the node
+    // only to avoid retaining stale listeners.
     Array.from(document.querySelectorAll('.post-content a.footnote-ref')).forEach(orig => {
         const ref = orig.cloneNode(true);
         orig.parentNode.replaceChild(ref, orig);
@@ -232,6 +230,9 @@
     const tocFloat = document.getElementById('toc-float');
     const tocFloatList = document.getElementById('toc-float-list');
     if (tocFloat && tocFloatList) {
+        // Replace the server-rendered no-JS fallback with the existing
+        // JS-enhanced list so behavior remains unchanged when JS is on.
+        tocFloatList.replaceChildren();
         const headings = Array.from(
             document.querySelectorAll(
                 '.post-content h2[id], .post-content h3[id]'));
@@ -371,6 +372,7 @@
         btn.innerHTML =
             '<span class="prefix"></span><span class="lang-text"></span>';
         btn.querySelector('.lang-text').textContent = lang;
+        btn.setAttribute('aria-label', `Copy ${lang}`);
         btn.addEventListener('click', async () => {
             const text = codeTextOf(hl);
             try {

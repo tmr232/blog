@@ -29,7 +29,9 @@ params:
   DateFormat: "Jan 2, 2006"
   #  DateFormat: "January 2, 2006"
   defaultTheme: auto # dark, light
-  disableThemeToggle: false
+  # The site provides its own CSS-first theme switch in the header. This
+  # disables PaperMod's JavaScript-only toggle and its associated handler.
+  disableThemeToggle: true
 
   webmentionEndpoint: "https://webmention.io/tamir.dev/webmention"
 
