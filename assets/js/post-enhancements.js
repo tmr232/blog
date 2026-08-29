@@ -93,11 +93,9 @@
         if (close) close.remove();
     }
 
-    // PaperMod's footer.html registers a smooth-scroll click listener on
-    // every a[href^="#"], which would jump the page to the footnote when
-    // clicking the popup-pinning link. cloneNode strips addEventListener-
-    // registered handlers, so we replace each ref with a clone and bind
-    // our own listeners to the clone.
+    // The native hash link remains intact: clicking the reference uses CSS
+    // smooth scrolling to reach its footnote, while hover/focus shows this
+    // preview. Clone the node only to avoid retaining stale listeners.
     Array.from(document.querySelectorAll('.post-content a.footnote-ref')).forEach(orig => {
         const ref = orig.cloneNode(true);
         orig.parentNode.replaceChild(ref, orig);
@@ -122,16 +120,6 @@
         // Keyboard parity: focus shows, blur hides (unless pinned).
         ref.addEventListener('focus', openOrKeep);
         ref.addEventListener('blur', scheduleClose);
-        ref.addEventListener('click', e => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (pinned && activeTrigger === ref) {
-                unpinCurrent();
-                return;
-            }
-            if (activeTrigger !== ref) showPopup(ref);
-            pinCurrent();
-        });
     });
 
     // Escape closes the popup and returns focus to the footnote ref.
