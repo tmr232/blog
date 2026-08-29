@@ -10,7 +10,7 @@
  *   BG5 light background, pink-bracket logo, LJ-style links (gray
  *   underline → pink on hover), HD-style ## section headings,
  *   IC2 inline code (muted gray, less padding, rounded), CG-style code
- *   block lang label that becomes "copy <lang>" on hover (instant),
+ *   block lang label that becomes "Copy" on hover (instant),
  *   LN2 thin gray gutter separator, UL8 pink hollow circle bullets,
  *   OL27 secondary mono "1." numbering, BQ0 pink left border + italic,
  *   FN0 footnote contrast (secondary), FNL0 pink mono footnote ref,
@@ -436,7 +436,7 @@ body.dark .post-content .highlight table tr td:first-child {
     display: block;
 }
 
-/* CG: language label that becomes "copy <lang>" on hover.
+/* CG: language label that becomes "Copy" on hover.
    Injected by JS in extend_footer.html as <button class="lang-copy">.
    - position: absolute, top-right of .highlight
    - hit-area enlarged with transparent left padding so hovering the
@@ -464,14 +464,17 @@ body.dark .post-content .highlight table tr td:first-child {
     line-height: 1;
 }
 .post-content .highlight .lang-copy .prefix::before { content: ''; }
-/* Reveal the "copy" verb (and the active accent color) on both hover
+/* Replace the language with "Copy" on both hover
    AND keyboard focus, so keyboard users get the same affordance.
    A visible focus ring lands the button into a code block predictably. */
 .post-content .highlight .lang-copy:hover .prefix::before,
 .post-content .highlight .lang-copy:focus-visible .prefix::before {
-    content: 'copy ';
+    content: 'Copy';
     color: var(--archive-accent);
 }
+.post-content .highlight .lang-copy:hover .lang-text,
+.post-content .highlight .lang-copy:focus-visible .lang-text,
+.post-content .highlight .lang-copy.copied .lang-text { display: none; }
 .post-content .highlight .lang-copy:hover,
 .post-content .highlight .lang-copy:focus-visible {
     color: var(--archive-accent);
@@ -487,11 +490,11 @@ body.dark .post-content .highlight table tr td:first-child {
     opacity: 1;
 }
 .post-content .highlight .lang-copy.copied .prefix::before {
-    content: '✓ copied ';
+    content: '✓ Copied';
 }
 .post-content .highlight .lang-copy.copied:hover .prefix::before,
 .post-content .highlight .lang-copy.copied:focus-visible .prefix::before {
-    content: '✓ copied ';
+    content: '✓ Copied';
 }
 
 /* ─────────────────────────────────────────────────────────

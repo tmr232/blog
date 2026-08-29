@@ -1,5 +1,5 @@
-/* Footnote popup (hover-show + click-pin) and code-block "language label
-   becomes copy" button. Locked behavior from post-mockups-v7.html. */
+/* Footnote popup (hover-show + click-pin) and code-block language/copy
+   button. Locked behavior from post-mockups-v7.html. */
 
 (function () {
     'use strict';
@@ -371,6 +371,7 @@
         btn.innerHTML =
             '<span class="prefix"></span><span class="lang-text"></span>';
         btn.querySelector('.lang-text').textContent = lang;
+        btn.setAttribute('aria-label', `Copy ${lang}`);
         btn.addEventListener('click', async () => {
             const text = codeTextOf(hl);
             try {
