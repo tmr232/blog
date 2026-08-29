@@ -30,9 +30,51 @@
 }
 
 .dark {
+    color-scheme: dark;
     --archive-accent: #ff00aa;
     --archive-accent-rgb: 255, 0, 170;
     --inline-code-bg-muted: rgba(255, 255, 255, 0.06);
+}
+
+.light { color-scheme: light; }
+
+/* Theme selection is CSS-first. With no script, the unchecked control uses
+   the system preference and checking it temporarily selects the opposite
+   palette. JavaScript only adds .light/.dark to persist that selection. */
+@media (prefers-color-scheme: dark) {
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) {
+        color-scheme: dark;
+        --theme: rgb(29, 30, 32);
+        --entry: rgb(46, 46, 51);
+        --primary: rgb(218, 218, 219);
+        --secondary: rgb(155, 156, 157);
+        --tertiary: rgb(65, 66, 68);
+        --content: rgb(196, 196, 197);
+        --hljs-bg: rgb(46, 46, 51);
+        --code-bg: rgb(55, 56, 62);
+        --border: rgb(51, 51, 51);
+        --archive-accent: #ff00aa;
+        --archive-accent-rgb: 255, 0, 170;
+        --inline-code-bg-muted: rgba(255, 255, 255, 0.06);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) {
+        color-scheme: dark;
+        --theme: rgb(29, 30, 32);
+        --entry: rgb(46, 46, 51);
+        --primary: rgb(218, 218, 219);
+        --secondary: rgb(155, 156, 157);
+        --tertiary: rgb(65, 66, 68);
+        --content: rgb(196, 196, 197);
+        --hljs-bg: rgb(46, 46, 51);
+        --code-bg: rgb(55, 56, 62);
+        --border: rgb(51, 51, 51);
+        --archive-accent: #ff00aa;
+        --archive-accent-rgb: 255, 0, 170;
+        --inline-code-bg-muted: rgba(255, 255, 255, 0.06);
+    }
 }
 
 /* ── Logo: JetBrains Mono 700, pink brackets around site title ──── */
@@ -62,7 +104,39 @@
    right next to it on the right side of the nav. */
 .nav > #menu { margin-inline-start: auto; }
 .nav > .logo-switches { margin-inline-end: var(--gap); }
-#theme-toggle:hover { color: var(--archive-accent); }
+.theme-preference-toggle {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    opacity: 0;
+}
+.theme-preference-label {
+    display: flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 0 4px;
+    cursor: pointer;
+    color: var(--primary);
+}
+.theme-preference-label:hover { color: var(--archive-accent); }
+.theme-preference-toggle:focus-visible + .theme-preference-label {
+    outline: 2px solid var(--archive-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+.theme-icon-sun { display: none; }
+body.dark .theme-icon-moon { display: none; }
+body.dark .theme-icon-sun { display: block; }
+
+/* No-JS icon states match the CSS-selected palette. */
+@media (prefers-color-scheme: dark) {
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .theme-icon-moon { display: none; }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .theme-icon-sun { display: block; }
+}
+@media (prefers-color-scheme: light) {
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .theme-icon-moon { display: none; }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .theme-icon-sun { display: block; }
+}
 
 /* ─────────────────────────────────────────────────────────
  * Archive list (PHC chrome already; was here in v1 of custom.css)
@@ -333,6 +407,24 @@ body.dark .post-content .highlight table tr td:first-child {
     background: #292c3c !important;
     padding: 0 !important;
     border: 0 !important;
+}
+
+/* Keep code-block surfaces in step with the CSS-only theme states. */
+@media (prefers-color-scheme: dark) {
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .post-content .highlight {
+        background: #303446 !important;
+    }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .post-content .highlight table tr td:first-child {
+        background: #292c3c !important;
+    }
+}
+@media (prefers-color-scheme: light) {
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .post-content .highlight {
+        background: #303446 !important;
+    }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .post-content .highlight table tr td:first-child {
+        background: #292c3c !important;
+    }
 }
 .post-content .highlight table tr td + td {
     padding: 0 !important;

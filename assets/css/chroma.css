@@ -158,3 +158,163 @@ body.dark .chroma .gs { font-weight: bold }
 body.dark .chroma .gu { color: #ef9f76; font-weight: bold }
 body.dark .chroma .gt { color: #e78284 }
 body.dark .chroma .gl { text-decoration: underline }
+
+/* CSS-only dark syntax theme: system dark unless the native switch is checked. */
+@media (prefers-color-scheme: dark) {
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .bg { color: #c6d0f5; background-color: #303446; }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma { color: #c6d0f5; background-color: #303446; -webkit-text-size-adjust: none; }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .err { color: #e78284 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .lnlinks { outline: none; text-decoration: none; color: inherit }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .hl { background-color: #51576d }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .lnt { white-space: pre; -webkit-user-select: none; user-select: none; margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #838ba7 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .ln { white-space: pre; -webkit-user-select: none; user-select: none; margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #838ba7 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .line { display: flex; }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .k { color: #ca9ee6 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .kc { color: #ef9f76 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .kd { color: #e78284 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .kn { color: #81c8be }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .kp { color: #ca9ee6 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .kr { color: #ca9ee6 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .kt { color: #e78284 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .na { color: #8caaee }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .nc { color: #e5c890 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .no { color: #e5c890 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .nd { color: #8caaee; font-weight: bold }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .ni { color: #81c8be }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .ne { color: #ef9f76 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .nl { color: #99d1db }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .nn { color: #ef9f76 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .py { color: #ef9f76 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .nt { color: #ca9ee6 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .nb { color: #99d1db }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .bp { color: #99d1db }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .nv { color: #f2d5cf }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .vc { color: #f2d5cf }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .vg { color: #f2d5cf }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .vi { color: #f2d5cf }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .vm { color: #f2d5cf }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .nf { color: #8caaee }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .fm { color: #8caaee }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .s { color: #a6d189 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .sa { color: #e78284 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .sb { color: #a6d189 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .sc { color: #a6d189 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .dl { color: #8caaee }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .sd { color: #737994 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .s2 { color: #a6d189 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .se { color: #8caaee }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .sh { color: #737994 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .si { color: #a6d189 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .sx { color: #a6d189 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .sr { color: #81c8be }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .s1 { color: #a6d189 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .ss { color: #a6d189 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .m { color: #ef9f76 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .mb { color: #ef9f76 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .mf { color: #ef9f76 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .mh { color: #ef9f76 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .mi { color: #ef9f76 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .il { color: #ef9f76 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .mo { color: #ef9f76 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .o { color: #99d1db; font-weight: bold }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .ow { color: #99d1db; font-weight: bold }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .or { color: #99d1db; font-weight: bold }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .c { color: #737994; font-style: italic }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .ch { color: #626880; font-style: italic }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .cm { color: #737994; font-style: italic }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .c1 { color: #737994; font-style: italic }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .cs { color: #737994; font-style: italic }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .cp { color: #737994; font-style: italic }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .cpf { color: #737994; font-weight: bold; font-style: italic }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .gd { color: #e78284; background-color: #414559 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .ge { font-style: italic }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .gr { color: #e78284 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .gh { color: #ef9f76; font-weight: bold }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .gi { color: #a6d189; background-color: #414559 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .gs { font-weight: bold }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .gu { color: #ef9f76; font-weight: bold }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .gt { color: #e78284 }
+    body:not(.light):not(:has(#theme-preference-toggle:checked)) .chroma .gl { text-decoration: underline }
+}
+
+/* CSS-only dark syntax theme after switching from a light system preference. */
+@media (prefers-color-scheme: light) {
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .bg { color: #c6d0f5; background-color: #303446; }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma { color: #c6d0f5; background-color: #303446; -webkit-text-size-adjust: none; }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .err { color: #e78284 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .lnlinks { outline: none; text-decoration: none; color: inherit }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .hl { background-color: #51576d }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .lnt { white-space: pre; -webkit-user-select: none; user-select: none; margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #838ba7 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .ln { white-space: pre; -webkit-user-select: none; user-select: none; margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #838ba7 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .line { display: flex; }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .k { color: #ca9ee6 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .kc { color: #ef9f76 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .kd { color: #e78284 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .kn { color: #81c8be }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .kp { color: #ca9ee6 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .kr { color: #ca9ee6 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .kt { color: #e78284 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .na { color: #8caaee }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .nc { color: #e5c890 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .no { color: #e5c890 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .nd { color: #8caaee; font-weight: bold }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .ni { color: #81c8be }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .ne { color: #ef9f76 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .nl { color: #99d1db }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .nn { color: #ef9f76 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .py { color: #ef9f76 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .nt { color: #ca9ee6 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .nb { color: #99d1db }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .bp { color: #99d1db }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .nv { color: #f2d5cf }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .vc { color: #f2d5cf }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .vg { color: #f2d5cf }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .vi { color: #f2d5cf }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .vm { color: #f2d5cf }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .nf { color: #8caaee }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .fm { color: #8caaee }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .s { color: #a6d189 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .sa { color: #e78284 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .sb { color: #a6d189 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .sc { color: #a6d189 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .dl { color: #8caaee }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .sd { color: #737994 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .s2 { color: #a6d189 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .se { color: #8caaee }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .sh { color: #737994 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .si { color: #a6d189 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .sx { color: #a6d189 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .sr { color: #81c8be }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .s1 { color: #a6d189 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .ss { color: #a6d189 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .m { color: #ef9f76 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .mb { color: #ef9f76 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .mf { color: #ef9f76 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .mh { color: #ef9f76 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .mi { color: #ef9f76 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .il { color: #ef9f76 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .mo { color: #ef9f76 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .o { color: #99d1db; font-weight: bold }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .ow { color: #99d1db; font-weight: bold }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .or { color: #99d1db; font-weight: bold }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .c { color: #737994; font-style: italic }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .ch { color: #626880; font-style: italic }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .cm { color: #737994; font-style: italic }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .c1 { color: #737994; font-style: italic }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .cs { color: #737994; font-style: italic }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .cp { color: #737994; font-style: italic }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .cpf { color: #737994; font-weight: bold; font-style: italic }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .gd { color: #e78284; background-color: #414559 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .ge { font-style: italic }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .gr { color: #e78284 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .gh { color: #ef9f76; font-weight: bold }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .gi { color: #a6d189; background-color: #414559 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .gs { font-weight: bold }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .gu { color: #ef9f76; font-weight: bold }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .gt { color: #e78284 }
+    body:not(.light):not(.dark):has(#theme-preference-toggle:checked) .chroma .gl { text-decoration: underline }
+}
