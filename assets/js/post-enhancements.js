@@ -93,9 +93,9 @@
         if (close) close.remove();
     }
 
-    // The native hash link remains intact: clicking the reference uses CSS
-    // smooth scrolling to reach its footnote, while hover/focus shows this
-    // preview. Clone the node only to avoid retaining stale listeners.
+    // Without JavaScript the native hash link uses CSS smooth scrolling.
+    // With JavaScript, clicking pins the preview instead. Clone the node
+    // only to avoid retaining stale listeners.
     Array.from(document.querySelectorAll('.post-content a.footnote-ref')).forEach(orig => {
         const ref = orig.cloneNode(true);
         orig.parentNode.replaceChild(ref, orig);
@@ -120,6 +120,16 @@
         // Keyboard parity: focus shows, blur hides (unless pinned).
         ref.addEventListener('focus', openOrKeep);
         ref.addEventListener('blur', scheduleClose);
+        ref.addEventListener('click', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (pinned && activeTrigger === ref) {
+                unpinCurrent();
+                return;
+            }
+            if (activeTrigger !== ref) showPopup(ref);
+            pinCurrent();
+        });
     });
 
     // Escape closes the popup and returns focus to the footnote ref.
