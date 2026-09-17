@@ -277,30 +277,30 @@ I often here people complaining about significant whitespace. They say it makes 
     
     <item>
       <title>Thoughts on Iterators in Python and C&#43;&#43;</title>
-      <link>https://tamir.dev/blogvent/2022-12-08/</link>
+      <link>https://tamir.dev/posts/blogvent-2022-12-08/</link>
       <pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tamir.dev/blogvent/2022-12-08/</guid>
+      <guid>https://tamir.dev/posts/blogvent-2022-12-08/</guid>
       <description>This Sunday, during the monthly meeting of the Israeli WG21 National Body discussion forum1, we discussed a paper by Yehezkel Bernat. The paper discusses a specific issue with C++ ranges and iterators. It demonstrates it with the following code sample:
 1 2 3 4 5 6 7 8 9 10 11 #include &amp;lt;ranges&amp;gt; #include &amp;lt;iostream&amp;gt; namespace rv = std::views; int main() { for (auto i : rv::iota(0) | rv::filter([](auto i) { return i &amp;lt; 11; }) | rv::take(11)) std::cout &amp;lt;&amp;lt; i &amp;lt;&amp;lt; &amp;#39;\n&amp;#39;; } The code in the example does the following:</description>
     </item>
     
     <item>
       <title>Markdown Images &amp; Accessibility</title>
-      <link>https://tamir.dev/blogvent/2022-12-02/</link>
+      <link>https://tamir.dev/posts/blogvent-2022-12-02/</link>
       <pubDate>Fri, 02 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tamir.dev/blogvent/2022-12-02/</guid>
+      <guid>https://tamir.dev/posts/blogvent-2022-12-02/</guid>
       <description>I always knew image alt-text existed. I knew about it from learning HTML - it&amp;rsquo;s the text that shows when the image doesn&amp;rsquo;t load. And it&amp;rsquo;s also on XKCD as the extra pun (TIL that&amp;rsquo;s actually title= and not alt=). It&amp;rsquo;s only recently, when Twitter added image descriptions1 and my feed started talking about them, that I realized how important they are for accessibility.
 Since then, I&amp;rsquo;ve been making an effort to describe the images in all my tweets to the best of my ability.</description>
     </item>
     
     <item>
       <title>A Bit of Codeviz</title>
-      <link>https://tamir.dev/blogvent/2022-12-01/</link>
+      <link>https://tamir.dev/posts/blogvent-2022-12-01/</link>
       <pubDate>Thu, 01 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tamir.dev/blogvent/2022-12-01/</guid>
+      <guid>https://tamir.dev/posts/blogvent-2022-12-01/</guid>
       <description>When I started my professional career I was not doing software engineering, but rather reverse-engineering. Taking a compiled binary, disassembling it, and trying to understand what it does. My job was essentially reading code, with the stated goal in my job description was &amp;ldquo;vulnerability research&amp;rdquo;. Since then, I moved to the other side, and am now doing &amp;ldquo;forward engineering&amp;rdquo;.
 While it is very tempting to say that as programmers (or developers, or software engineers, or whichever term you&amp;rsquo;re comfortable with) we only write code, we know that this is not true.</description>
     </item>
@@ -459,7 +459,6 @@ The rest of the post is me ranting, letting off some steam. Have fun, and don&am
       <guid>https://tamir.dev/posts/dont-amend-fix/</guid>
       <description>A fun alternative to `git commit --amend`</description>
     </item>
-    
     
   </channel>
 </rss>
