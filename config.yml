@@ -17,7 +17,6 @@ minify:
 params:
   mainSections:
     - posts
-    - blogvent
   env: production
   title: Tamir Bahar
   description: "Sharing thoughts, ideas, and code. Finding complex solutions to simple problems."
@@ -124,22 +123,14 @@ menu:
     #      name: tags
     #      url: /tags/
     #      weight: 20
-    - identifier: blogvent
-      name: blogvent🎄
-      url: /blogvent/
-      weight: 10
     - identifier: posts
       name: posts
       url: /posts/
-      weight: 20
-    - identifier: archives
-      name: archives
-      url: /archives/
-      weight: 30
+      weight: 10
     - identifier: rss
       name: rss
       url: index.xml
-      weight: 40
+      weight: 20
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 #pygmentsUseClasses: true
 markup:

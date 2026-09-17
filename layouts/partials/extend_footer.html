@@ -4,7 +4,7 @@
 
 {{- /* Image lightbox + post enhancements (footnote popup, code-copy button):
        only on single post pages. */ -}}
-{{- if and (eq .Kind "page") (in (slice "posts" "blogvent") .Section) }}
+{{- if and (eq .Kind "page") (eq .Section "posts") }}
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" tabindex="-1">
     <img id="lightbox-img" alt="">
     <figcaption id="lightbox-caption"></figcaption>

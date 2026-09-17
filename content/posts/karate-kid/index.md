@@ -144,4 +144,4 @@ I hoped you enjoyed it too!
 
 
 [Blogvent]: ../blogvent-calendar-2022
-[^1]: [Blogvent Posts](../../blogvent)
+[^1]: [Blogvent Posts](/tags/blogvent/)

@@ -43,9 +43,7 @@
 </div>
 {{- end }}
 
-{{- /* Archive-style flat dated list — same markup as
-       layouts/_default/archives.html so posts/, blogvent/, and any
-       other section listing render identically to /archives. */ -}}
+{{- /* Flat, date-sorted list for section pages. */ -}}
 <ul class="archive-list">
   {{- range $pages.ByDate.Reverse }}
   {{- if eq .Kind "page" }}
